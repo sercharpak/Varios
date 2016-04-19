@@ -1,0 +1,2946 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 8.0' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       157,          7]
+NotebookDataLength[    163579,       2937]
+NotebookOptionsPosition[    162272,       2891]
+NotebookOutlinePosition[    162615,       2906]
+CellTagsIndexPosition[    162572,       2903]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+Cell["\<\
+Codigo realizado para el proyecto final de Biologica Sintetica. 
+Realizado por Sergio Daniel Hernandez y Nancy Estefan\[IAcute]a Ruiz
+Referencia: http://www.mathematica-journal.com/data/uploads/2011/05/Voelkl.pdf\
+\>", "Text",
+ CellChangeTimes->{{3.641238597861426*^9, 3.641238642776189*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"Manipulate", "[", 
+  RowBox[{
+   RowBox[{"showpop", "[", 
+    RowBox[{
+    "evolution", "\[LeftDoubleBracket]", "u", "\[RightDoubleBracket]"}], 
+    "]"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"u", ",", "1"}], "}"}], ",", "1", ",", 
+     RowBox[{"dynamic", "[", 
+      RowBox[{"Length", "[", "evolution", "]"}], "]"}], ",", "1", ",", 
+     RowBox[{"Appearance", " ", "\[Rule]", "\"\<Labeled\>\""}]}], "}"}], ",", 
+   RowBox[{"AutorunSequencing", " ", "\[Rule]", 
+    RowBox[{"{", "1", "}"}]}], ",", 
+   RowBox[{"SynchronousInitialization", " ", "\[Rule]", " ", "False"}], ",", 
+   RowBox[{"Initialization", " ", "\[RuleDelayed]", " ", 
+    RowBox[{"(", "\n", 
+     RowBox[{
+      RowBox[{"Quiet", "@", 
+       RowBox[{"Get", "[", "\"\<Combinatorica`\>\"", "]"}]}], ";", "\n", 
+      RowBox[{
+       RowBox[{"initial", "[", 
+        RowBox[{"n_", ",", "i_"}], "]"}], ":=", 
+       RowBox[{"Join", "[", 
+        RowBox[{
+         RowBox[{"Table", "[", 
+          RowBox[{"1", ",", 
+           RowBox[{"{", "i", "}"}]}], "]"}], ",", 
+         RowBox[{"Table", "[", 
+          RowBox[{"0", ",", 
+           RowBox[{"{", 
+            RowBox[{"n", "-", "i"}], "}"}]}], "]"}]}], "]"}]}], ";", "\n", 
+      RowBox[{
+       RowBox[{"update", "[", "pop_List", "]"}], ":=", 
+       RowBox[{"Module", "[", 
+        RowBox[{
+         RowBox[{"{", 
+          RowBox[{"repro", ",", "elim"}], "}"}], ",", 
+         RowBox[{
+          RowBox[{
+           RowBox[{"{", 
+            RowBox[{"repro", ",", "elim"}], "}"}], " ", "=", 
+           RowBox[{"RandomInteger", "[", 
+            RowBox[{
+             RowBox[{"{", 
+              RowBox[{"1", ",", 
+               RowBox[{"Length", "[", "pop", "]"}]}], "}"}], ",", "2"}], 
+            "]"}]}], ";", "\n", 
+          RowBox[{"ReplacePart", "[", 
+           RowBox[{"pop", ",", 
+            RowBox[{"elim", " ", "\[Rule]", " ", 
+             RowBox[{
+             "pop", "\[LeftDoubleBracket]", "repro", 
+              "\[RightDoubleBracket]"}]}]}], "]"}]}]}], "]"}]}], ";", "\n", 
+      RowBox[{
+       RowBox[{"moran", "[", 
+        RowBox[{"n_", ",", "i_"}], "]"}], ":=", 
+       RowBox[{"NestWhileList", "[", 
+        RowBox[{"update", ",", 
+         RowBox[{"initial", "[", 
+          RowBox[{"n", ",", "i"}], "]"}], ",", 
+         RowBox[{
+          RowBox[{"n", ">", 
+           RowBox[{"Total", "[", "#", "]"}], ">", "0"}], "&"}]}], "]"}]}], 
+      ";", "\n", 
+      RowBox[{
+       RowBox[{"showpop", "[", "pop_", "]"}], ":=", 
+       RowBox[{"Module", "[", 
+        RowBox[{
+         RowBox[{"{", "g", "}"}], ",", 
+         RowBox[{
+          RowBox[{"g", "=", 
+           RowBox[{"Combinatorica`SetVertexWeights", "[", 
+            RowBox[{
+             RowBox[{"Combinatorica`CompleteGraph", "[", 
+              RowBox[{"Length", "[", "pop", "]"}], "]"}], ",", "pop"}], 
+            "]"}]}], ";", "\n", 
+          RowBox[{"GraphPlot", "[", 
+           RowBox[{"g", ",", 
+            RowBox[{"EdgeRenderingFunction", " ", "\[Rule]", " ", "None"}], 
+            ",", 
+            RowBox[{"VertexRenderingFunction", " ", "\[Rule]", "\n", 
+             RowBox[{"(", 
+              RowBox[{
+               RowBox[{"{", 
+                RowBox[{
+                 RowBox[{"If", "[", 
+                  RowBox[{
+                   RowBox[{
+                    RowBox[{
+                    RowBox[{"Combinatorica`GetVertexWeights", "[", "g", "]"}],
+                     "\[LeftDoubleBracket]", "#2", "\[RightDoubleBracket]"}], 
+                    " ", "==", "0"}], ",", 
+                   RowBox[{"Hue", "[", 
+                    RowBox[{"0", ",", "0.8", ",", "0.7"}], "]"}], ",", 
+                   RowBox[{"Hue", "[", 
+                    RowBox[{"0.7", ",", "0.8", ",", "0.7"}], "]"}]}], "]"}], 
+                 ",", 
+                 RowBox[{"PointSize", "[", "0.08", "]"}], ",", 
+                 RowBox[{"Point", "[", "#", "]"}]}], "}"}], "&"}], ")"}]}], 
+            ",", 
+            RowBox[{"ImageSize", " ", "\[Rule]", " ", "280"}], ",", 
+            RowBox[{
+            "PlotLabel", "\[Rule]", 
+             "\"\<Poblacion de bacterias con mismo fitness\>\""}]}], 
+           "]"}]}]}], "]"}]}], ";", "\n", 
+      RowBox[{"evolution", "=", 
+       RowBox[{"moran", "[", 
+        RowBox[{"30", ",", "15"}], "]"}]}], ";", "\n", 
+      RowBox[{"If", "[", 
+       RowBox[{
+        RowBox[{"u", ">", 
+         RowBox[{"Length", "[", "evolution", "]"}]}], ",", 
+        RowBox[{"u", "=", 
+         RowBox[{"Length", "[", "evolution", "]"}]}]}], "]"}]}], "\n", 
+     ")"}]}]}], "]"}]], "Input",
+ CellChangeTimes->{{3.641214203592371*^9, 3.6412143145634108`*^9}, {
+  3.6412144833986435`*^9, 3.6412145387189555`*^9}, {3.6412146068808002`*^9, 
+  3.64121477444508*^9}, {3.6412148234109907`*^9, 3.6412149161081142`*^9}, {
+  3.6412150197474976`*^9, 3.641215180816882*^9}, {3.641215233988011*^9, 
+  3.64121533369956*^9}, {3.641215809912585*^9, 3.641215827848281*^9}, {
+  3.641216147426482*^9, 3.6412161853483734`*^9}, {3.641218074885279*^9, 
+  3.641218124129286*^9}, {3.6412262111242113`*^9, 3.64122629653811*^9}, {
+  3.6412263323878736`*^9, 3.641226355177346*^9}, {3.6412264491992073`*^9, 
+  3.6412264497896233`*^9}, {3.641226587076789*^9, 3.641226587928401*^9}, {
+  3.6412266910417995`*^9, 3.641226693803988*^9}, {3.641237293203602*^9, 
+  3.641237293758994*^9}, {3.6412374342055798`*^9, 3.6412374506615734`*^9}}],
+
+Cell[BoxData[
+ TagBox[
+  StyleBox[
+   DynamicModuleBox[{$CellContext`u$$ = 1, Typeset`show$$ = True, 
+    Typeset`bookmarkList$$ = {}, Typeset`bookmarkMode$$ = "Menu", 
+    Typeset`animator$$, Typeset`animvar$$ = 1, Typeset`name$$ = 
+    "\"untitled\"", Typeset`specs$$ = {{{
+       Hold[$CellContext`u$$], 1}, 1, 
+      $CellContext`dynamic[393], 1}}, Typeset`size$$ = Automatic, 
+    Typeset`update$$ = 0, Typeset`initDone$$, Typeset`skipInitDone$$ = 
+    False, $CellContext`u$20633$$ = 0}, 
+    DynamicBox[Manipulate`ManipulateBoxes[
+     1, StandardForm, "Variables" :> {$CellContext`u$$ = 1}, 
+      "ControllerVariables" :> {
+        Hold[$CellContext`u$$, $CellContext`u$20633$$, 0]}, 
+      "OtherVariables" :> {
+       Typeset`show$$, Typeset`bookmarkList$$, Typeset`bookmarkMode$$, 
+        Typeset`animator$$, Typeset`animvar$$, Typeset`name$$, 
+        Typeset`specs$$, Typeset`size$$, Typeset`update$$, Typeset`initDone$$,
+         Typeset`skipInitDone$$}, "Body" :> $CellContext`showpop[
+        Part[$CellContext`evolution, $CellContext`u$$]], 
+      "Specifications" :> {{{$CellContext`u$$, 1}, 1, 
+         $CellContext`dynamic[393], 1, Appearance -> "Labeled"}}, 
+      "Options" :> {
+       AutorunSequencing -> {1}, SynchronousInitialization -> False}, 
+      "DefaultOptions" :> {}],
+     ImageSizeCache->{460., {179., 184.}},
+     SingleEvaluation->True],
+    Deinitialization:>None,
+    DynamicModuleValues:>{},
+    Initialization:>((Quiet[
+        Get["Combinatorica`"]]; $CellContext`initial[
+         Pattern[$CellContext`n, 
+          Blank[]], 
+         Pattern[$CellContext`i, 
+          Blank[]]] := Join[
+         Table[1, {$CellContext`i}], 
+         Table[0, {$CellContext`n - $CellContext`i}]]; $CellContext`update[
+         Pattern[$CellContext`pop, 
+          Blank[List]]] := 
+       Module[{$CellContext`repro, $CellContext`elim}, {$CellContext`repro, \
+$CellContext`elim} = RandomInteger[{1, 
+             Length[$CellContext`pop]}, 2]; 
+         ReplacePart[$CellContext`pop, $CellContext`elim -> 
+           Part[$CellContext`pop, $CellContext`repro]]]; $CellContext`moran[
+         Pattern[$CellContext`n, 
+          Blank[]], 
+         Pattern[$CellContext`i, 
+          Blank[]]] := NestWhileList[$CellContext`update, 
+         $CellContext`initial[$CellContext`n, $CellContext`i], $CellContext`n > 
+         Total[#] > 0& ]; $CellContext`showpop[
+         Pattern[$CellContext`pop, 
+          Blank[]]] := 
+       Module[{$CellContext`g}, $CellContext`g = 
+          Combinatorica`SetVertexWeights[
+            Combinatorica`CompleteGraph[
+             Length[$CellContext`pop]], $CellContext`pop]; 
+         GraphPlot[$CellContext`g, EdgeRenderingFunction -> None, 
+           VertexRenderingFunction -> ({
+             If[Part[
+                Combinatorica`GetVertexWeights[$CellContext`g], #2] == 0, 
+              Hue[0, 0.8, 0.7], 
+              Hue[0.7, 0.8, 0.7]], 
+             PointSize[0.08], 
+             Point[#]}& ), ImageSize -> 280, PlotLabel -> 
+           "Poblacion de bacterias con mismo fitness"]]; \
+$CellContext`evolution = $CellContext`moran[30, 15]; 
+      If[$CellContext`u$$ > Length[$CellContext`evolution], $CellContext`u$$ = 
+        Length[$CellContext`evolution]]); Typeset`initDone$$ = True),
+    SynchronousInitialization->False,
+    UnsavedVariables:>{Typeset`initDone$$},
+    UntrackedVariables:>{Typeset`size$$}], "Manipulate",
+   Deployed->True,
+   StripOnInput->False],
+  Manipulate`InterpretManipulate[1]]], "Output",
+ CellChangeTimes->{
+  3.6412265905137377`*^9, 3.641226695058874*^9, 3.641227464819662*^9, {
+   3.6412275735624275`*^9, 3.6412275795846653`*^9}, 3.641232711187029*^9, 
+   3.6412372957364006`*^9, {3.6412374512349777`*^9, 3.6412374703937874`*^9}, 
+   3.641237632516161*^9, 3.6412384198668265`*^9}]
+}, Open  ]],
+
+Cell[BoxData[""], "Input",
+ CellChangeTimes->{{3.641215437241629*^9, 3.6412154527378874`*^9}, {
+   3.641215486711629*^9, 3.6412155236765337`*^9}, {3.6412161918797026`*^9, 
+   3.641216240503832*^9}, {3.6412162867257133`*^9, 3.641216639668309*^9}, {
+   3.641216715885746*^9, 3.641216800995115*^9}, 3.641216839175294*^9, {
+   3.641216918468292*^9, 3.6412169429280443`*^9}, {3.6412170873451943`*^9, 
+   3.641217100080427*^9}, {3.6412171898265667`*^9, 3.641217199261054*^9}, {
+   3.6412173708067694`*^9, 3.641217372823757*^9}, 3.6412175534485087`*^9, {
+   3.6412177798771486`*^9, 3.6412177916725903`*^9}, {3.641218074885279*^9, 
+   3.6412181243480372`*^9}, 3.641218768714591*^9}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"Manipulate", "[", 
+  RowBox[{
+   RowBox[{"showpopRel", "[", 
+    RowBox[{
+     RowBox[{
+     "evolution2", "\[LeftDoubleBracket]", "u", "\[RightDoubleBracket]"}], 
+     ",", "2.05"}], "]"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"u", ",", "1"}], "}"}], ",", "1", ",", 
+     RowBox[{"Dynamic", "[", 
+      RowBox[{"Length", "[", "evolution2", "]"}], "]"}], ",", "1", ",", 
+     RowBox[{"Appearance", " ", "\[Rule]", " ", "\"\<Labeled\>\""}]}], "}"}], 
+   ",", 
+   RowBox[{"AutorunSequencing", " ", "\[Rule]", " ", 
+    RowBox[{"{", "1", "}"}]}], ",", 
+   RowBox[{"SynchronousInitialization", " ", "\[Rule]", " ", "False"}], ",", 
+   RowBox[{"Initialization", " ", "\[RuleDelayed]", " ", 
+    RowBox[{"(", "\n", 
+     RowBox[{
+      RowBox[{"Quiet", "@", 
+       RowBox[{"Get", "[", "\"\<Combinatorica`\>\"", "]"}]}], ";", "\n", 
+      RowBox[{
+       RowBox[{"initial", "[", 
+        RowBox[{"n_", ",", "i_"}], "]"}], ":=", 
+       RowBox[{"Join", "[", 
+        RowBox[{
+         RowBox[{"Table", "[", 
+          RowBox[{"1", ",", 
+           RowBox[{"{", "i", "}"}]}], "]"}], ",", 
+         RowBox[{"Table", "[", 
+          RowBox[{"0", ",", 
+           RowBox[{"{", 
+            RowBox[{"n", "-", "i"}], "}"}]}], "]"}]}], "]"}]}], ";", "\n", 
+      RowBox[{
+       RowBox[{"updateRel", "[", 
+        RowBox[{"pop_List", ",", "r_"}], "]"}], ":=", 
+       RowBox[{"Module", "[", 
+        RowBox[{
+         RowBox[{"{", 
+          RowBox[{"j", ",", "reprod", ",", "elimPos"}], "}"}], ",", 
+         RowBox[{
+          RowBox[{"j", "=", 
+           RowBox[{"Total", "[", "pop", "]"}]}], ";", "\n", 
+          RowBox[{"reprod", "=", 
+           RowBox[{"r", " ", 
+            RowBox[{"j", " ", "/", 
+             RowBox[{"(", 
+              RowBox[{
+               RowBox[{"r", " ", "j"}], "+", 
+               RowBox[{"Length", "[", "pop", "]"}], "-", "j"}], ")"}]}]}]}], 
+          ";", "\n", 
+          RowBox[{"elimPos", "=", 
+           RowBox[{"RandomInteger", "[", 
+            RowBox[{"{", 
+             RowBox[{"1", ",", 
+              RowBox[{"Length", "[", "pop", "]"}]}], "}"}], "]"}]}], ";", 
+          "\n", 
+          RowBox[{"ReplacePart", "[", 
+           RowBox[{"pop", ",", 
+            RowBox[{"elimPos", " ", "\[Rule]", " ", 
+             RowBox[{"RandomChoice", "[", 
+              RowBox[{
+               RowBox[{"{", 
+                RowBox[{
+                 RowBox[{"1", "-", "reprod"}], ",", "reprod"}], "}"}], 
+               "\[Rule]", " ", 
+               RowBox[{"{", 
+                RowBox[{"0", ",", "1"}], "}"}]}], "]"}]}]}], "]"}]}]}], 
+        "]"}]}], ";", "\n", 
+      RowBox[{
+       RowBox[{"moranRel", "[", 
+        RowBox[{"n_", ",", "i_", ",", "r_"}], "]"}], ":=", 
+       RowBox[{"NestWhileList", "[", 
+        RowBox[{
+         RowBox[{
+          RowBox[{"updateRel", "[", 
+           RowBox[{"#", ",", "r"}], "]"}], "&"}], ",", 
+         RowBox[{"initial", "[", 
+          RowBox[{"n", ",", "i"}], "]"}], ",", 
+         RowBox[{
+          RowBox[{"n", ">", 
+           RowBox[{"Total", "[", "#", "]"}], ">", "0"}], "&"}]}], "]"}]}], 
+      ";", "\n", 
+      RowBox[{
+       RowBox[{"showpopRel", "[", 
+        RowBox[{"pop_", ",", "r_"}], "]"}], ":=", 
+       RowBox[{"Module", "[", 
+        RowBox[{
+         RowBox[{"{", "g", "}"}], ",", 
+         RowBox[{
+          RowBox[{"g", "=", 
+           RowBox[{"Combinatorica`SetVertexWeights", "[", 
+            RowBox[{
+             RowBox[{"Combinatorica`CompleteGraph", "[", 
+              RowBox[{"Length", "[", "pop", "]"}], "]"}], ",", "pop"}], 
+            "]"}]}], ";", "\n", 
+          RowBox[{"GraphPlot", "[", 
+           RowBox[{"g", ",", 
+            RowBox[{"EdgeRenderingFunction", " ", "\[Rule]", " ", "None"}], 
+            ",", 
+            RowBox[{"VertexRenderingFunction", " ", "\[Rule]", "\n", 
+             RowBox[{"(", 
+              RowBox[{
+               RowBox[{"Flatten", "[", 
+                RowBox[{"{", 
+                 RowBox[{
+                  RowBox[{"If", "[", 
+                   RowBox[{
+                    RowBox[{
+                    RowBox[{
+                    RowBox[{"Combinatorica`GetVertexWeights", "[", "g", "]"}],
+                     "\[LeftDoubleBracket]", "#2", "\[RightDoubleBracket]"}], 
+                    " ", "==", " ", "0"}], ",", 
+                    RowBox[{"{", 
+                    RowBox[{
+                    RowBox[{"Hue", "[", 
+                    RowBox[{"0", ",", "0.8", ",", "0.7"}], "]"}], ",", 
+                    RowBox[{"PointSize", "[", "0.016", "]"}]}], "}"}], ",", 
+                    RowBox[{"{", 
+                    RowBox[{
+                    RowBox[{"Hue", "[", 
+                    RowBox[{"0.7", ",", "0.8", ",", "0.7"}], "]"}], ",", 
+                    RowBox[{"PointSize", "[", 
+                    RowBox[{"0.016", " ", 
+                    RowBox[{"Sqrt", "[", "r", "]"}]}], "]"}]}], "}"}]}], 
+                   "]"}], ",", 
+                  RowBox[{"Point", "[", "#", "]"}]}], "}"}], "]"}], "&"}], 
+              ")"}]}], ",", 
+            RowBox[{"ImageSize", " ", "\[Rule]", " ", "480"}], ",", 
+            RowBox[{
+            "PlotLabel", "\[Rule]", 
+             "\"\<Poblacion de E.Coli. Transgenico\>\""}]}], "]"}]}]}], 
+        "]"}]}], ";", "\n", 
+      RowBox[{"evolution2", "=", 
+       RowBox[{"moranRel", "[", 
+        RowBox[{"90", ",", "45", ",", "2.05"}], "]"}]}], ";", "\n", 
+      RowBox[{"If", "[", 
+       RowBox[{
+        RowBox[{"u", ">", 
+         RowBox[{"Length", "[", "evolution2", "]"}]}], ",", 
+        RowBox[{"u", "=", 
+         RowBox[{"Length", "[", "evolution2", "]"}]}]}], "]"}]}], "\n", 
+     ")"}]}]}], "]"}]], "Input",
+ CellChangeTimes->{{3.6412180490962663`*^9, 3.641218123910494*^9}, {
+  3.6412181592560587`*^9, 3.6412181593654337`*^9}, {3.6412181913449535`*^9, 
+  3.641218213365985*^9}, {3.641218249340073*^9, 3.641218527827377*^9}, {
+  3.6412185762163353`*^9, 3.64121857671634*^9}, {3.6412186264284*^9, 
+  3.6412186323243303`*^9}, {3.641218677264147*^9, 3.6412187267164335`*^9}, {
+  3.6412188375950313`*^9, 3.6412188462311425`*^9}, {3.6412188903636513`*^9, 
+  3.6412190065025797`*^9}, {3.641237305302143*^9, 3.6412373056432133`*^9}}],
+
+Cell[BoxData[
+ TagBox[
+  StyleBox[
+   DynamicModuleBox[{$CellContext`u$$ = 576, Typeset`show$$ = True, 
+    Typeset`bookmarkList$$ = {}, Typeset`bookmarkMode$$ = "Menu", 
+    Typeset`animator$$, Typeset`animvar$$ = 1, Typeset`name$$ = 
+    "\"untitled\"", Typeset`specs$$ = {{{
+       Hold[$CellContext`u$$], 1}, 1, 
+      Dynamic[
+       Length[$CellContext`evolution2]], 1}}, Typeset`size$$ = Automatic, 
+    Typeset`update$$ = 0, Typeset`initDone$$, Typeset`skipInitDone$$ = 
+    False, $CellContext`u$13291$$ = 0}, 
+    DynamicBox[Manipulate`ManipulateBoxes[
+     1, StandardForm, "Variables" :> {$CellContext`u$$ = 1}, 
+      "ControllerVariables" :> {
+        Hold[$CellContext`u$$, $CellContext`u$13291$$, 0]}, 
+      "OtherVariables" :> {
+       Typeset`show$$, Typeset`bookmarkList$$, Typeset`bookmarkMode$$, 
+        Typeset`animator$$, Typeset`animvar$$, Typeset`name$$, 
+        Typeset`specs$$, Typeset`size$$, Typeset`update$$, Typeset`initDone$$,
+         Typeset`skipInitDone$$}, "Body" :> $CellContext`showpopRel[
+        Part[$CellContext`evolution2, $CellContext`u$$], 2.05], 
+      "Specifications" :> {{{$CellContext`u$$, 1}, 1, 
+         Dynamic[
+          Length[$CellContext`evolution2]], 1, Appearance -> "Labeled"}}, 
+      "Options" :> {
+       AutorunSequencing -> {1}, SynchronousInitialization -> False}, 
+      "DefaultOptions" :> {}],
+     ImageSizeCache->{529., {285., 290.}},
+     SingleEvaluation->True],
+    Deinitialization:>None,
+    DynamicModuleValues:>{},
+    Initialization:>((Quiet[
+        Get["Combinatorica`"]]; $CellContext`initial[
+         Pattern[$CellContext`n, 
+          Blank[]], 
+         Pattern[$CellContext`i, 
+          Blank[]]] := Join[
+         Table[1, {$CellContext`i}], 
+         Table[0, {$CellContext`n - $CellContext`i}]]; $CellContext`updateRel[
+         Pattern[$CellContext`pop, 
+          Blank[List]], 
+         Pattern[$CellContext`r, 
+          Blank[]]] := 
+       Module[{$CellContext`j, $CellContext`reprod, $CellContext`elimPos}, \
+$CellContext`j = 
+          Total[$CellContext`pop]; $CellContext`reprod = $CellContext`r \
+($CellContext`j/($CellContext`r $CellContext`j + 
+            Length[$CellContext`pop] - $CellContext`j)); $CellContext`elimPos = 
+          RandomInteger[{1, 
+             Length[$CellContext`pop]}]; 
+         ReplacePart[$CellContext`pop, $CellContext`elimPos -> 
+           RandomChoice[{1 - $CellContext`reprod, $CellContext`reprod} -> {0, 
+              1}]]]; $CellContext`moranRel[
+         Pattern[$CellContext`n, 
+          Blank[]], 
+         Pattern[$CellContext`i, 
+          Blank[]], 
+         Pattern[$CellContext`r, 
+          Blank[]]] := 
+       NestWhileList[$CellContext`updateRel[#, $CellContext`r]& , 
+         $CellContext`initial[$CellContext`n, $CellContext`i], $CellContext`n > 
+         Total[#] > 0& ]; $CellContext`showpopRel[
+         Pattern[$CellContext`pop, 
+          Blank[]], 
+         Pattern[$CellContext`r, 
+          Blank[]]] := 
+       Module[{$CellContext`g}, $CellContext`g = 
+          Combinatorica`SetVertexWeights[
+            Combinatorica`CompleteGraph[
+             Length[$CellContext`pop]], $CellContext`pop]; 
+         GraphPlot[$CellContext`g, EdgeRenderingFunction -> None, 
+           VertexRenderingFunction -> (Flatten[{
+              If[Part[
+                 Combinatorica`GetVertexWeights[$CellContext`g], #2] == 0, {
+                Hue[0, 0.8, 0.7], 
+                PointSize[0.016]}, {
+                Hue[0.7, 0.8, 0.7], 
+                PointSize[0.016 Sqrt[$CellContext`r]]}], 
+              Point[#]}]& ), ImageSize -> 480, PlotLabel -> 
+           "Poblacion de E.Coli. Transgenico"]]; $CellContext`evolution2 = \
+$CellContext`moranRel[90, 45, 2.05]; 
+      If[$CellContext`u$$ > Length[$CellContext`evolution2], $CellContext`u$$ = 
+        Length[$CellContext`evolution2]]); Typeset`initDone$$ = True),
+    SynchronousInitialization->False,
+    UnsavedVariables:>{Typeset`initDone$$},
+    UntrackedVariables:>{Typeset`size$$}], "Manipulate",
+   Deployed->True,
+   StripOnInput->False],
+  Manipulate`InterpretManipulate[1]]], "Output",
+ CellChangeTimes->{{3.641237637888941*^9, 3.641237659395728*^9}, 
+   3.6412377114211273`*^9, 3.6412382127710247`*^9}]
+}, Open  ]],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"Manipulate", "[", 
+   RowBox[{
+    RowBox[{"showpopRel", "[", 
+     RowBox[{
+      RowBox[{
+      "evolution3", "\[LeftDoubleBracket]", "u", "\[RightDoubleBracket]"}], 
+      ",", "1.558"}], "]"}], ",", 
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{"u", ",", "1"}], "}"}], ",", "1", ",", 
+      RowBox[{"Dynamic", "[", 
+       RowBox[{"Length", "[", "evolution3", "]"}], "]"}], ",", "1", ",", 
+      RowBox[{"Appearance", " ", "\[Rule]", " ", "\"\<Labeled\>\""}]}], "}"}],
+     ",", 
+    RowBox[{"AutorunSequencing", " ", "\[Rule]", " ", 
+     RowBox[{"{", "1", "}"}]}], ",", 
+    RowBox[{"SynchronousInitialization", " ", "\[Rule]", " ", "False"}], ",", 
+    RowBox[{"Initialization", " ", "\[RuleDelayed]", " ", 
+     RowBox[{"(", "\n", 
+      RowBox[{
+       RowBox[{"Quiet", "@", 
+        RowBox[{"Get", "[", "\"\<Combinatorica`\>\"", "]"}]}], ";", "\n", 
+       RowBox[{
+        RowBox[{"initial", "[", 
+         RowBox[{"n_", ",", "i_"}], "]"}], ":=", 
+        RowBox[{"Join", "[", 
+         RowBox[{
+          RowBox[{"Table", "[", 
+           RowBox[{"1", ",", 
+            RowBox[{"{", "i", "}"}]}], "]"}], ",", 
+          RowBox[{"Table", "[", 
+           RowBox[{"0", ",", 
+            RowBox[{"{", 
+             RowBox[{"n", "-", "i"}], "}"}]}], "]"}]}], "]"}]}], ";", "\n", 
+       RowBox[{
+        RowBox[{"updateRel", "[", 
+         RowBox[{"pop_List", ",", "r_"}], "]"}], ":=", 
+        RowBox[{"Module", "[", 
+         RowBox[{
+          RowBox[{"{", 
+           RowBox[{"j", ",", "reprod", ",", "elimPos"}], "}"}], ",", 
+          RowBox[{
+           RowBox[{"j", "=", 
+            RowBox[{"Total", "[", "pop", "]"}]}], ";", "\n", 
+           RowBox[{"reprod", "=", 
+            RowBox[{"r", " ", 
+             RowBox[{"j", " ", "/", 
+              RowBox[{"(", 
+               RowBox[{
+                RowBox[{"r", " ", "j"}], "+", 
+                RowBox[{"Length", "[", "pop", "]"}], "-", "j"}], ")"}]}]}]}], 
+           ";", "\n", 
+           RowBox[{"elimPos", "=", 
+            RowBox[{"RandomInteger", "[", 
+             RowBox[{"{", 
+              RowBox[{"1", ",", 
+               RowBox[{"Length", "[", "pop", "]"}]}], "}"}], "]"}]}], ";", 
+           "\n", 
+           RowBox[{"ReplacePart", "[", 
+            RowBox[{"pop", ",", 
+             RowBox[{"elimPos", " ", "\[Rule]", " ", 
+              RowBox[{"RandomChoice", "[", 
+               RowBox[{
+                RowBox[{"{", 
+                 RowBox[{
+                  RowBox[{"1", "-", "reprod"}], ",", "reprod"}], "}"}], 
+                "\[Rule]", " ", 
+                RowBox[{"{", 
+                 RowBox[{"0", ",", "1"}], "}"}]}], "]"}]}]}], "]"}]}]}], 
+         "]"}]}], ";", "\n", 
+       RowBox[{
+        RowBox[{"moranRel", "[", 
+         RowBox[{"n_", ",", "i_", ",", "r_"}], "]"}], ":=", 
+        RowBox[{"NestWhileList", "[", 
+         RowBox[{
+          RowBox[{
+           RowBox[{"updateRel", "[", 
+            RowBox[{"#", ",", "r"}], "]"}], "&"}], ",", 
+          RowBox[{"initial", "[", 
+           RowBox[{"n", ",", "i"}], "]"}], ",", 
+          RowBox[{
+           RowBox[{"n", ">", 
+            RowBox[{"Total", "[", "#", "]"}], ">", "0"}], "&"}]}], "]"}]}], 
+       ";", "\n", 
+       RowBox[{
+        RowBox[{"showpopRel", "[", 
+         RowBox[{"pop_", ",", "r_"}], "]"}], ":=", 
+        RowBox[{"Module", "[", 
+         RowBox[{
+          RowBox[{"{", "g", "}"}], ",", 
+          RowBox[{
+           RowBox[{"g", "=", 
+            RowBox[{"Combinatorica`SetVertexWeights", "[", 
+             RowBox[{
+              RowBox[{"Combinatorica`CompleteGraph", "[", 
+               RowBox[{"Length", "[", "pop", "]"}], "]"}], ",", "pop"}], 
+             "]"}]}], ";", "\n", 
+           RowBox[{"GraphPlot", "[", 
+            RowBox[{"g", ",", 
+             RowBox[{"EdgeRenderingFunction", " ", "\[Rule]", " ", "None"}], 
+             ",", 
+             RowBox[{"VertexRenderingFunction", " ", "\[Rule]", "\n", 
+              RowBox[{"(", 
+               RowBox[{
+                RowBox[{"Flatten", "[", 
+                 RowBox[{"{", 
+                  RowBox[{
+                   RowBox[{"If", "[", 
+                    RowBox[{
+                    RowBox[{
+                    RowBox[{
+                    RowBox[{"Combinatorica`GetVertexWeights", "[", "g", "]"}],
+                     "\[LeftDoubleBracket]", "#2", "\[RightDoubleBracket]"}], 
+                    " ", "==", " ", "0"}], ",", 
+                    RowBox[{"{", 
+                    RowBox[{
+                    RowBox[{"Hue", "[", 
+                    RowBox[{"0", ",", "0.8", ",", "0.7"}], "]"}], ",", 
+                    RowBox[{"PointSize", "[", "0.016", "]"}]}], "}"}], ",", 
+                    RowBox[{"{", 
+                    RowBox[{
+                    RowBox[{"Hue", "[", 
+                    RowBox[{"0.7", ",", "0.8", ",", "0.7"}], "]"}], ",", 
+                    RowBox[{"PointSize", "[", 
+                    RowBox[{"0.016", " ", 
+                    RowBox[{"Sqrt", "[", "r", "]"}]}], "]"}]}], "}"}]}], 
+                    "]"}], ",", 
+                   RowBox[{"Point", "[", "#", "]"}]}], "}"}], "]"}], "&"}], 
+               ")"}]}], ",", 
+             RowBox[{"ImageSize", " ", "\[Rule]", " ", "480"}], ",", 
+             RowBox[{
+             "PlotLabel", "\[Rule]", 
+              "\"\<Poblacion de Salmonella Transgenica\>\""}]}], "]"}]}]}], 
+         "]"}]}], ";", "\n", 
+       RowBox[{"evolution3", "=", 
+        RowBox[{"moranRel", "[", 
+         RowBox[{"90", ",", "45", ",", "1.558"}], "]"}]}], ";", "\n", 
+       RowBox[{"If", "[", 
+        RowBox[{
+         RowBox[{"u", ">", 
+          RowBox[{"Length", "[", "evolution3", "]"}]}], ",", 
+         RowBox[{"u", "=", 
+          RowBox[{"Length", "[", "evolution3", "]"}]}]}], "]"}]}], "\n", 
+      ")"}]}]}], "]"}], "\n"}]], "Input",
+ CellChangeTimes->{{3.6412255169375696`*^9, 3.6412255256507206`*^9}, {
+   3.641225567683115*^9, 3.641225605788165*^9}, {3.641237322361018*^9, 
+   3.6412373415632243`*^9}, {3.641237410176522*^9, 3.641237410241558*^9}, {
+   3.6412376877488923`*^9, 3.6412376907370024`*^9}, 3.641238126530715*^9}],
+
+Cell[BoxData[
+ TagBox[
+  StyleBox[
+   DynamicModuleBox[{$CellContext`u$$ = 1143, Typeset`show$$ = True, 
+    Typeset`bookmarkList$$ = {}, Typeset`bookmarkMode$$ = "Menu", 
+    Typeset`animator$$, Typeset`animvar$$ = 1, Typeset`name$$ = 
+    "\"untitled\"", Typeset`specs$$ = {{{
+       Hold[$CellContext`u$$], 1}, 1, 
+      Dynamic[
+       Length[$CellContext`evolution3]], 1}}, Typeset`size$$ = Automatic, 
+    Typeset`update$$ = 0, Typeset`initDone$$, Typeset`skipInitDone$$ = 
+    False, $CellContext`u$10238$$ = 0}, 
+    DynamicBox[Manipulate`ManipulateBoxes[
+     1, StandardForm, "Variables" :> {$CellContext`u$$ = 1}, 
+      "ControllerVariables" :> {
+        Hold[$CellContext`u$$, $CellContext`u$10238$$, 0]}, 
+      "OtherVariables" :> {
+       Typeset`show$$, Typeset`bookmarkList$$, Typeset`bookmarkMode$$, 
+        Typeset`animator$$, Typeset`animvar$$, Typeset`name$$, 
+        Typeset`specs$$, Typeset`size$$, Typeset`update$$, Typeset`initDone$$,
+         Typeset`skipInitDone$$}, "Body" :> $CellContext`showpopRel[
+        Part[$CellContext`evolution3, $CellContext`u$$], 1.558], 
+      "Specifications" :> {{{$CellContext`u$$, 1}, 1, 
+         Dynamic[
+          Length[$CellContext`evolution3]], 1, Appearance -> "Labeled"}}, 
+      "Options" :> {
+       AutorunSequencing -> {1}, SynchronousInitialization -> False}, 
+      "DefaultOptions" :> {}],
+     ImageSizeCache->{529., {285., 290.}},
+     SingleEvaluation->True],
+    Deinitialization:>None,
+    DynamicModuleValues:>{},
+    Initialization:>((Quiet[
+        Get["Combinatorica`"]]; $CellContext`initial[
+         Pattern[$CellContext`n, 
+          Blank[]], 
+         Pattern[$CellContext`i, 
+          Blank[]]] := Join[
+         Table[1, {$CellContext`i}], 
+         Table[0, {$CellContext`n - $CellContext`i}]]; $CellContext`updateRel[
+         Pattern[$CellContext`pop, 
+          Blank[List]], 
+         Pattern[$CellContext`r, 
+          Blank[]]] := 
+       Module[{$CellContext`j, $CellContext`reprod, $CellContext`elimPos}, \
+$CellContext`j = 
+          Total[$CellContext`pop]; $CellContext`reprod = $CellContext`r \
+($CellContext`j/($CellContext`r $CellContext`j + 
+            Length[$CellContext`pop] - $CellContext`j)); $CellContext`elimPos = 
+          RandomInteger[{1, 
+             Length[$CellContext`pop]}]; 
+         ReplacePart[$CellContext`pop, $CellContext`elimPos -> 
+           RandomChoice[{1 - $CellContext`reprod, $CellContext`reprod} -> {0, 
+              1}]]]; $CellContext`moranRel[
+         Pattern[$CellContext`n, 
+          Blank[]], 
+         Pattern[$CellContext`i, 
+          Blank[]], 
+         Pattern[$CellContext`r, 
+          Blank[]]] := 
+       NestWhileList[$CellContext`updateRel[#, $CellContext`r]& , 
+         $CellContext`initial[$CellContext`n, $CellContext`i], $CellContext`n > 
+         Total[#] > 0& ]; $CellContext`showpopRel[
+         Pattern[$CellContext`pop, 
+          Blank[]], 
+         Pattern[$CellContext`r, 
+          Blank[]]] := 
+       Module[{$CellContext`g}, $CellContext`g = 
+          Combinatorica`SetVertexWeights[
+            Combinatorica`CompleteGraph[
+             Length[$CellContext`pop]], $CellContext`pop]; 
+         GraphPlot[$CellContext`g, EdgeRenderingFunction -> None, 
+           VertexRenderingFunction -> (Flatten[{
+              If[Part[
+                 Combinatorica`GetVertexWeights[$CellContext`g], #2] == 0, {
+                Hue[0, 0.8, 0.7], 
+                PointSize[0.016]}, {
+                Hue[0.7, 0.8, 0.7], 
+                PointSize[0.016 Sqrt[$CellContext`r]]}], 
+              Point[#]}]& ), ImageSize -> 480, PlotLabel -> 
+           "Poblacion de Salmonella Transgenica"]]; $CellContext`evolution3 = \
+$CellContext`moranRel[90, 45, 1.558]; 
+      If[$CellContext`u$$ > Length[$CellContext`evolution3], $CellContext`u$$ = 
+        Length[$CellContext`evolution3]]); Typeset`initDone$$ = True),
+    SynchronousInitialization->False,
+    UnsavedVariables:>{Typeset`initDone$$},
+    UntrackedVariables:>{Typeset`size$$}], "Manipulate",
+   Deployed->True,
+   StripOnInput->False],
+  Manipulate`InterpretManipulate[1]]], "Input",
+ CellChangeTimes->{{3.641238196932186*^9, 3.641238196942195*^9}}],
+
+Cell[BoxData[""], "Input",
+ CellChangeTimes->{{3.6412256366319475`*^9, 3.641225648013997*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"Manipulate", "[", 
+   RowBox[{
+    RowBox[{"showpopRel", "[", 
+     RowBox[{
+      RowBox[{
+      "evolution4", "\[LeftDoubleBracket]", "u", "\[RightDoubleBracket]"}], 
+      ",", "1.2"}], "]"}], ",", 
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{"u", ",", "1"}], "}"}], ",", "1", ",", 
+      RowBox[{"Dynamic", "[", 
+       RowBox[{"Length", "[", "evolution4", "]"}], "]"}], ",", "1", ",", 
+      RowBox[{"Appearance", " ", "\[Rule]", " ", "\"\<Labeled\>\""}]}], "}"}],
+     ",", 
+    RowBox[{"AutorunSequencing", " ", "\[Rule]", " ", 
+     RowBox[{"{", "1", "}"}]}], ",", 
+    RowBox[{"SynchronousInitialization", " ", "\[Rule]", " ", "False"}], ",", 
+    RowBox[{"Initialization", " ", "\[RuleDelayed]", " ", 
+     RowBox[{"(", "\n", 
+      RowBox[{
+       RowBox[{"Quiet", "@", 
+        RowBox[{"Get", "[", "\"\<Combinatorica`\>\"", "]"}]}], ";", "\n", 
+       RowBox[{
+        RowBox[{"initial", "[", 
+         RowBox[{"n_", ",", "i_"}], "]"}], ":=", 
+        RowBox[{"Join", "[", 
+         RowBox[{
+          RowBox[{"Table", "[", 
+           RowBox[{"1", ",", 
+            RowBox[{"{", "i", "}"}]}], "]"}], ",", 
+          RowBox[{"Table", "[", 
+           RowBox[{"0", ",", 
+            RowBox[{"{", 
+             RowBox[{"n", "-", "i"}], "}"}]}], "]"}]}], "]"}]}], ";", "\n", 
+       RowBox[{
+        RowBox[{"updateRel", "[", 
+         RowBox[{"pop_List", ",", "r_"}], "]"}], ":=", 
+        RowBox[{"Module", "[", 
+         RowBox[{
+          RowBox[{"{", 
+           RowBox[{"j", ",", "reprod", ",", "elimPos"}], "}"}], ",", 
+          RowBox[{
+           RowBox[{"j", "=", 
+            RowBox[{"Total", "[", "pop", "]"}]}], ";", "\n", 
+           RowBox[{"reprod", "=", 
+            RowBox[{"r", " ", 
+             RowBox[{"j", " ", "/", 
+              RowBox[{"(", 
+               RowBox[{
+                RowBox[{"r", " ", "j"}], "+", 
+                RowBox[{"Length", "[", "pop", "]"}], "-", "j"}], ")"}]}]}]}], 
+           ";", "\n", 
+           RowBox[{"elimPos", "=", 
+            RowBox[{"RandomInteger", "[", 
+             RowBox[{"{", 
+              RowBox[{"1", ",", 
+               RowBox[{"Length", "[", "pop", "]"}]}], "}"}], "]"}]}], ";", 
+           "\n", 
+           RowBox[{"ReplacePart", "[", 
+            RowBox[{"pop", ",", 
+             RowBox[{"elimPos", " ", "\[Rule]", " ", 
+              RowBox[{"RandomChoice", "[", 
+               RowBox[{
+                RowBox[{"{", 
+                 RowBox[{
+                  RowBox[{"1", "-", "reprod"}], ",", "reprod"}], "}"}], 
+                "\[Rule]", " ", 
+                RowBox[{"{", 
+                 RowBox[{"0", ",", "1"}], "}"}]}], "]"}]}]}], "]"}]}]}], 
+         "]"}]}], ";", "\n", 
+       RowBox[{
+        RowBox[{"moranRel", "[", 
+         RowBox[{"n_", ",", "i_", ",", "r_"}], "]"}], ":=", 
+        RowBox[{"NestWhileList", "[", 
+         RowBox[{
+          RowBox[{
+           RowBox[{"updateRel", "[", 
+            RowBox[{"#", ",", "r"}], "]"}], "&"}], ",", 
+          RowBox[{"initial", "[", 
+           RowBox[{"n", ",", "i"}], "]"}], ",", 
+          RowBox[{
+           RowBox[{"n", ">", 
+            RowBox[{"Total", "[", "#", "]"}], ">", "0"}], "&"}]}], "]"}]}], 
+       ";", "\n", 
+       RowBox[{
+        RowBox[{"showpopRel", "[", 
+         RowBox[{"pop_", ",", "r_"}], "]"}], ":=", 
+        RowBox[{"Module", "[", 
+         RowBox[{
+          RowBox[{"{", "g", "}"}], ",", 
+          RowBox[{
+           RowBox[{"g", "=", 
+            RowBox[{"Combinatorica`SetVertexWeights", "[", 
+             RowBox[{
+              RowBox[{"Combinatorica`CompleteGraph", "[", 
+               RowBox[{"Length", "[", "pop", "]"}], "]"}], ",", "pop"}], 
+             "]"}]}], ";", "\n", 
+           RowBox[{"GraphPlot", "[", 
+            RowBox[{"g", ",", 
+             RowBox[{"EdgeRenderingFunction", " ", "\[Rule]", " ", "None"}], 
+             ",", 
+             RowBox[{"VertexRenderingFunction", " ", "\[Rule]", "\n", 
+              RowBox[{"(", 
+               RowBox[{
+                RowBox[{"Flatten", "[", 
+                 RowBox[{"{", 
+                  RowBox[{
+                   RowBox[{"If", "[", 
+                    RowBox[{
+                    RowBox[{
+                    RowBox[{
+                    RowBox[{"Combinatorica`GetVertexWeights", "[", "g", "]"}],
+                     "\[LeftDoubleBracket]", "#2", "\[RightDoubleBracket]"}], 
+                    " ", "==", " ", "0"}], ",", 
+                    RowBox[{"{", 
+                    RowBox[{
+                    RowBox[{"Hue", "[", 
+                    RowBox[{"0", ",", "0.8", ",", "0.7"}], "]"}], ",", 
+                    RowBox[{"PointSize", "[", "0.016", "]"}]}], "}"}], ",", 
+                    RowBox[{"{", 
+                    RowBox[{
+                    RowBox[{"Hue", "[", 
+                    RowBox[{"0.7", ",", "0.8", ",", "0.7"}], "]"}], ",", 
+                    RowBox[{"PointSize", "[", 
+                    RowBox[{"0.016", " ", 
+                    RowBox[{"Sqrt", "[", "r", "]"}]}], "]"}]}], "}"}]}], 
+                    "]"}], ",", 
+                   RowBox[{"Point", "[", "#", "]"}]}], "}"}], "]"}], "&"}], 
+               ")"}]}], ",", 
+             RowBox[{"ImageSize", " ", "\[Rule]", " ", "480"}], ",", 
+             RowBox[{
+             "PlotLabel", "\[Rule]", 
+              "\"\<Poblacion de R.Rhodnii Transgenico\>\""}]}], "]"}]}]}], 
+         "]"}]}], ";", "\[IndentingNewLine]", "\n", 
+       RowBox[{"evolution4", "=", 
+        RowBox[{"moranRel", "[", 
+         RowBox[{"90", ",", "45", ",", "1.2"}], "]"}]}], ";", "\n", 
+       RowBox[{"If", "[", 
+        RowBox[{
+         RowBox[{"u", ">", 
+          RowBox[{"Length", "[", "evolution4", "]"}]}], ",", 
+         RowBox[{"u", "=", 
+          RowBox[{"Length", "[", "evolution4", "]"}]}]}], "]"}]}], "\n", 
+      ")"}]}]}], "]"}], "\[IndentingNewLine]"}]], "Input",
+ CellChangeTimes->CompressedData["
+1:eJxTTMoPSmViYGAQA2IQ/ZRjr7mY4mtHqV2JFiD6ziV3V3Egvfp8jgeINrhw
+IwxEN0jJRYPooOXzE0D0tcT6ZBDdwruuEETHKbwtBdHty4KqQfQt7in1IPro
+x3mdIFppZWUPiA7z/TkBRB+O7Z4Com8wyT8C0Z/P5b0C0XUn/r0H0UxNZZ9B
+tHxT1V8QbSYy5z+IFucTFZQA0ixHVKRAdE5pqhyIDr/6SR5EfxUNcQTRpaev
+g+lv57kbQbSALUMziH4/48RkEO23pm8KiD5+cOZsEM0keHAeiFYI2bEYROvZ
+vVsCouez/dgMojk27d8Dot3CrO+C6Asn/t8D0QmTp7yTBtI8X3s+gejtq36K
+y4D8ez9VAkQDAN9RmF0=
+  "]],
+
+Cell[BoxData[
+ TagBox[
+  StyleBox[
+   DynamicModuleBox[{$CellContext`u$$ = 947, Typeset`show$$ = True, 
+    Typeset`bookmarkList$$ = {}, Typeset`bookmarkMode$$ = "Menu", 
+    Typeset`animator$$, Typeset`animvar$$ = 1, Typeset`name$$ = 
+    "\"untitled\"", Typeset`specs$$ = {{{
+       Hold[$CellContext`u$$], 1}, 1, 
+      Dynamic[
+       Length[$CellContext`evolution4]], 1}}, Typeset`size$$ = Automatic, 
+    Typeset`update$$ = 0, Typeset`initDone$$, Typeset`skipInitDone$$ = 
+    False, $CellContext`u$15968$$ = 0}, 
+    DynamicBox[Manipulate`ManipulateBoxes[
+     1, StandardForm, "Variables" :> {$CellContext`u$$ = 1}, 
+      "ControllerVariables" :> {
+        Hold[$CellContext`u$$, $CellContext`u$15968$$, 0]}, 
+      "OtherVariables" :> {
+       Typeset`show$$, Typeset`bookmarkList$$, Typeset`bookmarkMode$$, 
+        Typeset`animator$$, Typeset`animvar$$, Typeset`name$$, 
+        Typeset`specs$$, Typeset`size$$, Typeset`update$$, Typeset`initDone$$,
+         Typeset`skipInitDone$$}, "Body" :> $CellContext`showpopRel[
+        Part[$CellContext`evolution4, $CellContext`u$$], 1.2], 
+      "Specifications" :> {{{$CellContext`u$$, 1}, 1, 
+         Dynamic[
+          Length[$CellContext`evolution4]], 1, Appearance -> "Labeled"}}, 
+      "Options" :> {
+       AutorunSequencing -> {1}, SynchronousInitialization -> False}, 
+      "DefaultOptions" :> {}],
+     ImageSizeCache->{529., {285., 290.}},
+     SingleEvaluation->True],
+    Deinitialization:>None,
+    DynamicModuleValues:>{},
+    Initialization:>((Quiet[
+        Get["Combinatorica`"]]; $CellContext`initial[
+         Pattern[$CellContext`n, 
+          Blank[]], 
+         Pattern[$CellContext`i, 
+          Blank[]]] := Join[
+         Table[1, {$CellContext`i}], 
+         Table[0, {$CellContext`n - $CellContext`i}]]; $CellContext`updateRel[
+         Pattern[$CellContext`pop, 
+          Blank[List]], 
+         Pattern[$CellContext`r, 
+          Blank[]]] := 
+       Module[{$CellContext`j, $CellContext`reprod, $CellContext`elimPos}, \
+$CellContext`j = 
+          Total[$CellContext`pop]; $CellContext`reprod = $CellContext`r \
+($CellContext`j/($CellContext`r $CellContext`j + 
+            Length[$CellContext`pop] - $CellContext`j)); $CellContext`elimPos = 
+          RandomInteger[{1, 
+             Length[$CellContext`pop]}]; 
+         ReplacePart[$CellContext`pop, $CellContext`elimPos -> 
+           RandomChoice[{1 - $CellContext`reprod, $CellContext`reprod} -> {0, 
+              1}]]]; $CellContext`moranRel[
+         Pattern[$CellContext`n, 
+          Blank[]], 
+         Pattern[$CellContext`i, 
+          Blank[]], 
+         Pattern[$CellContext`r, 
+          Blank[]]] := 
+       NestWhileList[$CellContext`updateRel[#, $CellContext`r]& , 
+         $CellContext`initial[$CellContext`n, $CellContext`i], $CellContext`n > 
+         Total[#] > 0& ]; $CellContext`showpopRel[
+         Pattern[$CellContext`pop, 
+          Blank[]], 
+         Pattern[$CellContext`r, 
+          Blank[]]] := 
+       Module[{$CellContext`g}, $CellContext`g = 
+          Combinatorica`SetVertexWeights[
+            Combinatorica`CompleteGraph[
+             Length[$CellContext`pop]], $CellContext`pop]; 
+         GraphPlot[$CellContext`g, EdgeRenderingFunction -> None, 
+           VertexRenderingFunction -> (Flatten[{
+              If[Part[
+                 Combinatorica`GetVertexWeights[$CellContext`g], #2] == 0, {
+                Hue[0, 0.8, 0.7], 
+                PointSize[0.016]}, {
+                Hue[0.7, 0.8, 0.7], 
+                PointSize[0.016 Sqrt[$CellContext`r]]}], 
+              Point[#]}]& ), ImageSize -> 480, PlotLabel -> 
+           "Poblacion de R.Rhodnii Transgenico"]]; $CellContext`evolution4 = \
+$CellContext`moranRel[90, 45, 1.2]; 
+      If[$CellContext`u$$ > Length[$CellContext`evolution4], $CellContext`u$$ = 
+        Length[$CellContext`evolution4]]); Typeset`initDone$$ = True),
+    SynchronousInitialization->False,
+    UnsavedVariables:>{Typeset`initDone$$},
+    UntrackedVariables:>{Typeset`size$$}], "Manipulate",
+   Deployed->True,
+   StripOnInput->False],
+  Manipulate`InterpretManipulate[1]]], "Output",
+ CellChangeTimes->{
+  3.6412256690984116`*^9, 3.641227742701561*^9, 3.6412281091439133`*^9, 
+   3.641228209507682*^9, {3.6412282537270484`*^9, 3.641228285616145*^9}, 
+   3.6412283901305532`*^9, {3.6412284300561237`*^9, 3.6412284529156103`*^9}, {
+   3.64122910345467*^9, 3.641229140613587*^9}, {3.6412291960015593`*^9, 
+   3.6412292123027983`*^9}, 3.6412292927550383`*^9, {3.641229465924412*^9, 
+   3.641229521635277*^9}, 3.641229863565322*^9, 3.641230362342103*^9, {
+   3.6412307622014885`*^9, 3.641230822472845*^9}, {3.6412310830671377`*^9, 
+   3.6412310983754463`*^9}, {3.6412373893189216`*^9, 3.641237414031237*^9}, {
+   3.6412374867313213`*^9, 3.6412375011515813`*^9}, 3.6412377302231855`*^9, 
+   3.6412382668488674`*^9}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"X", "=", 
+   RowBox[{"moranRel", "[", 
+    RowBox[{"90", ",", "45", ",", "2.05"}], "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"lista", "=", 
+   RowBox[{"Array", "[", 
+    RowBox[{"f", ",", 
+     RowBox[{"Length", "[", "X", "]"}]}], "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"For", "[", 
+   RowBox[{
+    RowBox[{"k", "=", "1"}], ",", 
+    RowBox[{"k", "<", 
+     RowBox[{"Length", "[", "X", "]"}]}], ",", 
+    RowBox[{"k", "++"}], ",", 
+    RowBox[{
+     RowBox[{"f", "[", "k", "]"}], "=", 
+     RowBox[{"Count", "[", 
+      RowBox[{
+       RowBox[{"X", "[", 
+        RowBox[{"[", "k", "]"}], "]"}], ",", "1"}], "]"}]}]}], "]"}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{"ListPlot", "[", 
+  RowBox[{"lista", ",", 
+   RowBox[{"Filling", "\[Rule]", "Axis"}], ",", 
+   RowBox[{
+   "PlotLabel", "\[Rule]", "\"\<Poblacion de E.Coli. Transgenico\>\""}], ",", 
+   RowBox[{"AxesLabel", "\[Rule]", 
+    RowBox[{"{", 
+     RowBox[{
+     "\"\<Numero de Generaciones\>\"", ",", 
+      "\"\<Poblacion de E.Coli Transgenico\>\""}], "}"}]}], ",", 
+   RowBox[{"ImageSize", " ", "\[Rule]", " ", "480"}]}], "]"}]}], "Input",
+ CellChangeTimes->{{3.6412285582346983`*^9, 3.6412285908337455`*^9}, {
+   3.641230833217515*^9, 3.641230851750867*^9}, {3.641230887612743*^9, 
+   3.6412308952101088`*^9}, 3.641231143487996*^9, {3.6412324815505657`*^9, 
+   3.6412324817997417`*^9}, {3.6412325549666986`*^9, 
+   3.6412326266030045`*^9}, {3.64123302610907*^9, 3.641233027448017*^9}, {
+   3.6412331383463163`*^9, 3.641233144238722*^9}, {3.641233188836297*^9, 
+   3.641233208095852*^9}, {3.6412332511666837`*^9, 3.641233277184145*^9}, {
+   3.641233312939105*^9, 3.6412333321967907`*^9}, {3.6412371451581335`*^9, 
+   3.6412371564450865`*^9}, {3.6412372182780695`*^9, 3.641237233560944*^9}}],
+
+Cell[BoxData[
+ GraphicsBox[GraphicsComplexBox[CompressedData["
+1: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
+PQ54wCOecMQzXvCKE95wxjsu/WRltbjDPQ54wCOecMQzXvCKE95wxjsu/WRl
+tbjDPQ54wCOecMQzXvCKE95wxjsu/WRltbjDPQ54wCOecMQzXvCKE95wxjsu
+/WRltbjDPQ54wCOecMQzXvCKE95wxjsu/WRltbjDPQ54wCOecMQzXvCKE95w
+xjsu/WRltbjDPQ54wCOecMQzXvCKE95wxjsu/WRltbjDPQ54wCOecMQzXvCK
+E95wxjs++8mO1eIO9zjgAY94whHPeMErTnjDGe/47Cc7Vos73OOABzziCUc8
+4wWvOOENZ7zjs5/sWC3ucI8DHvCIJxzxjBe84oQ3nPGOSz9ZWS3ucI8DHvCI
+JxzxjBe84oQ3nPGOSz9ZWS3ucI8DHvCIJxzxjBe84oQ3nPGOSz9ZWS3ucI8D
+HvCIJxzxjBe84oQ3nPGOSz9ZWS3ucI8DHvCIJxzxjBe84oQ3nPGOSz9ZWS3u
+cI8DHvCIJxzxjBe84oQ3nPGOSz9ZWTe4xbe4w3e4x/dwwPfxgB/gET/EE36E
+I36MZ/wEL/gpXvEznPBzvOEXOOOXeMevcOknK+sGt/gWd/gO9/geDvg+HvAD
+POKHeMKPcMSP8Yyf4AU/xSt+hhN+jjf8Amf8Eu/4FS79ZGXd4Bbf4g7f4R7f
+wwHfxwN+gEf8EE/4EY74MZ7xE7zgp3jFz3DCz/GGX+CMX+Idv8Kln6ysG9zi
+W9zhO3zNJyN+zSd7/fg1n+x3Hq/5ZPX5rvlktSM++8mu+WSvj9d8srr+NZ+s
+rn/NJ3u9/5pP9rr+NZ+srn/NJ6vrX/PJ6vrXfLK6/jWfrPI1n6z2NZ+szr/m
+k9W+5pPVvuaT1b7mk9W+5pPVvuaT1b7mk9W+5pPVvuaT1b7mk9W+5pPVvuaT
+1b7mk9W+5pPVvuaT1b7mk9W+5pPVvuaT1b7mk9X+P/PJ/gsMqO38
+   "], {{{}, {}, {}, {}, 
+     {Hue[0.67, 0.6, 0.6], Opacity[0.2], LineBox[{614, 1}], LineBox[{615, 2}],
+       LineBox[{616, 3}], LineBox[{617, 4}], LineBox[{618, 5}], 
+      LineBox[{619, 6}], LineBox[{620, 7}], LineBox[{621, 8}], 
+      LineBox[{622, 9}], LineBox[{623, 10}], LineBox[{624, 11}], 
+      LineBox[{625, 12}], LineBox[{626, 13}], LineBox[{627, 14}], 
+      LineBox[{628, 15}], LineBox[{629, 16}], LineBox[{630, 17}], 
+      LineBox[{631, 18}], LineBox[{632, 19}], LineBox[{633, 20}], 
+      LineBox[{634, 21}], LineBox[{635, 22}], LineBox[{636, 23}], 
+      LineBox[{637, 24}], LineBox[{638, 25}], LineBox[{639, 26}], 
+      LineBox[{640, 27}], LineBox[{641, 28}], LineBox[{642, 29}], 
+      LineBox[{643, 30}], LineBox[{644, 31}], LineBox[{645, 32}], 
+      LineBox[{646, 33}], LineBox[{647, 34}], LineBox[{648, 35}], 
+      LineBox[{649, 36}], LineBox[{650, 37}], LineBox[{651, 38}], 
+      LineBox[{652, 39}], LineBox[{653, 40}], LineBox[{654, 41}], 
+      LineBox[{655, 42}], LineBox[{656, 43}], LineBox[{657, 44}], 
+      LineBox[{658, 45}], LineBox[{659, 46}], LineBox[{660, 47}], 
+      LineBox[{661, 48}], LineBox[{662, 49}], LineBox[{663, 50}], 
+      LineBox[{664, 51}], LineBox[{665, 52}], LineBox[{666, 53}], 
+      LineBox[{667, 54}], LineBox[{668, 55}], LineBox[{669, 56}], 
+      LineBox[{670, 57}], LineBox[{671, 58}], LineBox[{672, 59}], 
+      LineBox[{673, 60}], LineBox[{674, 61}], LineBox[{675, 62}], 
+      LineBox[{676, 63}], LineBox[{677, 64}], LineBox[{678, 65}], 
+      LineBox[{679, 66}], LineBox[{680, 67}], LineBox[{681, 68}], 
+      LineBox[{682, 69}], LineBox[{683, 70}], LineBox[{684, 71}], 
+      LineBox[{685, 72}], LineBox[{686, 73}], LineBox[{687, 74}], 
+      LineBox[{688, 75}], LineBox[{689, 76}], LineBox[{690, 77}], 
+      LineBox[{691, 78}], LineBox[{692, 79}], LineBox[{693, 80}], 
+      LineBox[{694, 81}], LineBox[{695, 82}], LineBox[{696, 83}], 
+      LineBox[{697, 84}], LineBox[{698, 85}], LineBox[{699, 86}], 
+      LineBox[{700, 87}], LineBox[{701, 88}], LineBox[{702, 89}], 
+      LineBox[{703, 90}], LineBox[{704, 91}], LineBox[{705, 92}], 
+      LineBox[{706, 93}], LineBox[{707, 94}], LineBox[{708, 95}], 
+      LineBox[{709, 96}], LineBox[{710, 97}], LineBox[{711, 98}], 
+      LineBox[{712, 99}], LineBox[{713, 100}], LineBox[{714, 101}], 
+      LineBox[{715, 102}], LineBox[{716, 103}], LineBox[{717, 104}], 
+      LineBox[{718, 105}], LineBox[{719, 106}], LineBox[{720, 107}], 
+      LineBox[{721, 108}], LineBox[{722, 109}], LineBox[{723, 110}], 
+      LineBox[{724, 111}], LineBox[{725, 112}], LineBox[{726, 113}], 
+      LineBox[{727, 114}], LineBox[{728, 115}], LineBox[{729, 116}], 
+      LineBox[{730, 117}], LineBox[{731, 118}], LineBox[{732, 119}], 
+      LineBox[{733, 120}], LineBox[{734, 121}], LineBox[{735, 122}], 
+      LineBox[{736, 123}], LineBox[{737, 124}], LineBox[{738, 125}], 
+      LineBox[{739, 126}], LineBox[{740, 127}], LineBox[{741, 128}], 
+      LineBox[{742, 129}], LineBox[{743, 130}], LineBox[{744, 131}], 
+      LineBox[{745, 132}], LineBox[{746, 133}], LineBox[{747, 134}], 
+      LineBox[{748, 135}], LineBox[{749, 136}], LineBox[{750, 137}], 
+      LineBox[{751, 138}], LineBox[{752, 139}], LineBox[{753, 140}], 
+      LineBox[{754, 141}], LineBox[{755, 142}], LineBox[{756, 143}], 
+      LineBox[{757, 144}], LineBox[{758, 145}], LineBox[{759, 146}], 
+      LineBox[{760, 147}], LineBox[{761, 148}], LineBox[{762, 149}], 
+      LineBox[{763, 150}], LineBox[{764, 151}], LineBox[{765, 152}], 
+      LineBox[{766, 153}], LineBox[{767, 154}], LineBox[{768, 155}], 
+      LineBox[{769, 156}], LineBox[{770, 157}], LineBox[{771, 158}], 
+      LineBox[{772, 159}], LineBox[{773, 160}], LineBox[{774, 161}], 
+      LineBox[{775, 162}], LineBox[{776, 163}], LineBox[{777, 164}], 
+      LineBox[{778, 165}], LineBox[{779, 166}], LineBox[{780, 167}], 
+      LineBox[{781, 168}], LineBox[{782, 169}], LineBox[{783, 170}], 
+      LineBox[{784, 171}], LineBox[{785, 172}], LineBox[{786, 173}], 
+      LineBox[{787, 174}], LineBox[{788, 175}], LineBox[{789, 176}], 
+      LineBox[{790, 177}], LineBox[{791, 178}], LineBox[{792, 179}], 
+      LineBox[{793, 180}], LineBox[{794, 181}], LineBox[{795, 182}], 
+      LineBox[{796, 183}], LineBox[{797, 184}], LineBox[{798, 185}], 
+      LineBox[{799, 186}], LineBox[{800, 187}], LineBox[{801, 188}], 
+      LineBox[{802, 189}], LineBox[{803, 190}], LineBox[{804, 191}], 
+      LineBox[{805, 192}], LineBox[{806, 193}], LineBox[{807, 194}], 
+      LineBox[{808, 195}], LineBox[{809, 196}], LineBox[{810, 197}], 
+      LineBox[{811, 198}], LineBox[{812, 199}], LineBox[{813, 200}], 
+      LineBox[{814, 201}], LineBox[{815, 202}], LineBox[{816, 203}], 
+      LineBox[{817, 204}], LineBox[{818, 205}], LineBox[{819, 206}], 
+      LineBox[{820, 207}], LineBox[{821, 208}], LineBox[{822, 209}], 
+      LineBox[{823, 210}], LineBox[{824, 211}], LineBox[{825, 212}], 
+      LineBox[{826, 213}], LineBox[{827, 214}], LineBox[{828, 215}], 
+      LineBox[{829, 216}], LineBox[{830, 217}], LineBox[{831, 218}], 
+      LineBox[{832, 219}], LineBox[{833, 220}], LineBox[{834, 221}], 
+      LineBox[{835, 222}], LineBox[{836, 223}], LineBox[{837, 224}], 
+      LineBox[{838, 225}], LineBox[{839, 226}], LineBox[{840, 227}], 
+      LineBox[{841, 228}], LineBox[{842, 229}], LineBox[{843, 230}], 
+      LineBox[{844, 231}], LineBox[{845, 232}], LineBox[{846, 233}], 
+      LineBox[{847, 234}], LineBox[{848, 235}], LineBox[{849, 236}], 
+      LineBox[{850, 237}], LineBox[{851, 238}], LineBox[{852, 239}], 
+      LineBox[{853, 240}], LineBox[{854, 241}], LineBox[{855, 242}], 
+      LineBox[{856, 243}], LineBox[{857, 244}], LineBox[{858, 245}], 
+      LineBox[{859, 246}], LineBox[{860, 247}], LineBox[{861, 248}], 
+      LineBox[{862, 249}], LineBox[{863, 250}], LineBox[{864, 251}], 
+      LineBox[{865, 252}], LineBox[{866, 253}], LineBox[{867, 254}], 
+      LineBox[{868, 255}], LineBox[{869, 256}], LineBox[{870, 257}], 
+      LineBox[{871, 258}], LineBox[{872, 259}], LineBox[{873, 260}], 
+      LineBox[{874, 261}], LineBox[{875, 262}], LineBox[{876, 263}], 
+      LineBox[{877, 264}], LineBox[{878, 265}], LineBox[{879, 266}], 
+      LineBox[{880, 267}], LineBox[{881, 268}], LineBox[{882, 269}], 
+      LineBox[{883, 270}], LineBox[{884, 271}], LineBox[{885, 272}], 
+      LineBox[{886, 273}], LineBox[{887, 274}], LineBox[{888, 275}], 
+      LineBox[{889, 276}], LineBox[{890, 277}], LineBox[{891, 278}], 
+      LineBox[{892, 279}], LineBox[{893, 280}], LineBox[{894, 281}], 
+      LineBox[{895, 282}], LineBox[{896, 283}], LineBox[{897, 284}], 
+      LineBox[{898, 285}], LineBox[{899, 286}], LineBox[{900, 287}], 
+      LineBox[{901, 288}], LineBox[{902, 289}], LineBox[{903, 290}], 
+      LineBox[{904, 291}], LineBox[{905, 292}], LineBox[{906, 293}], 
+      LineBox[{907, 294}], LineBox[{908, 295}], LineBox[{909, 296}], 
+      LineBox[{910, 297}], LineBox[{911, 298}], LineBox[{912, 299}], 
+      LineBox[{913, 300}], LineBox[{914, 301}], LineBox[{915, 302}], 
+      LineBox[{916, 303}], LineBox[{917, 304}], LineBox[{918, 305}], 
+      LineBox[{919, 306}], LineBox[{920, 307}], LineBox[{921, 308}], 
+      LineBox[{922, 309}], LineBox[{923, 310}], LineBox[{924, 311}], 
+      LineBox[{925, 312}], LineBox[{926, 313}], LineBox[{927, 314}], 
+      LineBox[{928, 315}], LineBox[{929, 316}], LineBox[{930, 317}], 
+      LineBox[{931, 318}], LineBox[{932, 319}], LineBox[{933, 320}], 
+      LineBox[{934, 321}], LineBox[{935, 322}], LineBox[{936, 323}], 
+      LineBox[{937, 324}], LineBox[{938, 325}], LineBox[{939, 326}], 
+      LineBox[{940, 327}], LineBox[{941, 328}], LineBox[{942, 329}], 
+      LineBox[{943, 330}], LineBox[{944, 331}], LineBox[{945, 332}], 
+      LineBox[{946, 333}], LineBox[{947, 334}], LineBox[{948, 335}], 
+      LineBox[{949, 336}], LineBox[{950, 337}], LineBox[{951, 338}], 
+      LineBox[{952, 339}], LineBox[{953, 340}], LineBox[{954, 341}], 
+      LineBox[{955, 342}], LineBox[{956, 343}], LineBox[{957, 344}], 
+      LineBox[{958, 345}], LineBox[{959, 346}], LineBox[{960, 347}], 
+      LineBox[{961, 348}], LineBox[{962, 349}], LineBox[{963, 350}], 
+      LineBox[{964, 351}], LineBox[{965, 352}], LineBox[{966, 353}], 
+      LineBox[{967, 354}], LineBox[{968, 355}], LineBox[{969, 356}], 
+      LineBox[{970, 357}], LineBox[{971, 358}], LineBox[{972, 359}], 
+      LineBox[{973, 360}], LineBox[{974, 361}], LineBox[{975, 362}], 
+      LineBox[{976, 363}], LineBox[{977, 364}], LineBox[{978, 365}], 
+      LineBox[{979, 366}], LineBox[{980, 367}], LineBox[{981, 368}], 
+      LineBox[{982, 369}], LineBox[{983, 370}], LineBox[{984, 371}], 
+      LineBox[{985, 372}], LineBox[{986, 373}], LineBox[{987, 374}], 
+      LineBox[{988, 375}], LineBox[{989, 376}], LineBox[{990, 377}], 
+      LineBox[{991, 378}], LineBox[{992, 379}], LineBox[{993, 380}], 
+      LineBox[{994, 381}], LineBox[{995, 382}], LineBox[{996, 383}], 
+      LineBox[{997, 384}], LineBox[{998, 385}], LineBox[{999, 386}], 
+      LineBox[{1000, 387}], LineBox[{1001, 388}], LineBox[{1002, 389}], 
+      LineBox[{1003, 390}], LineBox[{1004, 391}], LineBox[{1005, 392}], 
+      LineBox[{1006, 393}], LineBox[{1007, 394}], LineBox[{1008, 395}], 
+      LineBox[{1009, 396}], LineBox[{1010, 397}], LineBox[{1011, 398}], 
+      LineBox[{1012, 399}], LineBox[{1013, 400}], LineBox[{1014, 401}], 
+      LineBox[{1015, 402}], LineBox[{1016, 403}], LineBox[{1017, 404}], 
+      LineBox[{1018, 405}], LineBox[{1019, 406}], LineBox[{1020, 407}], 
+      LineBox[{1021, 408}], LineBox[{1022, 409}], LineBox[{1023, 410}], 
+      LineBox[{1024, 411}], LineBox[{1025, 412}], LineBox[{1026, 413}], 
+      LineBox[{1027, 414}], LineBox[{1028, 415}], LineBox[{1029, 416}], 
+      LineBox[{1030, 417}], LineBox[{1031, 418}], LineBox[{1032, 419}], 
+      LineBox[{1033, 420}], LineBox[{1034, 421}], LineBox[{1035, 422}], 
+      LineBox[{1036, 423}], LineBox[{1037, 424}], LineBox[{1038, 425}], 
+      LineBox[{1039, 426}], LineBox[{1040, 427}], LineBox[{1041, 428}], 
+      LineBox[{1042, 429}], LineBox[{1043, 430}], LineBox[{1044, 431}], 
+      LineBox[{1045, 432}], LineBox[{1046, 433}], LineBox[{1047, 434}], 
+      LineBox[{1048, 435}], LineBox[{1049, 436}], LineBox[{1050, 437}], 
+      LineBox[{1051, 438}], LineBox[{1052, 439}], LineBox[{1053, 440}], 
+      LineBox[{1054, 441}], LineBox[{1055, 442}], LineBox[{1056, 443}], 
+      LineBox[{1057, 444}], LineBox[{1058, 445}], LineBox[{1059, 446}], 
+      LineBox[{1060, 447}], LineBox[{1061, 448}], LineBox[{1062, 449}], 
+      LineBox[{1063, 450}], LineBox[{1064, 451}], LineBox[{1065, 452}], 
+      LineBox[{1066, 453}], LineBox[{1067, 454}], LineBox[{1068, 455}], 
+      LineBox[{1069, 456}], LineBox[{1070, 457}], LineBox[{1071, 458}], 
+      LineBox[{1072, 459}], LineBox[{1073, 460}], LineBox[{1074, 461}], 
+      LineBox[{1075, 462}], LineBox[{1076, 463}], LineBox[{1077, 464}], 
+      LineBox[{1078, 465}], LineBox[{1079, 466}], LineBox[{1080, 467}], 
+      LineBox[{1081, 468}], LineBox[{1082, 469}], LineBox[{1083, 470}], 
+      LineBox[{1084, 471}], LineBox[{1085, 472}], LineBox[{1086, 473}], 
+      LineBox[{1087, 474}], LineBox[{1088, 475}], LineBox[{1089, 476}], 
+      LineBox[{1090, 477}], LineBox[{1091, 478}], LineBox[{1092, 479}], 
+      LineBox[{1093, 480}], LineBox[{1094, 481}], LineBox[{1095, 482}], 
+      LineBox[{1096, 483}], LineBox[{1097, 484}], LineBox[{1098, 485}], 
+      LineBox[{1099, 486}], LineBox[{1100, 487}], LineBox[{1101, 488}], 
+      LineBox[{1102, 489}], LineBox[{1103, 490}], LineBox[{1104, 491}], 
+      LineBox[{1105, 492}], LineBox[{1106, 493}], LineBox[{1107, 494}], 
+      LineBox[{1108, 495}], LineBox[{1109, 496}], LineBox[{1110, 497}], 
+      LineBox[{1111, 498}], LineBox[{1112, 499}], LineBox[{1113, 500}], 
+      LineBox[{1114, 501}], LineBox[{1115, 502}], LineBox[{1116, 503}], 
+      LineBox[{1117, 504}], LineBox[{1118, 505}], LineBox[{1119, 506}], 
+      LineBox[{1120, 507}], LineBox[{1121, 508}], LineBox[{1122, 509}], 
+      LineBox[{1123, 510}], LineBox[{1124, 511}], LineBox[{1125, 512}], 
+      LineBox[{1126, 513}], LineBox[{1127, 514}], LineBox[{1128, 515}], 
+      LineBox[{1129, 516}], LineBox[{1130, 517}], LineBox[{1131, 518}], 
+      LineBox[{1132, 519}], LineBox[{1133, 520}], LineBox[{1134, 521}], 
+      LineBox[{1135, 522}], LineBox[{1136, 523}], LineBox[{1137, 524}], 
+      LineBox[{1138, 525}], LineBox[{1139, 526}], LineBox[{1140, 527}], 
+      LineBox[{1141, 528}], LineBox[{1142, 529}], LineBox[{1143, 530}], 
+      LineBox[{1144, 531}], LineBox[{1145, 532}], LineBox[{1146, 533}], 
+      LineBox[{1147, 534}], LineBox[{1148, 535}], LineBox[{1149, 536}], 
+      LineBox[{1150, 537}], LineBox[{1151, 538}], LineBox[{1152, 539}], 
+      LineBox[{1153, 540}], LineBox[{1154, 541}], LineBox[{1155, 542}], 
+      LineBox[{1156, 543}], LineBox[{1157, 544}], LineBox[{1158, 545}], 
+      LineBox[{1159, 546}], LineBox[{1160, 547}], LineBox[{1161, 548}], 
+      LineBox[{1162, 549}], LineBox[{1163, 550}], LineBox[{1164, 551}], 
+      LineBox[{1165, 552}], LineBox[{1166, 553}], LineBox[{1167, 554}], 
+      LineBox[{1168, 555}], LineBox[{1169, 556}], LineBox[{1170, 557}], 
+      LineBox[{1171, 558}], LineBox[{1172, 559}], LineBox[{1173, 560}], 
+      LineBox[{1174, 561}], LineBox[{1175, 562}], LineBox[{1176, 563}], 
+      LineBox[{1177, 564}], LineBox[{1178, 565}], LineBox[{1179, 566}], 
+      LineBox[{1180, 567}], LineBox[{1181, 568}], LineBox[{1182, 569}], 
+      LineBox[{1183, 570}], LineBox[{1184, 571}], LineBox[{1185, 572}], 
+      LineBox[{1186, 573}], LineBox[{1187, 574}], LineBox[{1188, 575}], 
+      LineBox[{1189, 576}], LineBox[{1190, 577}], LineBox[{1191, 578}], 
+      LineBox[{1192, 579}], LineBox[{1193, 580}], LineBox[{1194, 581}], 
+      LineBox[{1195, 582}], LineBox[{1196, 583}], LineBox[{1197, 584}], 
+      LineBox[{1198, 585}], LineBox[{1199, 586}], LineBox[{1200, 587}], 
+      LineBox[{1201, 588}], LineBox[{1202, 589}], LineBox[{1203, 590}], 
+      LineBox[{1204, 591}], LineBox[{1205, 592}], LineBox[{1206, 593}], 
+      LineBox[{1207, 594}], LineBox[{1208, 595}], LineBox[{1209, 596}], 
+      LineBox[{1210, 597}], LineBox[{1211, 598}], LineBox[{1212, 599}], 
+      LineBox[{1213, 600}], LineBox[{1214, 601}], LineBox[{1215, 602}], 
+      LineBox[{1216, 603}], LineBox[{1217, 604}], LineBox[{1218, 605}], 
+      LineBox[{1219, 606}], LineBox[{1220, 607}], LineBox[{1221, 608}], 
+      LineBox[{1222, 609}], LineBox[{1223, 610}], LineBox[{1224, 611}], 
+      LineBox[{1225, 612}], LineBox[{1226, 613}]}}, {{}, 
+     {Hue[0.67, 0.6, 0.6], PointBox[CompressedData["
+1:eJwN0+OiFgYAANBvdZFt3+yWlpddC8v2lpe9Zdt227Jtri3btm3t/DiPcMKa
+tK/a7rtAINA8XCBwKCgQOMwRjnKM45zgJKc4zRnOco7zXOAil7jMFa5yjevc
+4Ca3uM0d7nKP+zzgIY94zBOe8oznvOAlr3jNG97yjvd84COf+MwXvvKNQHAg
+8B3hCE8QwYQQSgQiEonIRCEq0YhODGISi9jEIS7xiE8CEpKIxCQhKclITgrC
+SEkqUpOGtKQjPRnISCYyk4WsZON7spODnOQiNz+Qh7zkIz8FKEghfqQwRShK
+MYpTgpKUojRlKEs5ylOBivxEJSpThar8TDWqU4Oa1KI2dahLPerTgIY0ojFN
+aEozmtOCX/iVlrSiNW1oSzva8xsd6EgnOtOFrnSjOz3oSS9604ff+YO+9KM/
+AxjIIAYzhKEMYzgjGMkoRjOGsYxjPBOYyCQmM4WpTGM6M5jJLGYzh7nMYz4L
+WMgi/uQv/mYxS1jKMpazgpWsYjVrWMs61rOBjWxiM1vYyja2s4Od7GI3e9jL
+PvZzgH84yL/8xyEOc4SjHOM4JzjJKU5zhrOc4zwXuMglLnOFq1zjOje4yS1u
+c4e73OM+D3jIIx7zhKc84zkveMkrXvOGt7zjPR/4yCc+84WvfCMQ4j/hCE8Q
+wYQQSgQiEonIRCEq0YhODGISi9jEIS7xiE8CEpKIxCQhKclITgrCSEkqUpOG
+tKQjPRnISCYyk4WsZON7spODnOQiNz+Qh7zkIz8FKEghfqQwRShKMYpTgpKU
+ojRlKEs5ylOBivxEJSpThar8TDWqU4Oa1KI2dahLPerTgIY0ojFNaEozmtOC
+X/iVlrSiNW1oSzva8xsd6EgnOtOFrnSjOz3oSS9604ff+YO+9KM/AxjIIAYz
+hKEMYzgjGMkoRjOGsYxjPBOYyCQmM4WpTGM6M5jJLGYzh7nMYz4LWMgi/uQv
+/mYxS1jKMpazgpWsYjVrWMs61rOBjWxiM1vYyja2s4Od7GI3e9jLPvZzgH84
+yL/8xyEOc4SjHOM4JzjJKU5zhrOc4zwXuMglLnOFq1zjOje4yS1uc4e73OM+
+D3jIIx7zhKc84zkveMkrXvOGt7zjPR/4yCc+84WvfCMQ6j/hCE8QwYQQSgQi
+EonIRCEq0YhODGISi9jEIS7xiE8CEpKIxCQhKclITgrCSEkqUpOGtKQjPRnI
+SCYyk4WsZON/xKNCHw==
+       "]]}, {}}}],
+  AspectRatio->NCache[GoldenRatio^(-1), 0.6180339887498948],
+  Axes->True,
+  AxesLabel->{
+    FormBox["\"Numero de Generaciones\"", TraditionalForm], 
+    FormBox["\"Poblacion de E.Coli Transgenico\"", TraditionalForm]},
+  AxesOrigin->{0, 0},
+  ImageSize->480,
+  PlotLabel->FormBox["\"Poblacion de E.Coli. Transgenico\"", TraditionalForm],
+  PlotRange->{{0., 613.}, {0, 89.}},
+  PlotRangeClipping->True,
+  PlotRangePadding->{
+    Scaled[0.02], 
+    Scaled[0.02]}]], "Output",
+ CellChangeTimes->{
+  3.641233210393479*^9, 3.6412332803773885`*^9, {3.6412333142310038`*^9, 
+   3.6412333328612595`*^9}, 3.64123750676054*^9, 3.641237744478381*^9}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"Y", "=", 
+   RowBox[{"moranRel", "[", 
+    RowBox[{"90", ",", "45", ",", "1.558"}], "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"lista", "=", 
+   RowBox[{"Array", "[", 
+    RowBox[{"f", ",", 
+     RowBox[{"Length", "[", "Y", "]"}]}], "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"For", "[", 
+   RowBox[{
+    RowBox[{"h", "=", "1"}], ",", 
+    RowBox[{"h", "<", 
+     RowBox[{"Length", "[", "Y", "]"}]}], ",", 
+    RowBox[{"k", "++"}], ",", 
+    RowBox[{
+     RowBox[{"f", "[", "h", "]"}], "=", 
+     RowBox[{"Count", "[", 
+      RowBox[{
+       RowBox[{"Y", "[", 
+        RowBox[{"[", "h", "]"}], "]"}], ",", "1"}], "]"}]}]}], "]"}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{"ListPlot", "[", 
+  RowBox[{"lista", ",", 
+   RowBox[{"Filling", "\[Rule]", "Axis"}], ",", 
+   RowBox[{
+   "PlotLabel", "\[Rule]", "\"\<Poblacion de Salmonella Transgenica\>\""}], 
+   ",", 
+   RowBox[{"AxesLabel", "\[Rule]", 
+    RowBox[{"{", 
+     RowBox[{
+     "\"\<Numero de Generaciones\>\"", ",", 
+      "\"\<Poblacion de Salmonella Transgenica\>\""}], "}"}]}], ",", 
+   RowBox[{"ImageSize", " ", "\[Rule]", " ", "480"}]}], "]"}]}], "Input",
+ CellChangeTimes->{{3.641227700929699*^9, 3.6412277092746058`*^9}, 
+   3.641231458724304*^9, 3.6412326344355297`*^9, {3.6412327542888565`*^9, 
+   3.6412327665810995`*^9}, 3.6412331372815666`*^9, {3.6412333214420996`*^9, 
+   3.641233377801927*^9}, {3.6412335331563883`*^9, 3.641233540197156*^9}, {
+   3.641237121389488*^9, 3.6412371405072904`*^9}}],
+
+Cell[BoxData["$Aborted"], "Output",
+ CellChangeTimes->{3.6412333818287697`*^9, 3.641237937373643*^9, 
+  3.6412380017494516`*^9}],
+
+Cell[BoxData[
+ GraphicsBox[GraphicsComplexBox[CompressedData["
+1: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
+/xG/i0/4PXzGP8Qt/hG+4B//0v8XhZNYnA==
+   "], {{{}, {}, {}, {}, 
+     {Hue[0.67, 0.6, 0.6], Opacity[0.2], LineBox[{1140, 1}], 
+      LineBox[{1141, 2}], LineBox[{1142, 3}], LineBox[{1143, 4}], 
+      LineBox[{1144, 5}], LineBox[{1145, 6}], LineBox[{1146, 7}], 
+      LineBox[{1147, 8}], LineBox[{1148, 9}], LineBox[{1149, 10}], 
+      LineBox[{1150, 11}], LineBox[{1151, 12}], LineBox[{1152, 13}], 
+      LineBox[{1153, 14}], LineBox[{1154, 15}], LineBox[{1155, 16}], 
+      LineBox[{1156, 17}], LineBox[{1157, 18}], LineBox[{1158, 19}], 
+      LineBox[{1159, 20}], LineBox[{1160, 21}], LineBox[{1161, 22}], 
+      LineBox[{1162, 23}], LineBox[{1163, 24}], LineBox[{1164, 25}], 
+      LineBox[{1165, 26}], LineBox[{1166, 27}], LineBox[{1167, 28}], 
+      LineBox[{1168, 29}], LineBox[{1169, 30}], LineBox[{1170, 31}], 
+      LineBox[{1171, 32}], LineBox[{1172, 33}], LineBox[{1173, 34}], 
+      LineBox[{1174, 35}], LineBox[{1175, 36}], LineBox[{1176, 37}], 
+      LineBox[{1177, 38}], LineBox[{1178, 39}], LineBox[{1179, 40}], 
+      LineBox[{1180, 41}], LineBox[{1181, 42}], LineBox[{1182, 43}], 
+      LineBox[{1183, 44}], LineBox[{1184, 45}], LineBox[{1185, 46}], 
+      LineBox[{1186, 47}], LineBox[{1187, 48}], LineBox[{1188, 49}], 
+      LineBox[{1189, 50}], LineBox[{1190, 51}], LineBox[{1191, 52}], 
+      LineBox[{1192, 53}], LineBox[{1193, 54}], LineBox[{1194, 55}], 
+      LineBox[{1195, 56}], LineBox[{1196, 57}], LineBox[{1197, 58}], 
+      LineBox[{1198, 59}], LineBox[{1199, 60}], LineBox[{1200, 61}], 
+      LineBox[{1201, 62}], LineBox[{1202, 63}], LineBox[{1203, 64}], 
+      LineBox[{1204, 65}], LineBox[{1205, 66}], LineBox[{1206, 67}], 
+      LineBox[{1207, 68}], LineBox[{1208, 69}], LineBox[{1209, 70}], 
+      LineBox[{1210, 71}], LineBox[{1211, 72}], LineBox[{1212, 73}], 
+      LineBox[{1213, 74}], LineBox[{1214, 75}], LineBox[{1215, 76}], 
+      LineBox[{1216, 77}], LineBox[{1217, 78}], LineBox[{1218, 79}], 
+      LineBox[{1219, 80}], LineBox[{1220, 81}], LineBox[{1221, 82}], 
+      LineBox[{1222, 83}], LineBox[{1223, 84}], LineBox[{1224, 85}], 
+      LineBox[{1225, 86}], LineBox[{1226, 87}], LineBox[{1227, 88}], 
+      LineBox[{1228, 89}], LineBox[{1229, 90}], LineBox[{1230, 91}], 
+      LineBox[{1231, 92}], LineBox[{1232, 93}], LineBox[{1233, 94}], 
+      LineBox[{1234, 95}], LineBox[{1235, 96}], LineBox[{1236, 97}], 
+      LineBox[{1237, 98}], LineBox[{1238, 99}], LineBox[{1239, 100}], 
+      LineBox[{1240, 101}], LineBox[{1241, 102}], LineBox[{1242, 103}], 
+      LineBox[{1243, 104}], LineBox[{1244, 105}], LineBox[{1245, 106}], 
+      LineBox[{1246, 107}], LineBox[{1247, 108}], LineBox[{1248, 109}], 
+      LineBox[{1249, 110}], LineBox[{1250, 111}], LineBox[{1251, 112}], 
+      LineBox[{1252, 113}], LineBox[{1253, 114}], LineBox[{1254, 115}], 
+      LineBox[{1255, 116}], LineBox[{1256, 117}], LineBox[{1257, 118}], 
+      LineBox[{1258, 119}], LineBox[{1259, 120}], LineBox[{1260, 121}], 
+      LineBox[{1261, 122}], LineBox[{1262, 123}], LineBox[{1263, 124}], 
+      LineBox[{1264, 125}], LineBox[{1265, 126}], LineBox[{1266, 127}], 
+      LineBox[{1267, 128}], LineBox[{1268, 129}], LineBox[{1269, 130}], 
+      LineBox[{1270, 131}], LineBox[{1271, 132}], LineBox[{1272, 133}], 
+      LineBox[{1273, 134}], LineBox[{1274, 135}], LineBox[{1275, 136}], 
+      LineBox[{1276, 137}], LineBox[{1277, 138}], LineBox[{1278, 139}], 
+      LineBox[{1279, 140}], LineBox[{1280, 141}], LineBox[{1281, 142}], 
+      LineBox[{1282, 143}], LineBox[{1283, 144}], LineBox[{1284, 145}], 
+      LineBox[{1285, 146}], LineBox[{1286, 147}], LineBox[{1287, 148}], 
+      LineBox[{1288, 149}], LineBox[{1289, 150}], LineBox[{1290, 151}], 
+      LineBox[{1291, 152}], LineBox[{1292, 153}], LineBox[{1293, 154}], 
+      LineBox[{1294, 155}], LineBox[{1295, 156}], LineBox[{1296, 157}], 
+      LineBox[{1297, 158}], LineBox[{1298, 159}], LineBox[{1299, 160}], 
+      LineBox[{1300, 161}], LineBox[{1301, 162}], LineBox[{1302, 163}], 
+      LineBox[{1303, 164}], LineBox[{1304, 165}], LineBox[{1305, 166}], 
+      LineBox[{1306, 167}], LineBox[{1307, 168}], LineBox[{1308, 169}], 
+      LineBox[{1309, 170}], LineBox[{1310, 171}], LineBox[{1311, 172}], 
+      LineBox[{1312, 173}], LineBox[{1313, 174}], LineBox[{1314, 175}], 
+      LineBox[{1315, 176}], LineBox[{1316, 177}], LineBox[{1317, 178}], 
+      LineBox[{1318, 179}], LineBox[{1319, 180}], LineBox[{1320, 181}], 
+      LineBox[{1321, 182}], LineBox[{1322, 183}], LineBox[{1323, 184}], 
+      LineBox[{1324, 185}], LineBox[{1325, 186}], LineBox[{1326, 187}], 
+      LineBox[{1327, 188}], LineBox[{1328, 189}], LineBox[{1329, 190}], 
+      LineBox[{1330, 191}], LineBox[{1331, 192}], LineBox[{1332, 193}], 
+      LineBox[{1333, 194}], LineBox[{1334, 195}], LineBox[{1335, 196}], 
+      LineBox[{1336, 197}], LineBox[{1337, 198}], LineBox[{1338, 199}], 
+      LineBox[{1339, 200}], LineBox[{1340, 201}], LineBox[{1341, 202}], 
+      LineBox[{1342, 203}], LineBox[{1343, 204}], LineBox[{1344, 205}], 
+      LineBox[{1345, 206}], LineBox[{1346, 207}], LineBox[{1347, 208}], 
+      LineBox[{1348, 209}], LineBox[{1349, 210}], LineBox[{1350, 211}], 
+      LineBox[{1351, 212}], LineBox[{1352, 213}], LineBox[{1353, 214}], 
+      LineBox[{1354, 215}], LineBox[{1355, 216}], LineBox[{1356, 217}], 
+      LineBox[{1357, 218}], LineBox[{1358, 219}], LineBox[{1359, 220}], 
+      LineBox[{1360, 221}], LineBox[{1361, 222}], LineBox[{1362, 223}], 
+      LineBox[{1363, 224}], LineBox[{1364, 225}], LineBox[{1365, 226}], 
+      LineBox[{1366, 227}], LineBox[{1367, 228}], LineBox[{1368, 229}], 
+      LineBox[{1369, 230}], LineBox[{1370, 231}], LineBox[{1371, 232}], 
+      LineBox[{1372, 233}], LineBox[{1373, 234}], LineBox[{1374, 235}], 
+      LineBox[{1375, 236}], LineBox[{1376, 237}], LineBox[{1377, 238}], 
+      LineBox[{1378, 239}], LineBox[{1379, 240}], LineBox[{1380, 241}], 
+      LineBox[{1381, 242}], LineBox[{1382, 243}], LineBox[{1383, 244}], 
+      LineBox[{1384, 245}], LineBox[{1385, 246}], LineBox[{1386, 247}], 
+      LineBox[{1387, 248}], LineBox[{1388, 249}], LineBox[{1389, 250}], 
+      LineBox[{1390, 251}], LineBox[{1391, 252}], LineBox[{1392, 253}], 
+      LineBox[{1393, 254}], LineBox[{1394, 255}], LineBox[{1395, 256}], 
+      LineBox[{1396, 257}], LineBox[{1397, 258}], LineBox[{1398, 259}], 
+      LineBox[{1399, 260}], LineBox[{1400, 261}], LineBox[{1401, 262}], 
+      LineBox[{1402, 263}], LineBox[{1403, 264}], LineBox[{1404, 265}], 
+      LineBox[{1405, 266}], LineBox[{1406, 267}], LineBox[{1407, 268}], 
+      LineBox[{1408, 269}], LineBox[{1409, 270}], LineBox[{1410, 271}], 
+      LineBox[{1411, 272}], LineBox[{1412, 273}], LineBox[{1413, 274}], 
+      LineBox[{1414, 275}], LineBox[{1415, 276}], LineBox[{1416, 277}], 
+      LineBox[{1417, 278}], LineBox[{1418, 279}], LineBox[{1419, 280}], 
+      LineBox[{1420, 281}], LineBox[{1421, 282}], LineBox[{1422, 283}], 
+      LineBox[{1423, 284}], LineBox[{1424, 285}], LineBox[{1425, 286}], 
+      LineBox[{1426, 287}], LineBox[{1427, 288}], LineBox[{1428, 289}], 
+      LineBox[{1429, 290}], LineBox[{1430, 291}], LineBox[{1431, 292}], 
+      LineBox[{1432, 293}], LineBox[{1433, 294}], LineBox[{1434, 295}], 
+      LineBox[{1435, 296}], LineBox[{1436, 297}], LineBox[{1437, 298}], 
+      LineBox[{1438, 299}], LineBox[{1439, 300}], LineBox[{1440, 301}], 
+      LineBox[{1441, 302}], LineBox[{1442, 303}], LineBox[{1443, 304}], 
+      LineBox[{1444, 305}], LineBox[{1445, 306}], LineBox[{1446, 307}], 
+      LineBox[{1447, 308}], LineBox[{1448, 309}], LineBox[{1449, 310}], 
+      LineBox[{1450, 311}], LineBox[{1451, 312}], LineBox[{1452, 313}], 
+      LineBox[{1453, 314}], LineBox[{1454, 315}], LineBox[{1455, 316}], 
+      LineBox[{1456, 317}], LineBox[{1457, 318}], LineBox[{1458, 319}], 
+      LineBox[{1459, 320}], LineBox[{1460, 321}], LineBox[{1461, 322}], 
+      LineBox[{1462, 323}], LineBox[{1463, 324}], LineBox[{1464, 325}], 
+      LineBox[{1465, 326}], LineBox[{1466, 327}], LineBox[{1467, 328}], 
+      LineBox[{1468, 329}], LineBox[{1469, 330}], LineBox[{1470, 331}], 
+      LineBox[{1471, 332}], LineBox[{1472, 333}], LineBox[{1473, 334}], 
+      LineBox[{1474, 335}], LineBox[{1475, 336}], LineBox[{1476, 337}], 
+      LineBox[{1477, 338}], LineBox[{1478, 339}], LineBox[{1479, 340}], 
+      LineBox[{1480, 341}], LineBox[{1481, 342}], LineBox[{1482, 343}], 
+      LineBox[{1483, 344}], LineBox[{1484, 345}], LineBox[{1485, 346}], 
+      LineBox[{1486, 347}], LineBox[{1487, 348}], LineBox[{1488, 349}], 
+      LineBox[{1489, 350}], LineBox[{1490, 351}], LineBox[{1491, 352}], 
+      LineBox[{1492, 353}], LineBox[{1493, 354}], LineBox[{1494, 355}], 
+      LineBox[{1495, 356}], LineBox[{1496, 357}], LineBox[{1497, 358}], 
+      LineBox[{1498, 359}], LineBox[{1499, 360}], LineBox[{1500, 361}], 
+      LineBox[{1501, 362}], LineBox[{1502, 363}], LineBox[{1503, 364}], 
+      LineBox[{1504, 365}], LineBox[{1505, 366}], LineBox[{1506, 367}], 
+      LineBox[{1507, 368}], LineBox[{1508, 369}], LineBox[{1509, 370}], 
+      LineBox[{1510, 371}], LineBox[{1511, 372}], LineBox[{1512, 373}], 
+      LineBox[{1513, 374}], LineBox[{1514, 375}], LineBox[{1515, 376}], 
+      LineBox[{1516, 377}], LineBox[{1517, 378}], LineBox[{1518, 379}], 
+      LineBox[{1519, 380}], LineBox[{1520, 381}], LineBox[{1521, 382}], 
+      LineBox[{1522, 383}], LineBox[{1523, 384}], LineBox[{1524, 385}], 
+      LineBox[{1525, 386}], LineBox[{1526, 387}], LineBox[{1527, 388}], 
+      LineBox[{1528, 389}], LineBox[{1529, 390}], LineBox[{1530, 391}], 
+      LineBox[{1531, 392}], LineBox[{1532, 393}], LineBox[{1533, 394}], 
+      LineBox[{1534, 395}], LineBox[{1535, 396}], LineBox[{1536, 397}], 
+      LineBox[{1537, 398}], LineBox[{1538, 399}], LineBox[{1539, 400}], 
+      LineBox[{1540, 401}], LineBox[{1541, 402}], LineBox[{1542, 403}], 
+      LineBox[{1543, 404}], LineBox[{1544, 405}], LineBox[{1545, 406}], 
+      LineBox[{1546, 407}], LineBox[{1547, 408}], LineBox[{1548, 409}], 
+      LineBox[{1549, 410}], LineBox[{1550, 411}], LineBox[{1551, 412}], 
+      LineBox[{1552, 413}], LineBox[{1553, 414}], LineBox[{1554, 415}], 
+      LineBox[{1555, 416}], LineBox[{1556, 417}], LineBox[{1557, 418}], 
+      LineBox[{1558, 419}], LineBox[{1559, 420}], LineBox[{1560, 421}], 
+      LineBox[{1561, 422}], LineBox[{1562, 423}], LineBox[{1563, 424}], 
+      LineBox[{1564, 425}], LineBox[{1565, 426}], LineBox[{1566, 427}], 
+      LineBox[{1567, 428}], LineBox[{1568, 429}], LineBox[{1569, 430}], 
+      LineBox[{1570, 431}], LineBox[{1571, 432}], LineBox[{1572, 433}], 
+      LineBox[{1573, 434}], LineBox[{1574, 435}], LineBox[{1575, 436}], 
+      LineBox[{1576, 437}], LineBox[{1577, 438}], LineBox[{1578, 439}], 
+      LineBox[{1579, 440}], LineBox[{1580, 441}], LineBox[{1581, 442}], 
+      LineBox[{1582, 443}], LineBox[{1583, 444}], LineBox[{1584, 445}], 
+      LineBox[{1585, 446}], LineBox[{1586, 447}], LineBox[{1587, 448}], 
+      LineBox[{1588, 449}], LineBox[{1589, 450}], LineBox[{1590, 451}], 
+      LineBox[{1591, 452}], LineBox[{1592, 453}], LineBox[{1593, 454}], 
+      LineBox[{1594, 455}], LineBox[{1595, 456}], LineBox[{1596, 457}], 
+      LineBox[{1597, 458}], LineBox[{1598, 459}], LineBox[{1599, 460}], 
+      LineBox[{1600, 461}], LineBox[{1601, 462}], LineBox[{1602, 463}], 
+      LineBox[{1603, 464}], LineBox[{1604, 465}], LineBox[{1605, 466}], 
+      LineBox[{1606, 467}], LineBox[{1607, 468}], LineBox[{1608, 469}], 
+      LineBox[{1609, 470}], LineBox[{1610, 471}], LineBox[{1611, 472}], 
+      LineBox[{1612, 473}], LineBox[{1613, 474}], LineBox[{1614, 475}], 
+      LineBox[{1615, 476}], LineBox[{1616, 477}], LineBox[{1617, 478}], 
+      LineBox[{1618, 479}], LineBox[{1619, 480}], LineBox[{1620, 481}], 
+      LineBox[{1621, 482}], LineBox[{1622, 483}], LineBox[{1623, 484}], 
+      LineBox[{1624, 485}], LineBox[{1625, 486}], LineBox[{1626, 487}], 
+      LineBox[{1627, 488}], LineBox[{1628, 489}], LineBox[{1629, 490}], 
+      LineBox[{1630, 491}], LineBox[{1631, 492}], LineBox[{1632, 493}], 
+      LineBox[{1633, 494}], LineBox[{1634, 495}], LineBox[{1635, 496}], 
+      LineBox[{1636, 497}], LineBox[{1637, 498}], LineBox[{1638, 499}], 
+      LineBox[{1639, 500}], LineBox[{1640, 501}], LineBox[{1641, 502}], 
+      LineBox[{1642, 503}], LineBox[{1643, 504}], LineBox[{1644, 505}], 
+      LineBox[{1645, 506}], LineBox[{1646, 507}], LineBox[{1647, 508}], 
+      LineBox[{1648, 509}], LineBox[{1649, 510}], LineBox[{1650, 511}], 
+      LineBox[{1651, 512}], LineBox[{1652, 513}], LineBox[{1653, 514}], 
+      LineBox[{1654, 515}], LineBox[{1655, 516}], LineBox[{1656, 517}], 
+      LineBox[{1657, 518}], LineBox[{1658, 519}], LineBox[{1659, 520}], 
+      LineBox[{1660, 521}], LineBox[{1661, 522}], LineBox[{1662, 523}], 
+      LineBox[{1663, 524}], LineBox[{1664, 525}], LineBox[{1665, 526}], 
+      LineBox[{1666, 527}], LineBox[{1667, 528}], LineBox[{1668, 529}], 
+      LineBox[{1669, 530}], LineBox[{1670, 531}], LineBox[{1671, 532}], 
+      LineBox[{1672, 533}], LineBox[{1673, 534}], LineBox[{1674, 535}], 
+      LineBox[{1675, 536}], LineBox[{1676, 537}], LineBox[{1677, 538}], 
+      LineBox[{1678, 539}], LineBox[{1679, 540}], LineBox[{1680, 541}], 
+      LineBox[{1681, 542}], LineBox[{1682, 543}], LineBox[{1683, 544}], 
+      LineBox[{1684, 545}], LineBox[{1685, 546}], LineBox[{1686, 547}], 
+      LineBox[{1687, 548}], LineBox[{1688, 549}], LineBox[{1689, 550}], 
+      LineBox[{1690, 551}], LineBox[{1691, 552}], LineBox[{1692, 553}], 
+      LineBox[{1693, 554}], LineBox[{1694, 555}], LineBox[{1695, 556}], 
+      LineBox[{1696, 557}], LineBox[{1697, 558}], LineBox[{1698, 559}], 
+      LineBox[{1699, 560}], LineBox[{1700, 561}], LineBox[{1701, 562}], 
+      LineBox[{1702, 563}], LineBox[{1703, 564}], LineBox[{1704, 565}], 
+      LineBox[{1705, 566}], LineBox[{1706, 567}], LineBox[{1707, 568}], 
+      LineBox[{1708, 569}], LineBox[{1709, 570}], LineBox[{1710, 571}], 
+      LineBox[{1711, 572}], LineBox[{1712, 573}], LineBox[{1713, 574}], 
+      LineBox[{1714, 575}], LineBox[{1715, 576}], LineBox[{1716, 577}], 
+      LineBox[{1717, 578}], LineBox[{1718, 579}], LineBox[{1719, 580}], 
+      LineBox[{1720, 581}], LineBox[{1721, 582}], LineBox[{1722, 583}], 
+      LineBox[{1723, 584}], LineBox[{1724, 585}], LineBox[{1725, 586}], 
+      LineBox[{1726, 587}], LineBox[{1727, 588}], LineBox[{1728, 589}], 
+      LineBox[{1729, 590}], LineBox[{1730, 591}], LineBox[{1731, 592}], 
+      LineBox[{1732, 593}], LineBox[{1733, 594}], LineBox[{1734, 595}], 
+      LineBox[{1735, 596}], LineBox[{1736, 597}], LineBox[{1737, 598}], 
+      LineBox[{1738, 599}], LineBox[{1739, 600}], LineBox[{1740, 601}], 
+      LineBox[{1741, 602}], LineBox[{1742, 603}], LineBox[{1743, 604}], 
+      LineBox[{1744, 605}], LineBox[{1745, 606}], LineBox[{1746, 607}], 
+      LineBox[{1747, 608}], LineBox[{1748, 609}], LineBox[{1749, 610}], 
+      LineBox[{1750, 611}], LineBox[{1751, 612}], LineBox[{1752, 613}], 
+      LineBox[{1753, 614}], LineBox[{1754, 615}], LineBox[{1755, 616}], 
+      LineBox[{1756, 617}], LineBox[{1757, 618}], LineBox[{1758, 619}], 
+      LineBox[{1759, 620}], LineBox[{1760, 621}], LineBox[{1761, 622}], 
+      LineBox[{1762, 623}], LineBox[{1763, 624}], LineBox[{1764, 625}], 
+      LineBox[{1765, 626}], LineBox[{1766, 627}], LineBox[{1767, 628}], 
+      LineBox[{1768, 629}], LineBox[{1769, 630}], LineBox[{1770, 631}], 
+      LineBox[{1771, 632}], LineBox[{1772, 633}], LineBox[{1773, 634}], 
+      LineBox[{1774, 635}], LineBox[{1775, 636}], LineBox[{1776, 637}], 
+      LineBox[{1777, 638}], LineBox[{1778, 639}], LineBox[{1779, 640}], 
+      LineBox[{1780, 641}], LineBox[{1781, 642}], LineBox[{1782, 643}], 
+      LineBox[{1783, 644}], LineBox[{1784, 645}], LineBox[{1785, 646}], 
+      LineBox[{1786, 647}], LineBox[{1787, 648}], LineBox[{1788, 649}], 
+      LineBox[{1789, 650}], LineBox[{1790, 651}], LineBox[{1791, 652}], 
+      LineBox[{1792, 653}], LineBox[{1793, 654}], LineBox[{1794, 655}], 
+      LineBox[{1795, 656}], LineBox[{1796, 657}], LineBox[{1797, 658}], 
+      LineBox[{1798, 659}], LineBox[{1799, 660}], LineBox[{1800, 661}], 
+      LineBox[{1801, 662}], LineBox[{1802, 663}], LineBox[{1803, 664}], 
+      LineBox[{1804, 665}], LineBox[{1805, 666}], LineBox[{1806, 667}], 
+      LineBox[{1807, 668}], LineBox[{1808, 669}], LineBox[{1809, 670}], 
+      LineBox[{1810, 671}], LineBox[{1811, 672}], LineBox[{1812, 673}], 
+      LineBox[{1813, 674}], LineBox[{1814, 675}], LineBox[{1815, 676}], 
+      LineBox[{1816, 677}], LineBox[{1817, 678}], LineBox[{1818, 679}], 
+      LineBox[{1819, 680}], LineBox[{1820, 681}], LineBox[{1821, 682}], 
+      LineBox[{1822, 683}], LineBox[{1823, 684}], LineBox[{1824, 685}], 
+      LineBox[{1825, 686}], LineBox[{1826, 687}], LineBox[{1827, 688}], 
+      LineBox[{1828, 689}], LineBox[{1829, 690}], LineBox[{1830, 691}], 
+      LineBox[{1831, 692}], LineBox[{1832, 693}], LineBox[{1833, 694}], 
+      LineBox[{1834, 695}], LineBox[{1835, 696}], LineBox[{1836, 697}], 
+      LineBox[{1837, 698}], LineBox[{1838, 699}], LineBox[{1839, 700}], 
+      LineBox[{1840, 701}], LineBox[{1841, 702}], LineBox[{1842, 703}], 
+      LineBox[{1843, 704}], LineBox[{1844, 705}], LineBox[{1845, 706}], 
+      LineBox[{1846, 707}], LineBox[{1847, 708}], LineBox[{1848, 709}], 
+      LineBox[{1849, 710}], LineBox[{1850, 711}], LineBox[{1851, 712}], 
+      LineBox[{1852, 713}], LineBox[{1853, 714}], LineBox[{1854, 715}], 
+      LineBox[{1855, 716}], LineBox[{1856, 717}], LineBox[{1857, 718}], 
+      LineBox[{1858, 719}], LineBox[{1859, 720}], LineBox[{1860, 721}], 
+      LineBox[{1861, 722}], LineBox[{1862, 723}], LineBox[{1863, 724}], 
+      LineBox[{1864, 725}], LineBox[{1865, 726}], LineBox[{1866, 727}], 
+      LineBox[{1867, 728}], LineBox[{1868, 729}], LineBox[{1869, 730}], 
+      LineBox[{1870, 731}], LineBox[{1871, 732}], LineBox[{1872, 733}], 
+      LineBox[{1873, 734}], LineBox[{1874, 735}], LineBox[{1875, 736}], 
+      LineBox[{1876, 737}], LineBox[{1877, 738}], LineBox[{1878, 739}], 
+      LineBox[{1879, 740}], LineBox[{1880, 741}], LineBox[{1881, 742}], 
+      LineBox[{1882, 743}], LineBox[{1883, 744}], LineBox[{1884, 745}], 
+      LineBox[{1885, 746}], LineBox[{1886, 747}], LineBox[{1887, 748}], 
+      LineBox[{1888, 749}], LineBox[{1889, 750}], LineBox[{1890, 751}], 
+      LineBox[{1891, 752}], LineBox[{1892, 753}], LineBox[{1893, 754}], 
+      LineBox[{1894, 755}], LineBox[{1895, 756}], LineBox[{1896, 757}], 
+      LineBox[{1897, 758}], LineBox[{1898, 759}], LineBox[{1899, 760}], 
+      LineBox[{1900, 761}], LineBox[{1901, 762}], LineBox[{1902, 763}], 
+      LineBox[{1903, 764}], LineBox[{1904, 765}], LineBox[{1905, 766}], 
+      LineBox[{1906, 767}], LineBox[{1907, 768}], LineBox[{1908, 769}], 
+      LineBox[{1909, 770}], LineBox[{1910, 771}], LineBox[{1911, 772}], 
+      LineBox[{1912, 773}], LineBox[{1913, 774}], LineBox[{1914, 775}], 
+      LineBox[{1915, 776}], LineBox[{1916, 777}], LineBox[{1917, 778}], 
+      LineBox[{1918, 779}], LineBox[{1919, 780}], LineBox[{1920, 781}], 
+      LineBox[{1921, 782}], LineBox[{1922, 783}], LineBox[{1923, 784}], 
+      LineBox[{1924, 785}], LineBox[{1925, 786}], LineBox[{1926, 787}], 
+      LineBox[{1927, 788}], LineBox[{1928, 789}], LineBox[{1929, 790}], 
+      LineBox[{1930, 791}], LineBox[{1931, 792}], LineBox[{1932, 793}], 
+      LineBox[{1933, 794}], LineBox[{1934, 795}], LineBox[{1935, 796}], 
+      LineBox[{1936, 797}], LineBox[{1937, 798}], LineBox[{1938, 799}], 
+      LineBox[{1939, 800}], LineBox[{1940, 801}], LineBox[{1941, 802}], 
+      LineBox[{1942, 803}], LineBox[{1943, 804}], LineBox[{1944, 805}], 
+      LineBox[{1945, 806}], LineBox[{1946, 807}], LineBox[{1947, 808}], 
+      LineBox[{1948, 809}], LineBox[{1949, 810}], LineBox[{1950, 811}], 
+      LineBox[{1951, 812}], LineBox[{1952, 813}], LineBox[{1953, 814}], 
+      LineBox[{1954, 815}], LineBox[{1955, 816}], LineBox[{1956, 817}], 
+      LineBox[{1957, 818}], LineBox[{1958, 819}], LineBox[{1959, 820}], 
+      LineBox[{1960, 821}], LineBox[{1961, 822}], LineBox[{1962, 823}], 
+      LineBox[{1963, 824}], LineBox[{1964, 825}], LineBox[{1965, 826}], 
+      LineBox[{1966, 827}], LineBox[{1967, 828}], LineBox[{1968, 829}], 
+      LineBox[{1969, 830}], LineBox[{1970, 831}], LineBox[{1971, 832}], 
+      LineBox[{1972, 833}], LineBox[{1973, 834}], LineBox[{1974, 835}], 
+      LineBox[{1975, 836}], LineBox[{1976, 837}], LineBox[{1977, 838}], 
+      LineBox[{1978, 839}], LineBox[{1979, 840}], LineBox[{1980, 841}], 
+      LineBox[{1981, 842}], LineBox[{1982, 843}], LineBox[{1983, 844}], 
+      LineBox[{1984, 845}], LineBox[{1985, 846}], LineBox[{1986, 847}], 
+      LineBox[{1987, 848}], LineBox[{1988, 849}], LineBox[{1989, 850}], 
+      LineBox[{1990, 851}], LineBox[{1991, 852}], LineBox[{1992, 853}], 
+      LineBox[{1993, 854}], LineBox[{1994, 855}], LineBox[{1995, 856}], 
+      LineBox[{1996, 857}], LineBox[{1997, 858}], LineBox[{1998, 859}], 
+      LineBox[{1999, 860}], LineBox[{2000, 861}], LineBox[{2001, 862}], 
+      LineBox[{2002, 863}], LineBox[{2003, 864}], LineBox[{2004, 865}], 
+      LineBox[{2005, 866}], LineBox[{2006, 867}], LineBox[{2007, 868}], 
+      LineBox[{2008, 869}], LineBox[{2009, 870}], LineBox[{2010, 871}], 
+      LineBox[{2011, 872}], LineBox[{2012, 873}], LineBox[{2013, 874}], 
+      LineBox[{2014, 875}], LineBox[{2015, 876}], LineBox[{2016, 877}], 
+      LineBox[{2017, 878}], LineBox[{2018, 879}], LineBox[{2019, 880}], 
+      LineBox[{2020, 881}], LineBox[{2021, 882}], LineBox[{2022, 883}], 
+      LineBox[{2023, 884}], LineBox[{2024, 885}], LineBox[{2025, 886}], 
+      LineBox[{2026, 887}], LineBox[{2027, 888}], LineBox[{2028, 889}], 
+      LineBox[{2029, 890}], LineBox[{2030, 891}], LineBox[{2031, 892}], 
+      LineBox[{2032, 893}], LineBox[{2033, 894}], LineBox[{2034, 895}], 
+      LineBox[{2035, 896}], LineBox[{2036, 897}], LineBox[{2037, 898}], 
+      LineBox[{2038, 899}], LineBox[{2039, 900}], LineBox[{2040, 901}], 
+      LineBox[{2041, 902}], LineBox[{2042, 903}], LineBox[{2043, 904}], 
+      LineBox[{2044, 905}], LineBox[{2045, 906}], LineBox[{2046, 907}], 
+      LineBox[{2047, 908}], LineBox[{2048, 909}], LineBox[{2049, 910}], 
+      LineBox[{2050, 911}], LineBox[{2051, 912}], LineBox[{2052, 913}], 
+      LineBox[{2053, 914}], LineBox[{2054, 915}], LineBox[{2055, 916}], 
+      LineBox[{2056, 917}], LineBox[{2057, 918}], LineBox[{2058, 919}], 
+      LineBox[{2059, 920}], LineBox[{2060, 921}], LineBox[{2061, 922}], 
+      LineBox[{2062, 923}], LineBox[{2063, 924}], LineBox[{2064, 925}], 
+      LineBox[{2065, 926}], LineBox[{2066, 927}], LineBox[{2067, 928}], 
+      LineBox[{2068, 929}], LineBox[{2069, 930}], LineBox[{2070, 931}], 
+      LineBox[{2071, 932}], LineBox[{2072, 933}], LineBox[{2073, 934}], 
+      LineBox[{2074, 935}], LineBox[{2075, 936}], LineBox[{2076, 937}], 
+      LineBox[{2077, 938}], LineBox[{2078, 939}], LineBox[{2079, 940}], 
+      LineBox[{2080, 941}], LineBox[{2081, 942}], LineBox[{2082, 943}], 
+      LineBox[{2083, 944}], LineBox[{2084, 945}], LineBox[{2085, 946}], 
+      LineBox[{2086, 947}], LineBox[{2087, 948}], LineBox[{2088, 949}], 
+      LineBox[{2089, 950}], LineBox[{2090, 951}], LineBox[{2091, 952}], 
+      LineBox[{2092, 953}], LineBox[{2093, 954}], LineBox[{2094, 955}], 
+      LineBox[{2095, 956}], LineBox[{2096, 957}], LineBox[{2097, 958}], 
+      LineBox[{2098, 959}], LineBox[{2099, 960}], LineBox[{2100, 961}], 
+      LineBox[{2101, 962}], LineBox[{2102, 963}], LineBox[{2103, 964}], 
+      LineBox[{2104, 965}], LineBox[{2105, 966}], LineBox[{2106, 967}], 
+      LineBox[{2107, 968}], LineBox[{2108, 969}], LineBox[{2109, 970}], 
+      LineBox[{2110, 971}], LineBox[{2111, 972}], LineBox[{2112, 973}], 
+      LineBox[{2113, 974}], LineBox[{2114, 975}], LineBox[{2115, 976}], 
+      LineBox[{2116, 977}], LineBox[{2117, 978}], LineBox[{2118, 979}], 
+      LineBox[{2119, 980}], LineBox[{2120, 981}], LineBox[{2121, 982}], 
+      LineBox[{2122, 983}], LineBox[{2123, 984}], LineBox[{2124, 985}], 
+      LineBox[{2125, 986}], LineBox[{2126, 987}], LineBox[{2127, 988}], 
+      LineBox[{2128, 989}], LineBox[{2129, 990}], LineBox[{2130, 991}], 
+      LineBox[{2131, 992}], LineBox[{2132, 993}], LineBox[{2133, 994}], 
+      LineBox[{2134, 995}], LineBox[{2135, 996}], LineBox[{2136, 997}], 
+      LineBox[{2137, 998}], LineBox[{2138, 999}], LineBox[{2139, 1000}], 
+      LineBox[{2140, 1001}], LineBox[{2141, 1002}], LineBox[{2142, 1003}], 
+      LineBox[{2143, 1004}], LineBox[{2144, 1005}], LineBox[{2145, 1006}], 
+      LineBox[{2146, 1007}], LineBox[{2147, 1008}], LineBox[{2148, 1009}], 
+      LineBox[{2149, 1010}], LineBox[{2150, 1011}], LineBox[{2151, 1012}], 
+      LineBox[{2152, 1013}], LineBox[{2153, 1014}], LineBox[{2154, 1015}], 
+      LineBox[{2155, 1016}], LineBox[{2156, 1017}], LineBox[{2157, 1018}], 
+      LineBox[{2158, 1019}], LineBox[{2159, 1020}], LineBox[{2160, 1021}], 
+      LineBox[{2161, 1022}], LineBox[{2162, 1023}], LineBox[{2163, 1024}], 
+      LineBox[{2164, 1025}], LineBox[{2165, 1026}], LineBox[{2166, 1027}], 
+      LineBox[{2167, 1028}], LineBox[{2168, 1029}], LineBox[{2169, 1030}], 
+      LineBox[{2170, 1031}], LineBox[{2171, 1032}], LineBox[{2172, 1033}], 
+      LineBox[{2173, 1034}], LineBox[{2174, 1035}], LineBox[{2175, 1036}], 
+      LineBox[{2176, 1037}], LineBox[{2177, 1038}], LineBox[{2178, 1039}], 
+      LineBox[{2179, 1040}], LineBox[{2180, 1041}], LineBox[{2181, 1042}], 
+      LineBox[{2182, 1043}], LineBox[{2183, 1044}], LineBox[{2184, 1045}], 
+      LineBox[{2185, 1046}], LineBox[{2186, 1047}], LineBox[{2187, 1048}], 
+      LineBox[{2188, 1049}], LineBox[{2189, 1050}], LineBox[{2190, 1051}], 
+      LineBox[{2191, 1052}], LineBox[{2192, 1053}], LineBox[{2193, 1054}], 
+      LineBox[{2194, 1055}], LineBox[{2195, 1056}], LineBox[{2196, 1057}], 
+      LineBox[{2197, 1058}], LineBox[{2198, 1059}], LineBox[{2199, 1060}], 
+      LineBox[{2200, 1061}], LineBox[{2201, 1062}], LineBox[{2202, 1063}], 
+      LineBox[{2203, 1064}], LineBox[{2204, 1065}], LineBox[{2205, 1066}], 
+      LineBox[{2206, 1067}], LineBox[{2207, 1068}], LineBox[{2208, 1069}], 
+      LineBox[{2209, 1070}], LineBox[{2210, 1071}], LineBox[{2211, 1072}], 
+      LineBox[{2212, 1073}], LineBox[{2213, 1074}], LineBox[{2214, 1075}], 
+      LineBox[{2215, 1076}], LineBox[{2216, 1077}], LineBox[{2217, 1078}], 
+      LineBox[{2218, 1079}], LineBox[{2219, 1080}], LineBox[{2220, 1081}], 
+      LineBox[{2221, 1082}], LineBox[{2222, 1083}], LineBox[{2223, 1084}], 
+      LineBox[{2224, 1085}], LineBox[{2225, 1086}], LineBox[{2226, 1087}], 
+      LineBox[{2227, 1088}], LineBox[{2228, 1089}], LineBox[{2229, 1090}], 
+      LineBox[{2230, 1091}], LineBox[{2231, 1092}], LineBox[{2232, 1093}], 
+      LineBox[{2233, 1094}], LineBox[{2234, 1095}], LineBox[{2235, 1096}], 
+      LineBox[{2236, 1097}], LineBox[{2237, 1098}], LineBox[{2238, 1099}], 
+      LineBox[{2239, 1100}], LineBox[{2240, 1101}], LineBox[{2241, 1102}], 
+      LineBox[{2242, 1103}], LineBox[{2243, 1104}], LineBox[{2244, 1105}], 
+      LineBox[{2245, 1106}], LineBox[{2246, 1107}], LineBox[{2247, 1108}], 
+      LineBox[{2248, 1109}], LineBox[{2249, 1110}], LineBox[{2250, 1111}], 
+      LineBox[{2251, 1112}], LineBox[{2252, 1113}], LineBox[{2253, 1114}], 
+      LineBox[{2254, 1115}], LineBox[{2255, 1116}], LineBox[{2256, 1117}], 
+      LineBox[{2257, 1118}], LineBox[{2258, 1119}], LineBox[{2259, 1120}], 
+      LineBox[{2260, 1121}], LineBox[{2261, 1122}], LineBox[{2262, 1123}], 
+      LineBox[{2263, 1124}], LineBox[{2264, 1125}], LineBox[{2265, 1126}], 
+      LineBox[{2266, 1127}], LineBox[{2267, 1128}], LineBox[{2268, 1129}], 
+      LineBox[{2269, 1130}], LineBox[{2270, 1131}], LineBox[{2271, 1132}], 
+      LineBox[{2272, 1133}], LineBox[{2273, 1134}], LineBox[{2274, 1135}], 
+      LineBox[{2275, 1136}], LineBox[{2276, 1137}], LineBox[{2277, 1138}], 
+      LineBox[{2278, 1139}]}}, {{}, 
+     {Hue[0.67, 0.6, 0.6], PointBox[CompressedData["
+1:eJwN00OiGAoCALA3tW3btm3btm382rZt27Zt27bbySJHSMJG7Su1+19AQEDn
+IAEBz0IEBDznBS95xWve8JZ3vOcDH/nEZ77wlW985wc/+cVv/vCXfwSEDAj4
+H4EITBCCEozghCAkoQhNGMISjvBEICKRiEwUohKN6MQgJrGITRziEo/4JCAh
+iUhMEpKSjOSkICWpSE0a0pKO9GQgI5nITBayko3s5CAnuchNHvKSj/wUoCCF
+KEwRilKM4pSgJKUoTRnKUo7yVKAilahMFapSjerUoCa1qE0d6lKP+jSgIY1o
+TBOa0ozmtKAlrWhNG9rSjvZ0oCOd6EwXutKN7vSgJ73oTR/68h/96M8ABjKI
+wQxhKMMYzghGMorRjGEs4xjPBCYyiclMYSrTmM4MZjKL2cxhLvOYzwIWsojF
+LGEpy1jOClayitWsYS3rWM8GNrKJzWxhK9vYzg52sovd7GEv+9jPAQ5yiMMc
+4SjHOM4JTnKK05zhLOc4zwUuconLXOEq17jODW5yi9vc4S73uM8DHvKIxzzh
+Kc94zgte8orXvOEt73jPBz7yic984Svf+M4PfvKL3/zhL/8ICOU/gQhMEIIS
+jOCEICShCE0YwhKO8EQgIpGITBSiEo3oxCAmsYhNHOISj/gkICGJSEwSkpKM
+5KQgJalITRrSko70ZCAjmchMFrKSjezkICe5yE0e8pKP/BSgIIUoTBGKUozi
+lKAkpShNGcpSjvJUoCKVqEwVqlKN6tSgJrWoTR3qUo/6NKAhjWhME5rSjOa0
+oCWtaE0b2tKO9nSgI53oTBe60o3u9KAnvehNH/ryH/3ozwAGMojBDGEowxjO
+CEYyitGMYSzjGM8EJjKJyUxhKtOYzgxmMovZzGEu85jPAhayiMUsYSnLWM4K
+VrKK1axhLetYzwY2sonNbGEr29jODnayi93sYS/72M8BDnKIwxzhKMc4zglO
+corTnOEs5zjPBS5yictc4SrXuM4NbnKL29zhLve4zwMe8ojHPOEpz3jOC17y
+ite84S3veM8HPvKJz3zhK9/4zg9+8ovf/OEv/wgI7T+BCEwQghKM4IQgJKEI
+TRjCEo7wRCAikYhMFKISjejEICaxiE0c4hKP+CQgIYlITBKSkozkpCAlqUhN
+GtKSjvRkICOZyEwWspKN7OQgJ7nITR7yko/8FKAghShMEYpSjOKUoCSlKE0Z
+ylKO8lSgIpWoTBWqUo3q1KAmtahNHepSj/o0oCGNaEwTmtKM5rSgJa1oTRva
+0o72dKAjnehMF7rSje70oCe96E0f+vIf/ejPAAYyiMEMYSjDGM4IRjKK0Yxh
+LOMYzwQmMonJTGEq05jODGYyi9nMYS7zmM8CFrKIxSxhKctYzgpWsorVrGEt
+61jPBjayic1sYSvb2M4OdrKL3exhL/vYzwEOcojDHOEoxzjOCU5yitOc4Szn
+OM8FLnKJy1zhKte4zg1ucovb3OEu97jPAx7yiMc84SnPeM4LXvKK17zhLe94
+zwc+8onPfOEr3/jOD37yi9/84S//CAjjP4EITBCCEozghCAkoQhNGMISjvBE
+ICKRiEwUohKN6MQgJrGITRziEo/4JCAhiUhMEpKSjOSkICWpSE0a0pKO9GQg
+I5nITBayko3s5CAnuchNHvKSj/wUoCCFKEwRilKM4pSgJKUoTRnKUo7yVKAi
+lahMFapSjerUoCa1qE0d6lKP+jSgIY1oTBOa0ozmtKAlrWhNG9rSjvZ0oCOd
+6EwXutKN7vSgJ73oTR/68h/96M8ABjKIwQxhKMMYzghGMorRjGEs4xjPBCYy
+iclMYSrTmM4MZjKL2cxhLvOYzwIWsojFLGEpy1jOClayitWsYS3rWM8GNrKJ
+zWxhK9vYzg52sovd7GEv+9jPAQ5yiMMc4SjHOM4JTnKK05zhLOc4zwUuconL
+XOEq17jODW5yi9vc4S73uM8DHvKIxzzhKc94zgte8orXvOEt73jPBz7yic98
+4Svf+M4PfvKL3/zhL/8ICOs/gQhMEIISjOCEICShCE0YwhKO8EQgIpGITBSi
+Eo3oxCAmsYhNHOISj/gkICGJSEwSkpKM5KQgJalITRrSko70ZCAjmchMFrKS
+jezkICe5yE0e8pKP/BSgIIUoTBGKUozilKAkpShNGcpSjvJUoCKVqEwVqlKN
+6tSgJv8HJgJXAw==
+       "]]}, {}}}],
+  AspectRatio->NCache[GoldenRatio^(-1), 0.6180339887498948],
+  Axes->True,
+  AxesLabel->{
+    FormBox["\"Numero de Generaciones\"", TraditionalForm], 
+    FormBox["\"Poblacion de Salmonella Transgenica\"", TraditionalForm]},
+  AxesOrigin->{0, 0},
+  ImageSize->480,
+  PlotLabel->FormBox[
+   "\"Poblacion de Salmonella Transgenica\"", TraditionalForm],
+  PlotRange->{{0., 1139.}, {0, 82.}},
+  PlotRangeClipping->True,
+  PlotRangePadding->{
+    Scaled[0.02], 
+    Scaled[0.02]}]], "Output",
+ CellChangeTimes->{3.6412333818287697`*^9, 3.641237937373643*^9, 
+  3.6412380020877047`*^9}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"Z", "=", 
+   RowBox[{"moranRel", "[", 
+    RowBox[{"90", ",", "45", ",", "1.2"}], "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"lista", "=", 
+   RowBox[{"Array", "[", 
+    RowBox[{"f", ",", 
+     RowBox[{"Length", "[", "Z", "]"}]}], "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"For", "[", 
+   RowBox[{
+    RowBox[{"l", "=", "1"}], ",", 
+    RowBox[{"l", "<", 
+     RowBox[{"Length", "[", "Z", "]"}]}], ",", 
+    RowBox[{"l", "++"}], ",", 
+    RowBox[{
+     RowBox[{"f", "[", "l", "]"}], "=", 
+     RowBox[{"Count", "[", 
+      RowBox[{
+       RowBox[{"Z", "[", 
+        RowBox[{"[", "l", "]"}], "]"}], ",", "1"}], "]"}]}]}], "]"}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{"ListPlot", "[", 
+  RowBox[{"lista", ",", 
+   RowBox[{"Filling", "\[Rule]", "Axis"}], ",", 
+   RowBox[{
+   "PlotLabel", "\[Rule]", "\"\<Poblacion de Rhodnii Transgenica\>\""}], ",", 
+   RowBox[{"AxesLabel", "\[Rule]", 
+    RowBox[{"{", 
+     RowBox[{
+     "\"\<Numero de Generaciones\>\"", ",", 
+      "\"\<Poblacion de Rhodnii Transgenica\>\""}], "}"}]}], ",", 
+   RowBox[{"ImageSize", " ", "\[Rule]", " ", "480"}]}], "]"}]}], "Input",
+ CellChangeTimes->{{3.6412333874543133`*^9, 3.6412334208841834`*^9}, {
+  3.6412335469759426`*^9, 3.641233557597142*^9}, {3.64123708928281*^9, 
+  3.641237110786004*^9}}],
+
+Cell[BoxData[
+ GraphicsBox[GraphicsComplexBox[CompressedData["
+1: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
+jRJXuMYNbnGHexzwgEc84YhnvOAVp/q8NEpc4Ro3uMUd7nHAAx7xhCOe8YJX
+vNfnbaPEFa5xg1vc4R4HPOARTzjiGS94xXt93jZKXOEaN7jFHe5xwAMe8YQj
+nvGCV7zX523jCpf4gCt8xDU+4QZf4xafcYdvcI9vccB3eMD3eMQPeMKPOOIn
+PONnvOAXvOJXvNfnbeMKl/iAK3zENT7hBl/jFp9xh29wj29xwHd4wPd4xA94
+wo844ic842e84Be84lec6vPSuMIlPuAKH3GNT7jB17jFZ9zhG9zjWxzwHR7w
+PR7xA57wI474Cc/4GS/4Ba/4Faf6vDSucIkPuMJHXOMTbvA1bvEZd/gG9/gW
+B3yHB3yPR/yAJ/yII37CM37GC37BK37FqT4vjStc4gOu8BHX+IQbfI1bfMYd
+vsE9vsUB3+EB3+MRP+AJP+KIn/CMn/GCX/CKX/Fen7eNK1ziA67wEdf4hBt8
+jVt8xh2+wT2+xQHf4QHf4xE/4Ak/4oif8Iyf8YJf8IpfcarPS+MKl/iAK3zE
+NT7hBl/jFp9xh29wj29xwHd4wPd4xA94wo844ic842e84Be84lec6vPSuMIl
+PuAKH3GNT7jB17jFZ9zhG9zjWxzwHR7wPR7xA57wI474Cc/4GS/4Ba/4Faf6
+vDSucIkPuMJHXOMTbvA1bvEZd/gG9/gWB3yHB3yPR/yAJ/yII37CM37GC37B
+K37FqT4vjStc4gOu8BHX+IQbfI1bfMYdvsE9vsUB3+EB3+MRP+AJP+KIn/CM
+n/GCX/CKX3Gqz0vjCpf4gCt8xDU+4QZf4xafcYdvcI9vccB3eMD3eMQPeMKP
+OOInPONnvOAXvOJXnOrz0rjCJT7gCh9xjU+4wde4xWfc4Rvc41sc8B0e8D0e
+8QOe8COO+AnP+Bkv+NJfb4snp/q9VLf1Hnzpr/fGMfWzwpf+evm6S3898n8x
+96W/HvlTHfilv94b6y/99fLzv/TXy9Zf+uvlvvTXy33pr5f70l+P/Jf+epkv
+/fXIf+mvl8Uv/fW280j9RS799TJf+utt89L140t/vXz+pb9e7kt/vW1eun58
+6a+X+9JfL/elv17uS3+93Jf+erkv/fVyX/rr5b7018t96a+3ncd2+1766+W+
+9NfL11/66+W+9NfLfemvl3vGl/56uS/99XJf+uvlvvTXy33pr5f70l8v96W/
+3hvHvb/Opb9e5kt/vdyX/nq5L/31cl/66+W+9NfLfemvl/vSXy/3pb9e7kt/
+vdz/r7/e/wKcB+Vg
+   "], {{{}, {}, {}, {}, 
+     {Hue[0.67, 0.6, 0.6], Opacity[0.2], LineBox[{893, 3}], LineBox[{894, 4}],
+       LineBox[{895, 5}], LineBox[{896, 6}], LineBox[{897, 7}], 
+      LineBox[{898, 8}], LineBox[{899, 9}], LineBox[{900, 10}], 
+      LineBox[{901, 11}], LineBox[{902, 12}], LineBox[{903, 13}], 
+      LineBox[{904, 14}], LineBox[{905, 15}], LineBox[{906, 16}], 
+      LineBox[{907, 17}], LineBox[{908, 18}], LineBox[{909, 19}], 
+      LineBox[{910, 20}], LineBox[{911, 21}], LineBox[{912, 22}], 
+      LineBox[{913, 23}], LineBox[{914, 24}], LineBox[{915, 25}], 
+      LineBox[{916, 26}], LineBox[{917, 27}], LineBox[{918, 28}], 
+      LineBox[{919, 29}], LineBox[{920, 30}], LineBox[{921, 31}], 
+      LineBox[{922, 32}], LineBox[{923, 33}], LineBox[{924, 34}], 
+      LineBox[{925, 35}], LineBox[{926, 36}], LineBox[{927, 37}], 
+      LineBox[{928, 38}], LineBox[{929, 39}], LineBox[{930, 40}], 
+      LineBox[{931, 41}], LineBox[{932, 42}], LineBox[{933, 43}], 
+      LineBox[{934, 44}], LineBox[{935, 45}], LineBox[{936, 46}], 
+      LineBox[{937, 47}], LineBox[{938, 48}], LineBox[{939, 49}], 
+      LineBox[{940, 50}], LineBox[{941, 51}], LineBox[{942, 52}], 
+      LineBox[{943, 53}], LineBox[{944, 54}], LineBox[{945, 55}], 
+      LineBox[{946, 56}], LineBox[{947, 57}], LineBox[{948, 58}], 
+      LineBox[{949, 59}], LineBox[{950, 60}], LineBox[{951, 61}], 
+      LineBox[{952, 62}], LineBox[{953, 63}], LineBox[{954, 64}], 
+      LineBox[{955, 65}], LineBox[{956, 66}], LineBox[{957, 67}], 
+      LineBox[{958, 68}], LineBox[{959, 69}], LineBox[{960, 70}], 
+      LineBox[{961, 71}], LineBox[{962, 72}], LineBox[{963, 73}], 
+      LineBox[{964, 74}], LineBox[{965, 75}], LineBox[{966, 76}], 
+      LineBox[{967, 77}], LineBox[{968, 78}], LineBox[{969, 79}], 
+      LineBox[{970, 80}], LineBox[{971, 81}], LineBox[{972, 82}], 
+      LineBox[{973, 83}], LineBox[{974, 84}], LineBox[{975, 85}], 
+      LineBox[{976, 86}], LineBox[{977, 87}], LineBox[{978, 88}], 
+      LineBox[{979, 89}], LineBox[{980, 90}], LineBox[{981, 91}], 
+      LineBox[{982, 92}], LineBox[{983, 93}], LineBox[{984, 94}], 
+      LineBox[{985, 95}], LineBox[{986, 96}], LineBox[{987, 97}], 
+      LineBox[{988, 98}], LineBox[{989, 99}], LineBox[{990, 100}], 
+      LineBox[{991, 101}], LineBox[{992, 102}], LineBox[{993, 103}], 
+      LineBox[{994, 104}], LineBox[{995, 105}], LineBox[{996, 106}], 
+      LineBox[{997, 107}], LineBox[{998, 108}], LineBox[{999, 109}], 
+      LineBox[{1000, 110}], LineBox[{1001, 111}], LineBox[{1002, 112}], 
+      LineBox[{1003, 113}], LineBox[{1004, 114}], LineBox[{1005, 115}], 
+      LineBox[{1006, 116}], LineBox[{1007, 117}], LineBox[{1008, 118}], 
+      LineBox[{1009, 119}], LineBox[{1010, 120}], LineBox[{1011, 121}], 
+      LineBox[{1012, 122}], LineBox[{1013, 123}], LineBox[{1014, 124}], 
+      LineBox[{1015, 125}], LineBox[{1016, 126}], LineBox[{1017, 127}], 
+      LineBox[{1018, 128}], LineBox[{1019, 129}], LineBox[{1020, 130}], 
+      LineBox[{1021, 131}], LineBox[{1022, 132}], LineBox[{1023, 133}], 
+      LineBox[{1024, 134}], LineBox[{1025, 135}], LineBox[{1026, 136}], 
+      LineBox[{1027, 137}], LineBox[{1028, 138}], LineBox[{1029, 139}], 
+      LineBox[{1030, 140}], LineBox[{1031, 141}], LineBox[{1032, 142}], 
+      LineBox[{1033, 143}], LineBox[{1034, 144}], LineBox[{1035, 145}], 
+      LineBox[{1036, 146}], LineBox[{1037, 147}], LineBox[{1038, 148}], 
+      LineBox[{1039, 149}], LineBox[{1040, 150}], LineBox[{1041, 151}], 
+      LineBox[{1042, 152}], LineBox[{1043, 153}], LineBox[{1044, 154}], 
+      LineBox[{1045, 155}], LineBox[{1046, 156}], LineBox[{1047, 157}], 
+      LineBox[{1048, 158}], LineBox[{1049, 159}], LineBox[{1050, 160}], 
+      LineBox[{1051, 161}], LineBox[{1052, 162}], LineBox[{1053, 163}], 
+      LineBox[{1054, 164}], LineBox[{1055, 165}], LineBox[{1056, 166}], 
+      LineBox[{1057, 167}], LineBox[{1058, 168}], LineBox[{1059, 169}], 
+      LineBox[{1060, 170}], LineBox[{1061, 171}], LineBox[{1062, 172}], 
+      LineBox[{1063, 173}], LineBox[{1064, 174}], LineBox[{1065, 175}], 
+      LineBox[{1066, 176}], LineBox[{1067, 177}], LineBox[{1068, 178}], 
+      LineBox[{1069, 179}], LineBox[{1070, 180}], LineBox[{1071, 181}], 
+      LineBox[{1072, 182}], LineBox[{1073, 183}], LineBox[{1074, 184}], 
+      LineBox[{1075, 185}], LineBox[{1076, 186}], LineBox[{1077, 187}], 
+      LineBox[{1078, 188}], LineBox[{1079, 189}], LineBox[{1080, 190}], 
+      LineBox[{1081, 191}], LineBox[{1082, 192}], LineBox[{1083, 193}], 
+      LineBox[{1084, 194}], LineBox[{1085, 195}], LineBox[{1086, 196}], 
+      LineBox[{1087, 197}], LineBox[{1088, 198}], LineBox[{1089, 199}], 
+      LineBox[{1090, 200}], LineBox[{1091, 201}], LineBox[{1092, 202}], 
+      LineBox[{1093, 203}], LineBox[{1094, 204}], LineBox[{1095, 205}], 
+      LineBox[{1096, 206}], LineBox[{1097, 207}], LineBox[{1098, 208}], 
+      LineBox[{1099, 209}], LineBox[{1100, 210}], LineBox[{1101, 211}], 
+      LineBox[{1102, 212}], LineBox[{1103, 213}], LineBox[{1104, 214}], 
+      LineBox[{1105, 215}], LineBox[{1106, 216}], LineBox[{1107, 217}], 
+      LineBox[{1108, 218}], LineBox[{1109, 219}], LineBox[{1110, 220}], 
+      LineBox[{1111, 221}], LineBox[{1112, 222}], LineBox[{1113, 223}], 
+      LineBox[{1114, 224}], LineBox[{1115, 225}], LineBox[{1116, 226}], 
+      LineBox[{1117, 227}], LineBox[{1118, 228}], LineBox[{1119, 229}], 
+      LineBox[{1120, 230}], LineBox[{1121, 231}], LineBox[{1122, 232}], 
+      LineBox[{1123, 233}], LineBox[{1124, 234}], LineBox[{1125, 235}], 
+      LineBox[{1126, 236}], LineBox[{1127, 237}], LineBox[{1128, 238}], 
+      LineBox[{1129, 239}], LineBox[{1130, 240}], LineBox[{1131, 241}], 
+      LineBox[{1132, 242}], LineBox[{1133, 243}], LineBox[{1134, 244}], 
+      LineBox[{1135, 245}], LineBox[{1136, 246}], LineBox[{1137, 247}], 
+      LineBox[{1138, 248}], LineBox[{1139, 249}], LineBox[{1140, 250}], 
+      LineBox[{1141, 251}], LineBox[{1142, 252}], LineBox[{1143, 253}], 
+      LineBox[{1144, 254}], LineBox[{1145, 255}], LineBox[{1146, 256}], 
+      LineBox[{1147, 257}], LineBox[{1148, 258}], LineBox[{1149, 259}], 
+      LineBox[{1150, 260}], LineBox[{1151, 261}], LineBox[{1152, 262}], 
+      LineBox[{1153, 263}], LineBox[{1154, 264}], LineBox[{1155, 265}], 
+      LineBox[{1156, 266}], LineBox[{1157, 267}], LineBox[{1158, 268}], 
+      LineBox[{1159, 269}], LineBox[{1160, 270}], LineBox[{1161, 271}], 
+      LineBox[{1162, 272}], LineBox[{1163, 273}], LineBox[{1164, 274}], 
+      LineBox[{1165, 275}], LineBox[{1166, 276}], LineBox[{1167, 277}], 
+      LineBox[{1168, 278}], LineBox[{1169, 279}], LineBox[{1170, 280}], 
+      LineBox[{1171, 281}], LineBox[{1172, 282}], LineBox[{1173, 283}], 
+      LineBox[{1174, 284}], LineBox[{1175, 285}], LineBox[{1176, 286}], 
+      LineBox[{1177, 287}], LineBox[{1178, 288}], LineBox[{1179, 289}], 
+      LineBox[{1180, 290}], LineBox[{1181, 291}], LineBox[{1182, 292}], 
+      LineBox[{1183, 293}], LineBox[{1184, 294}], LineBox[{1185, 295}], 
+      LineBox[{1186, 296}], LineBox[{1187, 297}], LineBox[{1188, 298}], 
+      LineBox[{1189, 299}], LineBox[{1190, 300}], LineBox[{1191, 301}], 
+      LineBox[{1192, 302}], LineBox[{1193, 303}], LineBox[{1194, 304}], 
+      LineBox[{1195, 305}], LineBox[{1196, 306}], LineBox[{1197, 307}], 
+      LineBox[{1198, 308}], LineBox[{1199, 309}], LineBox[{1200, 310}], 
+      LineBox[{1201, 311}], LineBox[{1202, 312}], LineBox[{1203, 313}], 
+      LineBox[{1204, 314}], LineBox[{1205, 315}], LineBox[{1206, 316}], 
+      LineBox[{1207, 317}], LineBox[{1208, 318}], LineBox[{1209, 319}], 
+      LineBox[{1210, 320}], LineBox[{1211, 321}], LineBox[{1212, 322}], 
+      LineBox[{1213, 323}], LineBox[{1214, 324}], LineBox[{1215, 325}], 
+      LineBox[{1216, 326}], LineBox[{1217, 327}], LineBox[{1218, 328}], 
+      LineBox[{1219, 329}], LineBox[{1220, 330}], LineBox[{1221, 331}], 
+      LineBox[{1222, 332}], LineBox[{1223, 333}], LineBox[{1224, 334}], 
+      LineBox[{1225, 335}], LineBox[{1226, 336}], LineBox[{1227, 337}], 
+      LineBox[{1228, 338}], LineBox[{1229, 339}], LineBox[{1230, 340}], 
+      LineBox[{1231, 341}], LineBox[{1232, 342}], LineBox[{1233, 343}], 
+      LineBox[{1234, 344}], LineBox[{1235, 345}], LineBox[{1236, 346}], 
+      LineBox[{1237, 347}], LineBox[{1238, 348}], LineBox[{1239, 349}], 
+      LineBox[{1240, 350}], LineBox[{1241, 351}], LineBox[{1242, 352}], 
+      LineBox[{1243, 353}], LineBox[{1244, 354}], LineBox[{1245, 355}], 
+      LineBox[{1246, 356}], LineBox[{1247, 357}], LineBox[{1248, 358}], 
+      LineBox[{1249, 359}], LineBox[{1250, 360}], LineBox[{1251, 361}], 
+      LineBox[{1252, 362}], LineBox[{1253, 363}], LineBox[{1254, 364}], 
+      LineBox[{1255, 365}], LineBox[{1256, 366}], LineBox[{1257, 367}], 
+      LineBox[{1258, 368}], LineBox[{1259, 369}], LineBox[{1260, 370}], 
+      LineBox[{1261, 371}], LineBox[{1262, 372}], LineBox[{1263, 373}], 
+      LineBox[{1264, 374}], LineBox[{1265, 375}], LineBox[{1266, 376}], 
+      LineBox[{1267, 377}], LineBox[{1268, 378}], LineBox[{1269, 379}], 
+      LineBox[{1270, 380}], LineBox[{1271, 381}], LineBox[{1272, 382}], 
+      LineBox[{1273, 383}], LineBox[{1274, 384}], LineBox[{1275, 385}], 
+      LineBox[{1276, 386}], LineBox[{1277, 387}], LineBox[{1278, 388}], 
+      LineBox[{1279, 389}], LineBox[{1280, 390}], LineBox[{1281, 391}], 
+      LineBox[{1282, 392}], LineBox[{1283, 393}], LineBox[{1284, 394}], 
+      LineBox[{1285, 395}], LineBox[{1286, 396}], LineBox[{1287, 397}], 
+      LineBox[{1288, 398}], LineBox[{1289, 399}], LineBox[{1290, 400}], 
+      LineBox[{1291, 401}], LineBox[{1292, 402}], LineBox[{1293, 403}], 
+      LineBox[{1294, 404}], LineBox[{1295, 405}], LineBox[{1296, 406}], 
+      LineBox[{1297, 407}], LineBox[{1298, 408}], LineBox[{1299, 409}], 
+      LineBox[{1300, 410}], LineBox[{1301, 411}], LineBox[{1302, 412}], 
+      LineBox[{1303, 413}], LineBox[{1304, 414}], LineBox[{1305, 415}], 
+      LineBox[{1306, 416}], LineBox[{1307, 417}], LineBox[{1308, 418}], 
+      LineBox[{1309, 419}], LineBox[{1310, 420}], LineBox[{1311, 421}], 
+      LineBox[{1312, 422}], LineBox[{1313, 423}], LineBox[{1314, 424}], 
+      LineBox[{1315, 425}], LineBox[{1316, 426}], LineBox[{1317, 427}], 
+      LineBox[{1318, 428}], LineBox[{1319, 429}], LineBox[{1320, 430}], 
+      LineBox[{1321, 431}], LineBox[{1322, 432}], LineBox[{1323, 433}], 
+      LineBox[{1324, 434}], LineBox[{1325, 435}], LineBox[{1326, 436}], 
+      LineBox[{1327, 437}], LineBox[{1328, 438}], LineBox[{1329, 439}], 
+      LineBox[{1330, 440}], LineBox[{1331, 441}], LineBox[{1332, 442}], 
+      LineBox[{1333, 443}], LineBox[{1334, 444}], LineBox[{1335, 445}], 
+      LineBox[{1336, 446}], LineBox[{1337, 447}], LineBox[{1338, 448}], 
+      LineBox[{1339, 449}], LineBox[{1340, 450}], LineBox[{1341, 451}], 
+      LineBox[{1342, 452}], LineBox[{1343, 453}], LineBox[{1344, 454}], 
+      LineBox[{1345, 455}], LineBox[{1346, 456}], LineBox[{1347, 457}], 
+      LineBox[{1348, 458}], LineBox[{1349, 459}], LineBox[{1350, 460}], 
+      LineBox[{1351, 461}], LineBox[{1352, 462}], LineBox[{1353, 463}], 
+      LineBox[{1354, 464}], LineBox[{1355, 465}], LineBox[{1356, 466}], 
+      LineBox[{1357, 467}], LineBox[{1358, 468}], LineBox[{1359, 469}], 
+      LineBox[{1360, 470}], LineBox[{1361, 471}], LineBox[{1362, 472}], 
+      LineBox[{1363, 473}], LineBox[{1364, 474}], LineBox[{1365, 475}], 
+      LineBox[{1366, 476}], LineBox[{1367, 477}], LineBox[{1368, 478}], 
+      LineBox[{1369, 479}], LineBox[{1370, 480}], LineBox[{1371, 481}], 
+      LineBox[{1372, 482}], LineBox[{1373, 483}], LineBox[{1374, 484}], 
+      LineBox[{1375, 485}], LineBox[{1376, 486}], LineBox[{1377, 487}], 
+      LineBox[{1378, 488}], LineBox[{1379, 489}], LineBox[{1380, 490}], 
+      LineBox[{1381, 491}], LineBox[{1382, 492}], LineBox[{1383, 493}], 
+      LineBox[{1384, 494}], LineBox[{1385, 495}], LineBox[{1386, 496}], 
+      LineBox[{1387, 497}], LineBox[{1388, 498}], LineBox[{1389, 499}], 
+      LineBox[{1390, 500}], LineBox[{1391, 501}], LineBox[{1392, 502}], 
+      LineBox[{1393, 503}], LineBox[{1394, 504}], LineBox[{1395, 505}], 
+      LineBox[{1396, 506}], LineBox[{1397, 507}], LineBox[{1398, 508}], 
+      LineBox[{1399, 509}], LineBox[{1400, 510}], LineBox[{1401, 511}], 
+      LineBox[{1402, 512}], LineBox[{1403, 513}], LineBox[{1404, 514}], 
+      LineBox[{1405, 515}], LineBox[{1406, 516}], LineBox[{1407, 517}], 
+      LineBox[{1408, 518}], LineBox[{1409, 519}], LineBox[{1410, 520}], 
+      LineBox[{1411, 521}], LineBox[{1412, 522}], LineBox[{1413, 523}], 
+      LineBox[{1414, 524}], LineBox[{1415, 525}], LineBox[{1416, 526}], 
+      LineBox[{1417, 527}], LineBox[{1418, 528}], LineBox[{1419, 529}], 
+      LineBox[{1420, 530}], LineBox[{1421, 531}], LineBox[{1422, 532}], 
+      LineBox[{1423, 533}], LineBox[{1424, 534}], LineBox[{1425, 535}], 
+      LineBox[{1426, 536}], LineBox[{1427, 537}], LineBox[{1428, 538}], 
+      LineBox[{1429, 539}], LineBox[{1430, 540}], LineBox[{1431, 541}], 
+      LineBox[{1432, 542}], LineBox[{1433, 543}], LineBox[{1434, 544}], 
+      LineBox[{1435, 545}], LineBox[{1436, 546}], LineBox[{1437, 547}], 
+      LineBox[{1438, 548}], LineBox[{1439, 549}], LineBox[{1440, 550}], 
+      LineBox[{1441, 551}], LineBox[{1442, 552}], LineBox[{1443, 553}], 
+      LineBox[{1444, 554}], LineBox[{1445, 555}], LineBox[{1446, 556}], 
+      LineBox[{1447, 557}], LineBox[{1448, 558}], LineBox[{1449, 559}], 
+      LineBox[{1450, 560}], LineBox[{1451, 561}], LineBox[{1452, 562}], 
+      LineBox[{1453, 563}], LineBox[{1454, 564}], LineBox[{1455, 565}], 
+      LineBox[{1456, 566}], LineBox[{1457, 567}], LineBox[{1458, 568}], 
+      LineBox[{1459, 569}], LineBox[{1460, 570}], LineBox[{1461, 571}], 
+      LineBox[{1462, 572}], LineBox[{1463, 573}], LineBox[{1464, 574}], 
+      LineBox[{1465, 575}], LineBox[{1466, 576}], LineBox[{1467, 577}], 
+      LineBox[{1468, 578}], LineBox[{1469, 579}], LineBox[{1470, 580}], 
+      LineBox[{1471, 581}], LineBox[{1472, 582}], LineBox[{1473, 583}], 
+      LineBox[{1474, 584}], LineBox[{1475, 585}], LineBox[{1476, 586}], 
+      LineBox[{1477, 587}], LineBox[{1478, 588}], LineBox[{1479, 589}], 
+      LineBox[{1480, 590}], LineBox[{1481, 591}], LineBox[{1482, 592}], 
+      LineBox[{1483, 593}], LineBox[{1484, 594}], LineBox[{1485, 595}], 
+      LineBox[{1486, 596}], LineBox[{1487, 597}], LineBox[{1488, 598}], 
+      LineBox[{1489, 599}], LineBox[{1490, 600}], LineBox[{1491, 601}], 
+      LineBox[{1492, 602}], LineBox[{1493, 603}], LineBox[{1494, 604}], 
+      LineBox[{1495, 605}], LineBox[{1496, 606}], LineBox[{1497, 607}], 
+      LineBox[{1498, 608}], LineBox[{1499, 609}], LineBox[{1500, 610}], 
+      LineBox[{1501, 611}], LineBox[{1502, 612}], LineBox[{1503, 613}], 
+      LineBox[{1504, 614}], LineBox[{1505, 615}], LineBox[{1506, 616}], 
+      LineBox[{1507, 617}], LineBox[{1508, 618}], LineBox[{1509, 619}], 
+      LineBox[{1510, 620}], LineBox[{1511, 621}], LineBox[{1512, 622}], 
+      LineBox[{1513, 623}], LineBox[{1514, 624}], LineBox[{1515, 625}], 
+      LineBox[{1516, 626}], LineBox[{1517, 627}], LineBox[{1518, 628}], 
+      LineBox[{1519, 629}], LineBox[{1520, 630}], LineBox[{1521, 631}], 
+      LineBox[{1522, 632}], LineBox[{1523, 633}], LineBox[{1524, 634}], 
+      LineBox[{1525, 635}], LineBox[{1526, 636}], LineBox[{1527, 637}], 
+      LineBox[{1528, 638}], LineBox[{1529, 639}], LineBox[{1530, 640}], 
+      LineBox[{1531, 641}], LineBox[{1532, 642}], LineBox[{1533, 643}], 
+      LineBox[{1534, 644}], LineBox[{1535, 645}], LineBox[{1536, 646}], 
+      LineBox[{1537, 647}], LineBox[{1538, 648}], LineBox[{1539, 649}], 
+      LineBox[{1540, 650}], LineBox[{1541, 651}], LineBox[{1542, 652}], 
+      LineBox[{1543, 653}], LineBox[{1544, 654}], LineBox[{1545, 655}], 
+      LineBox[{1546, 656}], LineBox[{1547, 657}], LineBox[{1548, 658}], 
+      LineBox[{1549, 659}], LineBox[{1550, 660}], LineBox[{1551, 661}], 
+      LineBox[{1552, 662}], LineBox[{1553, 663}], LineBox[{1554, 664}], 
+      LineBox[{1555, 665}], LineBox[{1556, 666}], LineBox[{1557, 667}], 
+      LineBox[{1558, 668}], LineBox[{1559, 669}], LineBox[{1560, 670}], 
+      LineBox[{1561, 671}], LineBox[{1562, 672}], LineBox[{1563, 673}], 
+      LineBox[{1564, 674}], LineBox[{1565, 675}], LineBox[{1566, 676}], 
+      LineBox[{1567, 677}], LineBox[{1568, 678}], LineBox[{1569, 679}], 
+      LineBox[{1570, 680}], LineBox[{1571, 681}], LineBox[{1572, 682}], 
+      LineBox[{1573, 683}], LineBox[{1574, 684}], LineBox[{1575, 685}], 
+      LineBox[{1576, 686}], LineBox[{1577, 687}], LineBox[{1578, 688}], 
+      LineBox[{1579, 689}], LineBox[{1580, 690}], LineBox[{1581, 691}], 
+      LineBox[{1582, 692}], LineBox[{1583, 693}], LineBox[{1584, 694}], 
+      LineBox[{1585, 695}], LineBox[{1586, 696}], LineBox[{1587, 697}], 
+      LineBox[{1588, 698}], LineBox[{1589, 699}], LineBox[{1590, 700}], 
+      LineBox[{1591, 701}], LineBox[{1592, 702}], LineBox[{1593, 703}], 
+      LineBox[{1594, 704}], LineBox[{1595, 705}], LineBox[{1596, 706}], 
+      LineBox[{1597, 707}], LineBox[{1598, 708}], LineBox[{1599, 709}], 
+      LineBox[{1600, 710}], LineBox[{1601, 711}], LineBox[{1602, 712}], 
+      LineBox[{1603, 713}], LineBox[{1604, 714}], LineBox[{1605, 715}], 
+      LineBox[{1606, 716}], LineBox[{1607, 717}], LineBox[{1608, 718}], 
+      LineBox[{1609, 719}], LineBox[{1610, 720}], LineBox[{1611, 721}], 
+      LineBox[{1612, 722}], LineBox[{1613, 723}], LineBox[{1614, 724}], 
+      LineBox[{1615, 725}], LineBox[{1616, 726}], LineBox[{1617, 727}], 
+      LineBox[{1618, 728}], LineBox[{1619, 729}], LineBox[{1620, 730}], 
+      LineBox[{1621, 731}], LineBox[{1622, 732}], LineBox[{1623, 733}], 
+      LineBox[{1624, 734}], LineBox[{1625, 735}], LineBox[{1626, 736}], 
+      LineBox[{1627, 737}], LineBox[{1628, 738}], LineBox[{1629, 739}], 
+      LineBox[{1630, 740}], LineBox[{1631, 741}], LineBox[{1632, 742}], 
+      LineBox[{1633, 743}], LineBox[{1634, 744}], LineBox[{1635, 745}], 
+      LineBox[{1636, 746}], LineBox[{1637, 747}], LineBox[{1638, 748}], 
+      LineBox[{1639, 749}], LineBox[{1640, 750}], LineBox[{1641, 751}], 
+      LineBox[{1642, 752}], LineBox[{1643, 753}], LineBox[{1644, 754}], 
+      LineBox[{1645, 755}], LineBox[{1646, 756}], LineBox[{1647, 757}], 
+      LineBox[{1648, 758}], LineBox[{1649, 759}], LineBox[{1650, 760}], 
+      LineBox[{1651, 761}], LineBox[{1652, 762}], LineBox[{1653, 763}], 
+      LineBox[{1654, 764}], LineBox[{1655, 765}], LineBox[{1656, 766}], 
+      LineBox[{1657, 767}], LineBox[{1658, 768}], LineBox[{1659, 769}], 
+      LineBox[{1660, 770}], LineBox[{1661, 771}], LineBox[{1662, 772}], 
+      LineBox[{1663, 773}], LineBox[{1664, 774}], LineBox[{1665, 775}], 
+      LineBox[{1666, 776}], LineBox[{1667, 777}], LineBox[{1668, 778}], 
+      LineBox[{1669, 779}], LineBox[{1670, 780}], LineBox[{1671, 781}], 
+      LineBox[{1672, 782}], LineBox[{1673, 783}], LineBox[{1674, 784}], 
+      LineBox[{1675, 785}], LineBox[{1676, 786}], LineBox[{1677, 787}], 
+      LineBox[{1678, 788}], LineBox[{1679, 789}], LineBox[{1680, 790}], 
+      LineBox[{1681, 791}], LineBox[{1682, 792}], LineBox[{1683, 793}], 
+      LineBox[{1684, 794}], LineBox[{1685, 795}], LineBox[{1686, 796}], 
+      LineBox[{1687, 797}], LineBox[{1688, 798}], LineBox[{1689, 799}], 
+      LineBox[{1690, 800}], LineBox[{1691, 801}], LineBox[{1692, 802}], 
+      LineBox[{1693, 803}], LineBox[{1694, 804}], LineBox[{1695, 805}], 
+      LineBox[{1696, 806}], LineBox[{1697, 807}], LineBox[{1698, 808}], 
+      LineBox[{1699, 809}], LineBox[{1700, 810}], LineBox[{1701, 811}], 
+      LineBox[{1702, 812}], LineBox[{1703, 813}], LineBox[{1704, 814}], 
+      LineBox[{1705, 815}], LineBox[{1706, 816}], LineBox[{1707, 817}], 
+      LineBox[{1708, 818}], LineBox[{1709, 819}], LineBox[{1710, 820}], 
+      LineBox[{1711, 821}], LineBox[{1712, 822}], LineBox[{1713, 823}], 
+      LineBox[{1714, 824}], LineBox[{1715, 825}], LineBox[{1716, 826}], 
+      LineBox[{1717, 827}], LineBox[{1718, 828}], LineBox[{1719, 829}], 
+      LineBox[{1720, 830}], LineBox[{1721, 831}], LineBox[{1722, 832}], 
+      LineBox[{1723, 833}], LineBox[{1724, 834}], LineBox[{1725, 835}], 
+      LineBox[{1726, 836}], LineBox[{1727, 837}], LineBox[{1728, 838}], 
+      LineBox[{1729, 839}], LineBox[{1730, 840}], LineBox[{1731, 841}], 
+      LineBox[{1732, 842}], LineBox[{1733, 843}], LineBox[{1734, 844}], 
+      LineBox[{1735, 845}], LineBox[{1736, 846}], LineBox[{1737, 847}], 
+      LineBox[{1738, 848}], LineBox[{1739, 849}], LineBox[{1740, 850}], 
+      LineBox[{1741, 851}], LineBox[{1742, 852}], LineBox[{1743, 853}], 
+      LineBox[{1744, 854}], LineBox[{1745, 855}], LineBox[{1746, 856}], 
+      LineBox[{1747, 857}], LineBox[{1748, 858}], LineBox[{1749, 859}], 
+      LineBox[{1750, 860}], LineBox[{1751, 861}], LineBox[{1752, 862}], 
+      LineBox[{1753, 863}], LineBox[{1754, 864}], LineBox[{1755, 865}], 
+      LineBox[{1756, 866}], LineBox[{1757, 867}], LineBox[{1758, 868}], 
+      LineBox[{1759, 869}], LineBox[{1760, 870}], LineBox[{1761, 871}], 
+      LineBox[{1762, 872}], LineBox[{1763, 873}], LineBox[{1764, 874}], 
+      LineBox[{1765, 875}], LineBox[{1766, 876}], LineBox[{1767, 877}], 
+      LineBox[{1768, 878}], LineBox[{1769, 879}], LineBox[{1770, 880}], 
+      LineBox[{1771, 881}], LineBox[{1772, 882}], LineBox[{1773, 883}], 
+      LineBox[{1774, 884}], LineBox[{1775, 885}], LineBox[{1776, 886}], 
+      LineBox[{1777, 887}], LineBox[{1778, 888}], LineBox[{1779, 889}], 
+      LineBox[{1780, 890}], LineBox[{1781, 891}], LineBox[{1782, 892}]}}, {{}, 
+     {Hue[0.67, 0.6, 0.6], PointBox[CompressedData["
+1:eJwN02MDHQQAAMDXbNu2bdu2bduo2bZtezXbtm3VvHUf7idc4iYdq3T4IxAI
+9AsaCHwOEQh84Svf+M4PfvKL3wRCBgJ/EISgBCM4IQhJKEIThrCEIzwRiEgk
+IhOFqEQjOjGISSxiE4e4xCM+CUhIIhKThKQkIzkpSEkqUpOGtKQjPRnISCYy
+k4WsZCM7OchJLnKTh7zkIz8FKEghClOEohSjOCUoSSlKU4aylKM8FahIJSpT
+hapUozo1qEktalOHutSjPg1oSCMa04SmNKM5LWhJK1rThra0oz0d6EgnOtOF
+rnSjOz3oSS9604e+9KM/AxjIIAYzhKH8yV8MYzgjGMkoRjOGsYxjPBOYyCQm
+M4WpTGM6M5jJLGYzh7nMYz4LWMgiFrOEpSxjOStYySpWs4a1rGM9G9jIJjaz
+ha1sYzs72MkudrOHvfzNP+xjPwc4yCEOc4SjHOM4JzjJKU5zhrOc4zwXuMgl
+LnOFq1zjOje4yS1uc4e73OM+D3jIIx7zhKc84zkveMkrXvOGt7zjPR/4yCf+
+5T8+84WvfOM7P/jJL34TCOU/QQhKMIITgpCEIjRhCEs4whOBiEQiMlGISjSi
+E4OYxCI2cYhLPOKTgIQkIjFJSEoykpOClKQiNWlISzrSk4GMZCIzWchKNrKT
+g5zkIjd5yEs+8lOAghSiMEUoSjGKU4KSlKI0ZShLOcpTgYpUojJVqEo1qlOD
+mtSiNnWoSz3q04CGNKIxTWhKM5rTgpa0ojVtaEs72tOBjnSiM13oSje604Oe
+9KI3fehLP/ozgIEMYjBDGMqf/MUwhjOCkYxiNGMYyzjGM4GJTGIyU5jKNKYz
+g5nMYjZzmMs85rOAhSxiMUtYyjKWs4KVrGI1a1jLOtazgY1sYjNb2Mo2trOD
+nexiN3vYy9/8wz72c4CDHOIwRzjKMY5zgpOc4jRnOMs5znOBi1ziMle4yjWu
+c4Ob3OI2d7jLPe7zgIc84jFPeMoznvOCl7ziNW94yzve84GPfOJf/uMzX/jK
+N77zg5/84jeB0P4ThKAEIzghCEkoQhOGsIQjPBGISCQiE4WoRCM6MYhJLGIT
+h7jEIz4JSEgiEpOEpCQjOSlISSpSk4a0pCM9GchIJjKThaxkIzs5yEkucpOH
+vOQjPwUoSCEKU4SiFKM4JShJKUpThrKUozwVqEglKlOFqlSjOjWoSS1qU4e6
+1KM+DWhIIxrThKY0ozktaEkrWtOGtrSjPR3oSCc604WudKM7PehJL3rTh770
+oz8DGMggBjOEofzJXwxjOCMYyShGM4axjGM8E5jIJCYzhalMYzozmMksZjOH
+ucxjPgtYyCIWs4SlLGM5K1jJKlazhrWsYz0b2MgmNrOFrWxjOzvYyS52s4e9
+/M0/7GM/BzjIIQ5zhKMc4zgnOMkpTnOGs5zjPBe4yCUuc4WrXOM6N7jJLW5z
+h7vc4z4PeMgjHvOEpzzjOS94ySte84a3vOM9H/jIJ/7lPz7zha984zs/+Mkv
+fhMI4z9BCEowghOCkIQiNGEISzjCE4GIRCIyUYhKNKITg5jEIjZxiEs84pOA
+hCQiMUlISjKSk4KUpCI1aUhLOtKTgYxkIjNZyEo2spODnOQiN3nISz7yU4CC
+FKIwRShKMYpTgpKUojRlKEs5ylOBilSiMlWoSjWqU4Oa1KI2dahLPerTgIY0
+ojFNaEozmtOClrSiNW1oSzva04GOdKIzXfgf1Wq/5A==
+       "]]}, {}}}],
+  AspectRatio->NCache[GoldenRatio^(-1), 0.6180339887498948],
+  Axes->True,
+  AxesLabel->{
+    FormBox["\"Numero de Generaciones\"", TraditionalForm], 
+    FormBox["\"Poblacion de Rhodnii Transgenica\"", TraditionalForm]},
+  AxesOrigin->{0, 0},
+  ImageSize->480,
+  PlotLabel->FormBox["\"Poblacion de Rhodnii Transgenica\"", TraditionalForm],
+  PlotRange->{{0., 892.}, {0., 89.}},
+  PlotRangeClipping->True,
+  PlotRangePadding->{
+    Scaled[0.02], 
+    Scaled[0.02]}]], "Output",
+ CellChangeTimes->{3.6412334247248816`*^9, 3.6412379428193727`*^9, 
+  3.641238368160593*^9}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"W", "=", 
+   RowBox[{"moranRel", "[", 
+    RowBox[{"90", ",", "45", ",", "0.5"}], "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"lista", "=", 
+   RowBox[{"Array", "[", 
+    RowBox[{"f", ",", 
+     RowBox[{"Length", "[", "W", "]"}]}], "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"For", "[", 
+   RowBox[{
+    RowBox[{"m", "=", "1"}], ",", 
+    RowBox[{"m", "<", 
+     RowBox[{"Length", "[", "W", "]"}]}], ",", 
+    RowBox[{"m", "++"}], ",", 
+    RowBox[{
+     RowBox[{"f", "[", "m", "]"}], "=", 
+     RowBox[{"Count", "[", 
+      RowBox[{
+       RowBox[{"W", "[", 
+        RowBox[{"[", "m", "]"}], "]"}], ",", "1"}], "]"}]}]}], "]"}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{"ListPlot", "[", 
+  RowBox[{"lista", ",", 
+   RowBox[{"Filling", "\[Rule]", "Axis"}], ",", 
+   RowBox[{
+   "PlotLabel", "\[Rule]", "\"\<Poblacion de bacteria con fitness 0.5\>\""}], 
+   ",", 
+   RowBox[{"AxesLabel", "\[Rule]", 
+    RowBox[{"{", 
+     RowBox[{
+     "\"\<Numero de Generaciones\>\"", ",", 
+      "\"\<Poblacion de bacteria con fitness 0.5\>\""}], "}"}]}], ",", 
+   RowBox[{"ImageSize", " ", "\[Rule]", " ", "480"}]}], "]"}]}], "Input",
+ CellChangeTimes->{
+  3.641231316614997*^9, {3.6412314201301665`*^9, 3.641231454518323*^9}, {
+   3.6412321339384003`*^9, 3.641232157281695*^9}, {3.641232195886945*^9, 
+   3.641232199902782*^9}, {3.641232317794956*^9, 3.641232355661435*^9}, {
+   3.6412323979336185`*^9, 3.641232405977727*^9}, {3.641232511183514*^9, 
+   3.6412325115797935`*^9}, {3.641232661444549*^9, 3.6412326639596777`*^9}, {
+   3.6412327754333496`*^9, 3.6412327760497847`*^9}, {3.641232962661967*^9, 
+   3.6412329775254602`*^9}, {3.641233045696666*^9, 3.641233067720086*^9}, 
+   3.6412331428977814`*^9, {3.6412334412167225`*^9, 3.641233471030608*^9}, {
+   3.641233504195838*^9, 3.6412335143389997`*^9}, {3.6412335612207003`*^9, 
+   3.641233571455926*^9}, {3.6412336156385813`*^9, 3.6412336476321*^9}, {
+   3.6412370526359916`*^9, 3.6412370830684185`*^9}}],
+
+Cell[BoxData[
+ GraphicsBox[GraphicsComplexBox[CompressedData["
+1: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
+
+   "], {{{}, {}, {}, {}, 
+     {Hue[0.67, 0.6, 0.6], Opacity[0.2], LineBox[{713, 1}], LineBox[{714, 2}],
+       LineBox[{715, 3}], LineBox[{716, 4}], LineBox[{717, 5}], 
+      LineBox[{718, 6}], LineBox[{719, 7}], LineBox[{720, 8}], 
+      LineBox[{721, 9}], LineBox[{722, 10}], LineBox[{723, 11}], 
+      LineBox[{724, 12}], LineBox[{725, 13}], LineBox[{726, 14}], 
+      LineBox[{727, 15}], LineBox[{728, 16}], LineBox[{729, 17}], 
+      LineBox[{730, 18}], LineBox[{731, 19}], LineBox[{732, 20}], 
+      LineBox[{733, 21}], LineBox[{734, 22}], LineBox[{735, 23}], 
+      LineBox[{736, 24}], LineBox[{737, 25}], LineBox[{738, 26}], 
+      LineBox[{739, 27}], LineBox[{740, 28}], LineBox[{741, 29}], 
+      LineBox[{742, 30}], LineBox[{743, 31}], LineBox[{744, 32}], 
+      LineBox[{745, 33}], LineBox[{746, 34}], LineBox[{747, 35}], 
+      LineBox[{748, 36}], LineBox[{749, 37}], LineBox[{750, 38}], 
+      LineBox[{751, 39}], LineBox[{752, 40}], LineBox[{753, 41}], 
+      LineBox[{754, 42}], LineBox[{755, 43}], LineBox[{756, 44}], 
+      LineBox[{757, 45}], LineBox[{758, 46}], LineBox[{759, 47}], 
+      LineBox[{760, 48}], LineBox[{761, 49}], LineBox[{762, 50}], 
+      LineBox[{763, 51}], LineBox[{764, 52}], LineBox[{765, 53}], 
+      LineBox[{766, 54}], LineBox[{767, 55}], LineBox[{768, 56}], 
+      LineBox[{769, 57}], LineBox[{770, 58}], LineBox[{771, 59}], 
+      LineBox[{772, 60}], LineBox[{773, 61}], LineBox[{774, 62}], 
+      LineBox[{775, 63}], LineBox[{776, 64}], LineBox[{777, 65}], 
+      LineBox[{778, 66}], LineBox[{779, 67}], LineBox[{780, 68}], 
+      LineBox[{781, 69}], LineBox[{782, 70}], LineBox[{783, 71}], 
+      LineBox[{784, 72}], LineBox[{785, 73}], LineBox[{786, 74}], 
+      LineBox[{787, 75}], LineBox[{788, 76}], LineBox[{789, 77}], 
+      LineBox[{790, 78}], LineBox[{791, 79}], LineBox[{792, 80}], 
+      LineBox[{793, 81}], LineBox[{794, 82}], LineBox[{795, 83}], 
+      LineBox[{796, 84}], LineBox[{797, 85}], LineBox[{798, 86}], 
+      LineBox[{799, 87}], LineBox[{800, 88}], LineBox[{801, 89}], 
+      LineBox[{802, 90}], LineBox[{803, 91}], LineBox[{804, 92}], 
+      LineBox[{805, 93}], LineBox[{806, 94}], LineBox[{807, 95}], 
+      LineBox[{808, 96}], LineBox[{809, 97}], LineBox[{810, 98}], 
+      LineBox[{811, 99}], LineBox[{812, 100}], LineBox[{813, 101}], 
+      LineBox[{814, 102}], LineBox[{815, 103}], LineBox[{816, 104}], 
+      LineBox[{817, 105}], LineBox[{818, 106}], LineBox[{819, 107}], 
+      LineBox[{820, 108}], LineBox[{821, 109}], LineBox[{822, 110}], 
+      LineBox[{823, 111}], LineBox[{824, 112}], LineBox[{825, 113}], 
+      LineBox[{826, 114}], LineBox[{827, 115}], LineBox[{828, 116}], 
+      LineBox[{829, 117}], LineBox[{830, 118}], LineBox[{831, 119}], 
+      LineBox[{832, 120}], LineBox[{833, 121}], LineBox[{834, 122}], 
+      LineBox[{835, 123}], LineBox[{836, 124}], LineBox[{837, 125}], 
+      LineBox[{838, 126}], LineBox[{839, 127}], LineBox[{840, 128}], 
+      LineBox[{841, 129}], LineBox[{842, 130}], LineBox[{843, 131}], 
+      LineBox[{844, 132}], LineBox[{845, 133}], LineBox[{846, 134}], 
+      LineBox[{847, 135}], LineBox[{848, 136}], LineBox[{849, 137}], 
+      LineBox[{850, 138}], LineBox[{851, 139}], LineBox[{852, 140}], 
+      LineBox[{853, 141}], LineBox[{854, 142}], LineBox[{855, 143}], 
+      LineBox[{856, 144}], LineBox[{857, 145}], LineBox[{858, 146}], 
+      LineBox[{859, 147}], LineBox[{860, 148}], LineBox[{861, 149}], 
+      LineBox[{862, 150}], LineBox[{863, 151}], LineBox[{864, 152}], 
+      LineBox[{865, 153}], LineBox[{866, 154}], LineBox[{867, 155}], 
+      LineBox[{868, 156}], LineBox[{869, 157}], LineBox[{870, 158}], 
+      LineBox[{871, 159}], LineBox[{872, 160}], LineBox[{873, 161}], 
+      LineBox[{874, 162}], LineBox[{875, 163}], LineBox[{876, 164}], 
+      LineBox[{877, 165}], LineBox[{878, 166}], LineBox[{879, 167}], 
+      LineBox[{880, 168}], LineBox[{881, 169}], LineBox[{882, 170}], 
+      LineBox[{883, 171}], LineBox[{884, 172}], LineBox[{885, 173}], 
+      LineBox[{886, 174}], LineBox[{887, 175}], LineBox[{888, 176}], 
+      LineBox[{889, 177}], LineBox[{890, 178}], LineBox[{891, 179}], 
+      LineBox[{892, 180}], LineBox[{893, 181}], LineBox[{894, 182}], 
+      LineBox[{895, 183}], LineBox[{896, 184}], LineBox[{897, 185}], 
+      LineBox[{898, 186}], LineBox[{899, 187}], LineBox[{900, 188}], 
+      LineBox[{901, 189}], LineBox[{902, 190}], LineBox[{903, 191}], 
+      LineBox[{904, 192}], LineBox[{905, 193}], LineBox[{906, 194}], 
+      LineBox[{907, 195}], LineBox[{908, 196}], LineBox[{909, 197}], 
+      LineBox[{910, 198}], LineBox[{911, 199}], LineBox[{912, 200}], 
+      LineBox[{913, 201}], LineBox[{914, 202}], LineBox[{915, 203}], 
+      LineBox[{916, 204}], LineBox[{917, 205}], LineBox[{918, 206}], 
+      LineBox[{919, 207}], LineBox[{920, 208}], LineBox[{921, 209}], 
+      LineBox[{922, 210}], LineBox[{923, 211}], LineBox[{924, 212}], 
+      LineBox[{925, 213}], LineBox[{926, 214}], LineBox[{927, 215}], 
+      LineBox[{928, 216}], LineBox[{929, 217}], LineBox[{930, 218}], 
+      LineBox[{931, 219}], LineBox[{932, 220}], LineBox[{933, 221}], 
+      LineBox[{934, 222}], LineBox[{935, 223}], LineBox[{936, 224}], 
+      LineBox[{937, 225}], LineBox[{938, 226}], LineBox[{939, 227}], 
+      LineBox[{940, 228}], LineBox[{941, 229}], LineBox[{942, 230}], 
+      LineBox[{943, 231}], LineBox[{944, 232}], LineBox[{945, 233}], 
+      LineBox[{946, 234}], LineBox[{947, 235}], LineBox[{948, 236}], 
+      LineBox[{949, 237}], LineBox[{950, 238}], LineBox[{951, 239}], 
+      LineBox[{952, 240}], LineBox[{953, 241}], LineBox[{954, 242}], 
+      LineBox[{955, 243}], LineBox[{956, 244}], LineBox[{957, 245}], 
+      LineBox[{958, 246}], LineBox[{959, 247}], LineBox[{960, 248}], 
+      LineBox[{961, 249}], LineBox[{962, 250}], LineBox[{963, 251}], 
+      LineBox[{964, 252}], LineBox[{965, 253}], LineBox[{966, 254}], 
+      LineBox[{967, 255}], LineBox[{968, 256}], LineBox[{969, 257}], 
+      LineBox[{970, 258}], LineBox[{971, 259}], LineBox[{972, 260}], 
+      LineBox[{973, 261}], LineBox[{974, 262}], LineBox[{975, 263}], 
+      LineBox[{976, 264}], LineBox[{977, 265}], LineBox[{978, 266}], 
+      LineBox[{979, 267}], LineBox[{980, 268}], LineBox[{981, 269}], 
+      LineBox[{982, 270}], LineBox[{983, 271}], LineBox[{984, 272}], 
+      LineBox[{985, 273}], LineBox[{986, 274}], LineBox[{987, 275}], 
+      LineBox[{988, 276}], LineBox[{989, 277}], LineBox[{990, 278}], 
+      LineBox[{991, 279}], LineBox[{992, 280}], LineBox[{993, 281}], 
+      LineBox[{994, 282}], LineBox[{995, 283}], LineBox[{996, 284}], 
+      LineBox[{997, 285}], LineBox[{998, 286}], LineBox[{999, 287}], 
+      LineBox[{1000, 288}], LineBox[{1001, 289}], LineBox[{1002, 290}], 
+      LineBox[{1003, 291}], LineBox[{1004, 292}], LineBox[{1005, 293}], 
+      LineBox[{1006, 294}], LineBox[{1007, 295}], LineBox[{1008, 296}], 
+      LineBox[{1009, 297}], LineBox[{1010, 298}], LineBox[{1011, 299}], 
+      LineBox[{1012, 300}], LineBox[{1013, 301}], LineBox[{1014, 302}], 
+      LineBox[{1015, 303}], LineBox[{1016, 304}], LineBox[{1017, 305}], 
+      LineBox[{1018, 306}], LineBox[{1019, 307}], LineBox[{1020, 308}], 
+      LineBox[{1021, 309}], LineBox[{1022, 310}], LineBox[{1023, 311}], 
+      LineBox[{1024, 312}], LineBox[{1025, 313}], LineBox[{1026, 314}], 
+      LineBox[{1027, 315}], LineBox[{1028, 316}], LineBox[{1029, 317}], 
+      LineBox[{1030, 318}], LineBox[{1031, 319}], LineBox[{1032, 320}], 
+      LineBox[{1033, 321}], LineBox[{1034, 322}], LineBox[{1035, 323}], 
+      LineBox[{1036, 324}], LineBox[{1037, 325}], LineBox[{1038, 326}], 
+      LineBox[{1039, 327}], LineBox[{1040, 328}], LineBox[{1041, 329}], 
+      LineBox[{1042, 330}], LineBox[{1043, 331}], LineBox[{1044, 332}], 
+      LineBox[{1045, 333}], LineBox[{1046, 334}], LineBox[{1047, 335}], 
+      LineBox[{1048, 336}], LineBox[{1049, 337}], LineBox[{1050, 338}], 
+      LineBox[{1051, 339}], LineBox[{1052, 340}], LineBox[{1053, 341}], 
+      LineBox[{1054, 342}], LineBox[{1055, 343}], LineBox[{1056, 344}], 
+      LineBox[{1057, 345}], LineBox[{1058, 346}], LineBox[{1059, 347}], 
+      LineBox[{1060, 348}], LineBox[{1061, 349}], LineBox[{1062, 350}], 
+      LineBox[{1063, 351}], LineBox[{1064, 352}], LineBox[{1065, 353}], 
+      LineBox[{1066, 354}], LineBox[{1067, 355}], LineBox[{1068, 356}], 
+      LineBox[{1069, 357}], LineBox[{1070, 358}], LineBox[{1071, 359}], 
+      LineBox[{1072, 360}], LineBox[{1073, 361}], LineBox[{1074, 362}], 
+      LineBox[{1075, 363}], LineBox[{1076, 364}], LineBox[{1077, 365}], 
+      LineBox[{1078, 366}], LineBox[{1079, 367}], LineBox[{1080, 368}], 
+      LineBox[{1081, 369}], LineBox[{1082, 370}], LineBox[{1083, 371}], 
+      LineBox[{1084, 372}], LineBox[{1085, 373}], LineBox[{1086, 374}], 
+      LineBox[{1087, 375}], LineBox[{1088, 376}], LineBox[{1089, 377}], 
+      LineBox[{1090, 378}], LineBox[{1091, 379}], LineBox[{1092, 380}], 
+      LineBox[{1093, 381}], LineBox[{1094, 382}], LineBox[{1095, 383}], 
+      LineBox[{1096, 384}], LineBox[{1097, 385}], LineBox[{1098, 386}], 
+      LineBox[{1099, 387}], LineBox[{1100, 388}], LineBox[{1101, 389}], 
+      LineBox[{1102, 390}], LineBox[{1103, 391}], LineBox[{1104, 392}], 
+      LineBox[{1105, 393}], LineBox[{1106, 394}], LineBox[{1107, 395}], 
+      LineBox[{1108, 396}], LineBox[{1109, 397}], LineBox[{1110, 398}], 
+      LineBox[{1111, 399}], LineBox[{1112, 400}], LineBox[{1113, 401}], 
+      LineBox[{1114, 402}], LineBox[{1115, 403}], LineBox[{1116, 404}], 
+      LineBox[{1117, 405}], LineBox[{1118, 406}], LineBox[{1119, 407}], 
+      LineBox[{1120, 408}], LineBox[{1121, 409}], LineBox[{1122, 410}], 
+      LineBox[{1123, 411}], LineBox[{1124, 412}], LineBox[{1125, 413}], 
+      LineBox[{1126, 414}], LineBox[{1127, 415}], LineBox[{1128, 416}], 
+      LineBox[{1129, 417}], LineBox[{1130, 418}], LineBox[{1131, 419}], 
+      LineBox[{1132, 420}], LineBox[{1133, 421}], LineBox[{1134, 422}], 
+      LineBox[{1135, 423}], LineBox[{1136, 424}], LineBox[{1137, 425}], 
+      LineBox[{1138, 426}], LineBox[{1139, 427}], LineBox[{1140, 428}], 
+      LineBox[{1141, 429}], LineBox[{1142, 430}], LineBox[{1143, 431}], 
+      LineBox[{1144, 432}], LineBox[{1145, 433}], LineBox[{1146, 434}], 
+      LineBox[{1147, 435}], LineBox[{1148, 436}], LineBox[{1149, 437}], 
+      LineBox[{1150, 438}], LineBox[{1151, 439}], LineBox[{1152, 440}], 
+      LineBox[{1153, 441}], LineBox[{1154, 442}], LineBox[{1155, 443}], 
+      LineBox[{1156, 444}], LineBox[{1157, 445}], LineBox[{1158, 446}], 
+      LineBox[{1159, 447}], LineBox[{1160, 448}], LineBox[{1161, 449}], 
+      LineBox[{1162, 450}], LineBox[{1163, 451}], LineBox[{1164, 452}], 
+      LineBox[{1165, 453}], LineBox[{1166, 454}], LineBox[{1167, 455}], 
+      LineBox[{1168, 456}], LineBox[{1169, 457}], LineBox[{1170, 458}], 
+      LineBox[{1171, 459}], LineBox[{1172, 460}], LineBox[{1173, 461}], 
+      LineBox[{1174, 462}], LineBox[{1175, 463}], LineBox[{1176, 464}], 
+      LineBox[{1177, 465}], LineBox[{1178, 466}], LineBox[{1179, 467}], 
+      LineBox[{1180, 468}], LineBox[{1181, 469}], LineBox[{1182, 470}], 
+      LineBox[{1183, 471}], LineBox[{1184, 472}], LineBox[{1185, 473}], 
+      LineBox[{1186, 474}], LineBox[{1187, 475}], LineBox[{1188, 476}], 
+      LineBox[{1189, 477}], LineBox[{1190, 478}], LineBox[{1191, 479}], 
+      LineBox[{1192, 480}], LineBox[{1193, 481}], LineBox[{1194, 482}], 
+      LineBox[{1195, 483}], LineBox[{1196, 484}], LineBox[{1197, 485}], 
+      LineBox[{1198, 486}], LineBox[{1199, 487}], LineBox[{1200, 488}], 
+      LineBox[{1201, 489}], LineBox[{1202, 490}], LineBox[{1203, 491}], 
+      LineBox[{1204, 492}], LineBox[{1205, 493}], LineBox[{1206, 494}], 
+      LineBox[{1207, 495}], LineBox[{1208, 496}], LineBox[{1209, 497}], 
+      LineBox[{1210, 498}], LineBox[{1211, 499}], LineBox[{1212, 500}], 
+      LineBox[{1213, 501}], LineBox[{1214, 502}], LineBox[{1215, 503}], 
+      LineBox[{1216, 504}], LineBox[{1217, 505}], LineBox[{1218, 506}], 
+      LineBox[{1219, 507}], LineBox[{1220, 508}], LineBox[{1221, 509}], 
+      LineBox[{1222, 510}], LineBox[{1223, 511}], LineBox[{1224, 512}], 
+      LineBox[{1225, 513}], LineBox[{1226, 514}], LineBox[{1227, 515}], 
+      LineBox[{1228, 516}], LineBox[{1229, 517}], LineBox[{1230, 518}], 
+      LineBox[{1231, 519}], LineBox[{1232, 520}], LineBox[{1233, 521}], 
+      LineBox[{1234, 522}], LineBox[{1235, 523}], LineBox[{1236, 524}], 
+      LineBox[{1237, 525}], LineBox[{1238, 526}], LineBox[{1239, 527}], 
+      LineBox[{1240, 528}], LineBox[{1241, 529}], LineBox[{1242, 530}], 
+      LineBox[{1243, 531}], LineBox[{1244, 532}], LineBox[{1245, 533}], 
+      LineBox[{1246, 534}], LineBox[{1247, 535}], LineBox[{1248, 536}], 
+      LineBox[{1249, 537}], LineBox[{1250, 538}], LineBox[{1251, 539}], 
+      LineBox[{1252, 540}], LineBox[{1253, 541}], LineBox[{1254, 542}], 
+      LineBox[{1255, 543}], LineBox[{1256, 544}], LineBox[{1257, 545}], 
+      LineBox[{1258, 546}], LineBox[{1259, 547}], LineBox[{1260, 548}], 
+      LineBox[{1261, 549}], LineBox[{1262, 550}], LineBox[{1263, 551}], 
+      LineBox[{1264, 552}], LineBox[{1265, 553}], LineBox[{1266, 554}], 
+      LineBox[{1267, 555}], LineBox[{1268, 556}], LineBox[{1269, 557}], 
+      LineBox[{1270, 558}], LineBox[{1271, 559}], LineBox[{1272, 560}], 
+      LineBox[{1273, 561}], LineBox[{1274, 562}], LineBox[{1275, 563}], 
+      LineBox[{1276, 564}], LineBox[{1277, 565}], LineBox[{1278, 566}], 
+      LineBox[{1279, 567}], LineBox[{1280, 568}], LineBox[{1281, 569}], 
+      LineBox[{1282, 570}], LineBox[{1283, 571}], LineBox[{1284, 572}], 
+      LineBox[{1285, 573}], LineBox[{1286, 574}], LineBox[{1287, 575}], 
+      LineBox[{1288, 576}], LineBox[{1289, 577}], LineBox[{1290, 578}], 
+      LineBox[{1291, 579}], LineBox[{1292, 580}], LineBox[{1293, 581}], 
+      LineBox[{1294, 582}], LineBox[{1295, 583}], LineBox[{1296, 584}], 
+      LineBox[{1297, 585}], LineBox[{1298, 586}], LineBox[{1299, 587}], 
+      LineBox[{1300, 588}], LineBox[{1301, 589}], LineBox[{1302, 590}], 
+      LineBox[{1303, 591}], LineBox[{1304, 592}], LineBox[{1305, 593}], 
+      LineBox[{1306, 594}], LineBox[{1307, 595}], LineBox[{1308, 596}], 
+      LineBox[{1309, 597}], LineBox[{1310, 598}], LineBox[{1311, 599}], 
+      LineBox[{1312, 600}], LineBox[{1313, 601}], LineBox[{1314, 602}], 
+      LineBox[{1315, 603}], LineBox[{1316, 604}], LineBox[{1317, 605}], 
+      LineBox[{1318, 606}], LineBox[{1319, 607}], LineBox[{1320, 608}], 
+      LineBox[{1321, 609}], LineBox[{1322, 610}], LineBox[{1323, 611}], 
+      LineBox[{1324, 612}], LineBox[{1325, 613}], LineBox[{1326, 614}], 
+      LineBox[{1327, 615}], LineBox[{1328, 616}], LineBox[{1329, 617}], 
+      LineBox[{1330, 618}], LineBox[{1331, 619}], LineBox[{1332, 620}], 
+      LineBox[{1333, 621}], LineBox[{1334, 622}], LineBox[{1335, 623}], 
+      LineBox[{1336, 624}], LineBox[{1337, 625}], LineBox[{1338, 626}], 
+      LineBox[{1339, 627}], LineBox[{1340, 628}], LineBox[{1341, 629}], 
+      LineBox[{1342, 630}], LineBox[{1343, 631}], LineBox[{1344, 632}], 
+      LineBox[{1345, 633}], LineBox[{1346, 634}], LineBox[{1347, 635}], 
+      LineBox[{1348, 636}], LineBox[{1349, 637}], LineBox[{1350, 638}], 
+      LineBox[{1351, 639}], LineBox[{1352, 640}], LineBox[{1353, 641}], 
+      LineBox[{1354, 642}], LineBox[{1355, 643}], LineBox[{1356, 644}], 
+      LineBox[{1357, 645}], LineBox[{1358, 646}], LineBox[{1359, 647}], 
+      LineBox[{1360, 648}], LineBox[{1361, 649}], LineBox[{1362, 650}], 
+      LineBox[{1363, 651}], LineBox[{1364, 652}], LineBox[{1365, 653}], 
+      LineBox[{1366, 654}], LineBox[{1367, 655}], LineBox[{1368, 656}], 
+      LineBox[{1369, 657}], LineBox[{1370, 658}], LineBox[{1371, 659}], 
+      LineBox[{1372, 660}], LineBox[{1373, 661}], LineBox[{1374, 662}], 
+      LineBox[{1375, 663}], LineBox[{1376, 664}], LineBox[{1377, 665}], 
+      LineBox[{1378, 666}], LineBox[{1379, 667}], LineBox[{1380, 668}], 
+      LineBox[{1381, 669}], LineBox[{1382, 670}], LineBox[{1383, 671}], 
+      LineBox[{1384, 672}], LineBox[{1385, 673}], LineBox[{1386, 674}], 
+      LineBox[{1387, 675}], LineBox[{1388, 676}], LineBox[{1389, 677}], 
+      LineBox[{1390, 678}], LineBox[{1391, 679}], LineBox[{1392, 680}], 
+      LineBox[{1393, 681}], LineBox[{1394, 682}], LineBox[{1395, 683}], 
+      LineBox[{1396, 684}], LineBox[{1397, 685}], LineBox[{1398, 686}], 
+      LineBox[{1399, 687}], LineBox[{1400, 688}], LineBox[{1401, 689}], 
+      LineBox[{1402, 690}], LineBox[{1403, 691}], LineBox[{1404, 692}], 
+      LineBox[{1405, 693}], LineBox[{1406, 694}], LineBox[{1407, 695}], 
+      LineBox[{1408, 696}], LineBox[{1409, 697}], LineBox[{1410, 698}], 
+      LineBox[{1411, 699}], LineBox[{1412, 700}], LineBox[{1413, 701}], 
+      LineBox[{1414, 702}], LineBox[{1415, 703}], LineBox[{1416, 704}], 
+      LineBox[{1417, 705}], LineBox[{1418, 706}], LineBox[{1419, 707}], 
+      LineBox[{1420, 708}], LineBox[{1421, 709}], LineBox[{1422, 710}], 
+      LineBox[{1423, 711}], LineBox[{1424, 712}]}}, {{}, 
+     {Hue[0.67, 0.6, 0.6], PointBox[CompressedData["
+1:eJwN02PDHgQAAMBnfGfbtm3b9lZTzfaq1Wzbtm3btm2b3Yf7CZe0Sftq7YIF
+AoHDwQOBMaECgbGMYzwTmMgkJjOFqUxjOjOYySxmM4e5zGM+C1jIIhazhKUs
+YzkrWMkqVrOGtaxjPRvYyCY2s4WtbGM7O9jJLnazh73sYz8HOMghDnOEoxzj
+OCc4ySlOc4aznOM8F7jIJS5zhatc4zo3uMktbnOHu9zjPg94yCMe84SnPOM5
+L3jJK17zhre84z0f+MgnPvOFr3zjOz/4yS8CoQOBYAQnBCEJRWiCCENYwhGe
+CEQkEpGJQlSiEZ0YxCQWsYlDXOIRnwQkJBGJSUJSkpGcFKQkFalJQ1rSkZ4M
+ZCQTmclCVrKRnRzkJBe5yUNe8pGfAhSkEIUpQlGKUZwSlKQUpSlDWcpRngpU
+pBKVqUJVqlGdGtSkFrWpQ13qUZ8GNKQRv/E7jWlCU5rRnD/4kxa0pBWtaUNb
+2tGeDnSkE53pQle60Z0e9KQXvfmLv/mHPvzLf/SlH/0ZwEAGMZghDGUYwxnB
+SEYxmjGMZRzjmcBEJjGZKUxlGtOZwUxmMZs5zGUe81nAQhaxmCUsZRnLWcFK
+VrGaNaxlHevZwEY2sZktbGUb29nBTnaxmz3sZR/7OcBBDnGYIxzlGMc5wUlO
+cZoznOUc57nARS5xmStc5RrXucFNbnGbO9zlHvd5wEMe8ZgnPOUZz3nBS17x
+mje85R3v+cBHPvGZL3zlG9/5wU9+EQjyn+CEICShCE0QYQhLOMITgYhEIjJR
+iEo0ohODmMQiNnGISzzik4CEJCIxSUhKMpKTgpSkIjVpSEs60pOBjGQiM1nI
+Sjayk4Oc5CI3echLPvJTgIIUojBFKEoxilOCkpSiNGUoSznKU4GKVKIyVahK
+NapTg5rUojZ1qEs96tOAhjTiN36nMU1oSjOa8wd/0oKWtKI1bWhLO9rTgY50
+ojNd6Eo3utODnvSiN3/xN//Qh3/5j770oz8DGMggBjOEoQxjOCMYyShGM4ax
+jGM8E5jIJCYzhalMYzozmMksZjOHucxjPgtYyCIWs4SlLGM5K1jJKlazhrWs
+Yz0b2MgmNrOFrWxjOzvYyS52s4e97GM/BzjIIQ5zhKMc4zgnOMkpTnOGs5zj
+PBe4yCUuc4WrXOM6N7jJLW5zh7vc4z4PeMgjHvOEpzzjOS94ySte84a3vOM9
+H/jIJz7zha984zs/+MkvAmH8JzghCEkoQhNEGMISjvBEICKRiEwUohKN6MQg
+JrGITRziEo/4JCAhiUhMEpKSjOSkICWpSE0a0pKO9GQgI5nITBayko3s5CAn
+uchNHvKSj/wUoCCFKEwRilKM4pSgJKUoTRnKUo7yVKAilahMFapSjerUoCa1
+qE0d/gcC93mE
+       "]]}, {}}}],
+  AspectRatio->NCache[GoldenRatio^(-1), 0.6180339887498948],
+  Axes->True,
+  AxesLabel->{
+    FormBox["\"Numero de Generaciones\"", TraditionalForm], 
+    FormBox["\"Poblacion de bacteria con fitness 0.5\"", TraditionalForm]},
+  AxesOrigin->{0, 0},
+  ImageSize->480,
+  PlotLabel->FormBox[
+   "\"Poblacion de bacteria con fitness 0.5\"", TraditionalForm],
+  PlotRange->{{0., 712.}, {0., 50.}},
+  PlotRangeClipping->True,
+  PlotRangePadding->{
+    Scaled[0.02], 
+    Scaled[0.02]}]], "Output",
+ CellChangeTimes->{
+  3.6412334734663258`*^9, {3.6412335051835184`*^9, 3.641233515705964*^9}, 
+   3.641233594044108*^9, {3.641233651507848*^9, 3.6412336768715954`*^9}, {
+   3.641238012109765*^9, 3.64123804559698*^9}, {3.641238385447798*^9, 
+   3.6412383882880697`*^9}}]
+}, Open  ]]
+},
+WindowSize->{704, 636},
+WindowMargins->{{3, Automatic}, {Automatic, 0}},
+FrontEndVersion->"8.0 for Microsoft Windows (64-bit) (February 23, 2011)",
+StyleDefinitions->"Default.nb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[557, 20, 302, 5, 65, "Text"],
+Cell[CellGroupData[{
+Cell[884, 29, 5411, 128, 412, "Input"],
+Cell[6298, 159, 3799, 79, 380, "Output"]
+}, Open  ]],
+Cell[10112, 241, 674, 9, 31, "Input"],
+Cell[CellGroupData[{
+Cell[10811, 254, 6217, 152, 472, "Input"],
+Cell[17031, 408, 4227, 91, 592, "Output"]
+}, Open  ]],
+Cell[21273, 502, 6143, 150, 492, "Input"],
+Cell[27419, 654, 4180, 90, 592, InheritFromParent],
+Cell[31602, 746, 94, 1, 31, "Input"],
+Cell[CellGroupData[{
+Cell[31721, 751, 6314, 155, 512, "Input"],
+Cell[38038, 908, 4835, 100, 592, "Output"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[42910, 1013, 1835, 45, 132, InheritFromParent],
+Cell[44748, 1060, 19925, 302, 252, "Output"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[64710, 1367, 1544, 42, 132, "Input"],
+Cell[66257, 1411, 128, 2, 30, "Output"],
+Cell[66388, 1415, 40311, 595, 246, "Output"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[106736, 2015, 1353, 39, 132, "Input"],
+Cell[108092, 2056, 28937, 427, 250, "Output"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[137066, 2488, 2023, 49, 132, "Input"],
+Cell[139092, 2539, 23164, 349, 248, "Output"]
+}, Open  ]]
+}
+]
+*)
+
+(* End of internal cache information *)

@@ -1,0 +1,567 @@
+\begin{thebibliography}{}
+
+\bibitem [\protect \citeauthoryear {%
+C.~Beard%
+}{%
+C.~Beard%
+}{%
+{\protect \APACyear {1998}}%
+}]{%
+beard_bacterial_1998}
+\APACinsertmetastar {%
+beard_bacterial_1998}%
+\begin{APACrefauthors}%
+Beard, C.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{1998}{{\APACmonth{12}}}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Bacterial {Symbiosis} in {Arthropods} and the {Control}
+  of {Disease} {Transmission}} {Bacterial {Symbiosis} in {Arthropods} and the
+  {Control} of {Disease} {Transmission}}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Emerging Infectious Diseases}{4}{4}{581--591}.
+\newblock
+\begin{APACrefURL}
+  [{2015-05-22TZ}]\url{http://www.cdc.gov/ncidod/eid/vol4no4/beard.htm}
+  \end{APACrefURL}
+\newblock
+\begin{APACrefDOI} \doi{10.3201/eid0404.980408} \end{APACrefDOI}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+C\BPBI B.~Beard%
+, Cordon-Rosales%
+\BCBL {}\ \BBA {} Durvasula%
+}{%
+C\BPBI B.~Beard%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {2002}}%
+}]{%
+beard_bacterial_2002}
+\APACinsertmetastar {%
+beard_bacterial_2002}%
+\begin{APACrefauthors}%
+Beard, C\BPBI B.%
+, Cordon-Rosales, C.%
+\BCBL {}\ \BBA {} Durvasula, R\BPBI V.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2002}{{\APACmonth{01}}}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Bacterial symbionts of the triatominae and their
+  potential use in control of {Chagas} disease transmission.} {Bacterial
+  symbionts of the triatominae and their potential use in control of {Chagas}
+  disease transmission.}{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Annual Review of Entomology}{47}{1}{123--141}.
+\newblock
+\begin{APACrefURL}
+  [{2015-05-22TZ}]\url{http://www.annualreviews.org/doi/abs/10.1146/annurev.ento.47.091201.145144}
+  \end{APACrefURL}
+\newblock
+\begin{APACrefDOI} \doi{10.1146/annurev.ento.47.091201.145144} \end{APACrefDOI}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Benedict%
+\ \BBA {} {C.A.B. International}%
+}{%
+Benedict%
+\ \BBA {} {C.A.B. International}%
+}{%
+{\protect \APACyear {2014}}%
+}]{%
+benedict_transgenic_2014}
+\APACinsertmetastar {%
+benedict_transgenic_2014}%
+\begin{APACrefauthors}%
+Benedict, M\BPBI Q.%
+\BCBT {}\ \BBA {} {C.A.B. International}%
+\end{APACrefauthors}%
+\ (\BEDS).
+\unskip\
+\newblock
+\APACrefYear{2014}.
+\newblock
+\APACrefbtitle {Transgenic insects: techniques and applications} {Transgenic
+  insects: techniques and applications}\ (\BNUM~3).
+\newblock
+\APACaddressPublisher{Wallingford, Oxfordshire, UK}{CABI}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Dionisio%
+, Conceição%
+, Marques%
+, Fernandes%
+\BCBL {}\ \BBA {} Gordo%
+}{%
+Dionisio%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {2005}}%
+}]{%
+dionisio_evolution_2005}
+\APACinsertmetastar {%
+dionisio_evolution_2005}%
+\begin{APACrefauthors}%
+Dionisio, F.%
+, Conceição, I\BPBI C.%
+, Marques, A\BPBI C\BPBI R.%
+, Fernandes, L.%
+\BCBL {}\ \BBA {} Gordo, I.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2005}{{\APACmonth{06}}}{}.
+\newblock
+{\BBOQ}\APACrefatitle {The evolution of a conjugative plasmid and its ability
+  to increase bacterial fitness} {The evolution of a conjugative plasmid and
+  its ability to increase bacterial fitness}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Biology Letters}{1}{2}{250--252}.
+\newblock
+\begin{APACrefDOI} \doi{10.1098/rsbl.2004.0275} \end{APACrefDOI}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Dotson%
+, Plikaytis%
+, Shinnick%
+, Durvasula%
+\BCBL {}\ \BBA {} Beard%
+}{%
+Dotson%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {2003}}%
+}]{%
+dotson_transformation_2003}
+\APACinsertmetastar {%
+dotson_transformation_2003}%
+\begin{APACrefauthors}%
+Dotson, E\BPBI M.%
+, Plikaytis, B.%
+, Shinnick, T\BPBI M.%
+, Durvasula, R\BPBI V.%
+\BCBL {}\ \BBA {} Beard, C\BPBI B.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2003}{{\APACmonth{07}}}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Transformation of {Rhodococcus} rhodnii, a symbiont of
+  the {Chagas} disease vector {Rhodnius} prolixus, with integrative elements of
+  the {L}1 mycobacteriophage} {Transformation of {Rhodococcus} rhodnii, a
+  symbiont of the {Chagas} disease vector {Rhodnius} prolixus, with integrative
+  elements of the {L}1 mycobacteriophage}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Infection, Genetics and Evolution: Journal of Molecular
+  Epidemiology and Evolutionary Genetics in Infectious
+  Diseases}{3}{2}{103--109}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Durvasula%
+, Gumbs%
+\BCBL {}\ \protect \BOthers {.}}{%
+Durvasula%
+, Gumbs%
+\BCBL {}\ \protect \BOthers {.}}{%
+{\protect \APACyear {1999}}%
+}]{%
+durvasula_expression_1999}
+\APACinsertmetastar {%
+durvasula_expression_1999}%
+\begin{APACrefauthors}%
+Durvasula, R\BPBI V.%
+, Gumbs, A.%
+, Panackal, A.%
+, Kruglov, O.%
+, Taneja, J.%
+, Kang, A\BPBI S.%
+\BDBL {}Beard, C\BPBI B.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{1999}{{\APACmonth{06}}}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Expression of a functional antibody fragment in the gut
+  of {Rhodnius} prolixus via transgenic bacterial symbiont {Rhodococcus}
+  rhodnii} {Expression of a functional antibody fragment in the gut of
+  {Rhodnius} prolixus via transgenic bacterial symbiont {Rhodococcus}
+  rhodnii}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Medical and Veterinary Entomology}{13}{2}{115--119}.
+\newblock
+\begin{APACrefURL}
+  [{2015-05-22TZ}]\url{http://doi.wiley.com/10.1046/j.1365-2915.1999.00175.x}
+  \end{APACrefURL}
+\newblock
+\begin{APACrefDOI} \doi{10.1046/j.1365-2915.1999.00175.x} \end{APACrefDOI}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Durvasula%
+, Kroger%
+\BCBL {}\ \protect \BOthers {.}}{%
+Durvasula%
+, Kroger%
+\BCBL {}\ \protect \BOthers {.}}{%
+{\protect \APACyear {1999}}%
+}]{%
+durvasula_strategy_1999}
+\APACinsertmetastar {%
+durvasula_strategy_1999}%
+\begin{APACrefauthors}%
+Durvasula, R\BPBI V.%
+, Kroger, A.%
+, Goodwin, M.%
+, Panackal, A.%
+, Kruglov, O.%
+, Taneja, J.%
+\BDBL {}Cordon-Rosales, C.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{1999}{{\APACmonth{11}}}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Strategy for {Introduction} of {Foreign} {Genes} into
+  {Field} {Populations} of {Chagas} {Disease} {Vectors}} {Strategy for
+  {Introduction} of {Foreign} {Genes} into {Field} {Populations} of {Chagas}
+  {Disease} {Vectors}}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Annals of the Entomological Society of
+  America}{92}{6}{937--943}.
+\newblock
+\begin{APACrefURL}
+  [{2015-05-22TZ}]\url{http://aesa.oxfordjournals.org/cgi/doi/10.1093/aesa/92.6.937}
+  \end{APACrefURL}
+\newblock
+\begin{APACrefDOI} \doi{10.1093/aesa/92.6.937} \end{APACrefDOI}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Durvasula%
+\ \protect \BOthers {.}}{%
+Durvasula%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {2008}}%
+}]{%
+durvasula_genetic_2008}
+\APACinsertmetastar {%
+durvasula_genetic_2008}%
+\begin{APACrefauthors}%
+Durvasula, R\BPBI V.%
+, Sundaram, R\BPBI K.%
+, Kirsch, P.%
+, Hurwitz, I.%
+, Crawford, C\BPBI V.%
+, Dotson, E.%
+\BCBL {}\ \BBA {} Beard, C\BPBI B.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2008}{{\APACmonth{05}}}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Genetic transformation of a {Corynebacterial} symbiont
+  from the {Chagas} disease vector {Triatoma} infestans} {Genetic
+  transformation of a {Corynebacterial} symbiont from the {Chagas} disease
+  vector {Triatoma} infestans}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Experimental Parasitology}{119}{1}{94--98}.
+\newblock
+\begin{APACrefURL}
+  [{2015-05-22TZ}]\url{http://linkinghub.elsevier.com/retrieve/pii/S0014489408000039}
+  \end{APACrefURL}
+\newblock
+\begin{APACrefDOI} \doi{10.1016/j.exppara.2007.12.020} \end{APACrefDOI}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Eichler%
+\ \BBA {} Schaub%
+}{%
+Eichler%
+\ \BBA {} Schaub%
+}{%
+{\protect \APACyear {2002}}%
+}]{%
+eichler_development_2002}
+\APACinsertmetastar {%
+eichler_development_2002}%
+\begin{APACrefauthors}%
+Eichler, S.%
+\BCBT {}\ \BBA {} Schaub, G\BPBI A.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2002}{{\APACmonth{01}}}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Development of symbionts in triatomine bugs and the
+  effects of infections with trypanosomatids} {Development of symbionts in
+  triatomine bugs and the effects of infections with trypanosomatids}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Experimental Parasitology}{100}{1}{17--27}.
+\newblock
+\begin{APACrefDOI} \doi{10.1006/expr.2001.4653} \end{APACrefDOI}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+He%
+, Hamon%
+, Liu%
+, Kang%
+\BCBL {}\ \BBA {} Taussig%
+}{%
+He%
+, Hamon%
+\BCBL {}\ \protect \BOthers {.}}{%
+{\protect \APACyear {1995}}%
+}]{%
+he_functional_1995}
+\APACinsertmetastar {%
+he_functional_1995}%
+\begin{APACrefauthors}%
+He, M.%
+, Hamon, M.%
+, Liu, H.%
+, Kang, A.%
+\BCBL {}\ \BBA {} Taussig, M\BPBI J.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{1995}{{\APACmonth{10}}}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Functional expression of a single-chain
+  anti-progesterone antibody fragment in the cytoplasm of a mutant
+  {Escherichia} coli} {Functional expression of a single-chain
+  anti-progesterone antibody fragment in the cytoplasm of a mutant
+  {Escherichia} coli}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Nucleic Acids Research}{23}{19}{4009--4010}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+He%
+, Kang%
+\BCBL {}\ \protect \BOthers {.}}{%
+He%
+, Kang%
+\BCBL {}\ \protect \BOthers {.}}{%
+{\protect \APACyear {1995}}%
+}]{%
+he_characterization_1995}
+\APACinsertmetastar {%
+he_characterization_1995}%
+\begin{APACrefauthors}%
+He, M.%
+, Kang, A\BPBI S.%
+, Hamon, M.%
+, Humphreys, A\BPBI S.%
+, Gani, M.%
+\BCBL {}\ \BBA {} Taussig, M\BPBI J.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{1995}{{\APACmonth{04}}}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Characterization of a progesterone-binding, three-domain
+  antibody fragment ({VH}/{K}) expressed in {Escherichia} coli}
+  {Characterization of a progesterone-binding, three-domain antibody fragment
+  ({VH}/{K}) expressed in {Escherichia} coli}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Immunology}{84}{4}{662--668}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Hurwitz%
+\ \protect \BOthers {.}}{%
+Hurwitz%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {2011}}%
+}]{%
+hurwitz_paratransgenic_2011}
+\APACinsertmetastar {%
+hurwitz_paratransgenic_2011}%
+\begin{APACrefauthors}%
+Hurwitz, I.%
+, Fieck, A.%
+, Read, A.%
+, Hillesland, H.%
+, Klein, N.%
+, Kang, A.%
+\BCBL {}\ \BBA {} Durvasula, R.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2011}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Paratransgenic control of vector borne diseases}
+  {Paratransgenic control of vector borne diseases}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{International Journal of Biological
+  Sciences}{7}{9}{1334--1344}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Lenski%
+\ \protect \BOthers {.}}{%
+Lenski%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {1998}}%
+}]{%
+lenski_evolution_1998}
+\APACinsertmetastar {%
+lenski_evolution_1998}%
+\begin{APACrefauthors}%
+Lenski, R\BPBI E.%
+, Mongold, J\BPBI A.%
+, Sniegowski, P\BPBI D.%
+, Travisano, M.%
+, Vasi, F.%
+, Gerrish, P\BPBI J.%
+\BCBL {}\ \BBA {} Schmidt, T\BPBI M.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{1998}{{\APACmonth{01}}}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Evolution of competitive fitness in experimental
+  populations of {E}. coli: what makes one genotype a better competitor than
+  another?} {Evolution of competitive fitness in experimental populations of
+  {E}. coli: what makes one genotype a better competitor than another?}{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Antonie Van Leeuwenhoek}{73}{1}{35--47}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Matsuo%
+\ \protect \BOthers {.}}{%
+Matsuo%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {1990}}%
+}]{%
+matsuo_establishment_1990}
+\APACinsertmetastar {%
+matsuo_establishment_1990}%
+\begin{APACrefauthors}%
+Matsuo, K.%
+, Yamaguchi, R.%
+, Yamazaki, A.%
+, Tasaka, H.%
+, Terasaka, K.%
+, Totsuka, M.%
+\BDBL {}Yamada, T.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{1990}{{\APACmonth{12}}}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Establishment of a foreign antigen secretion system in
+  mycobacteria} {Establishment of a foreign antigen secretion system in
+  mycobacteria}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Infection and Immunity}{58}{12}{4049--4054}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Moran%
+, Degnan%
+, Santos%
+, Dunbar%
+\BCBL {}\ \BBA {} Ochman%
+}{%
+Moran%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {2005}}%
+}]{%
+moran_players_2005}
+\APACinsertmetastar {%
+moran_players_2005}%
+\begin{APACrefauthors}%
+Moran, N\BPBI A.%
+, Degnan, P\BPBI H.%
+, Santos, S\BPBI R.%
+, Dunbar, H\BPBI E.%
+\BCBL {}\ \BBA {} Ochman, H.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2005}{{\APACmonth{11}}}{}.
+\newblock
+{\BBOQ}\APACrefatitle {The players in a mutualistic symbiosis: {Insects},
+  bacteria, viruses, and virulence genes} {The players in a mutualistic
+  symbiosis: {Insects}, bacteria, viruses, and virulence genes}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Proceedings of the National Academy of
+  Sciences}{102}{47}{16919--16926}.
+\newblock
+\begin{APACrefURL}
+  [{2015-05-22TZ}]\url{http://www.pnas.org/cgi/doi/10.1073/pnas.0507029102}
+  \end{APACrefURL}
+\newblock
+\begin{APACrefDOI} \doi{10.1073/pnas.0507029102} \end{APACrefDOI}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Pontes%
+\ \BBA {} Dale%
+}{%
+Pontes%
+\ \BBA {} Dale%
+}{%
+{\protect \APACyear {2006}}%
+}]{%
+pontes_culture_2006}
+\APACinsertmetastar {%
+pontes_culture_2006}%
+\begin{APACrefauthors}%
+Pontes, M\BPBI H.%
+\BCBT {}\ \BBA {} Dale, C.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2006}{{\APACmonth{09}}}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Culture and manipulation of insect facultative
+  symbionts} {Culture and manipulation of insect facultative symbionts}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Trends in Microbiology}{14}{9}{406--412}.
+\newblock
+\begin{APACrefURL}
+  [{2015-05-22TZ}]\url{http://linkinghub.elsevier.com/retrieve/pii/S0966842X06001727}
+  \end{APACrefURL}
+\newblock
+\begin{APACrefDOI} \doi{10.1016/j.tim.2006.07.004} \end{APACrefDOI}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Satoskar%
+\ \BBA {} Durvasula%
+}{%
+Satoskar%
+\ \BBA {} Durvasula%
+}{%
+{\protect \APACyear {2014}}%
+}]{%
+satoskar_pathogenesis_2014}
+\APACinsertmetastar {%
+satoskar_pathogenesis_2014}%
+\begin{APACrefauthors}%
+Satoskar, A\BPBI R.%
+\BCBT {}\ \BBA {} Durvasula, R.%
+\end{APACrefauthors}%
+\ (\BEDS).
+\unskip\
+\newblock
+\APACrefYear{2014}.
+\newblock
+\APACrefbtitle {Pathogenesis of {Leishmaniasis}: new developments in research}
+  {Pathogenesis of {Leishmaniasis}: new developments in research}.
+\newblock
+\APACaddressPublisher{New York}{Springer}.
+\PrintBackRefs{\CurrentBib}
+
+\end{thebibliography}
